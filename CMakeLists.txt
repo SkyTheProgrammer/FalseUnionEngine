@@ -15,14 +15,13 @@ add_executable(FalseUnion main.cpp
         Headers/Graphics/Renderer.h
         Headers/ECS/Attribute.h
         Headers/ECS/GameObject.h
-        Headers/Input/Input.h
+        Headers/Input/InputManager.h
         Headers/Core/Window.h
         Headers/Core/Application.h
         cpp/Core/Timer.cpp
         cpp/Core/Logger.cpp
         cpp/Core/Application.cpp
         cpp/Core/Window.cpp
-        cpp/ECS/Attribute.cpp
         cpp/ECS/GameObject.cpp
         cpp/Graphics/Camera.cpp
         cpp/Graphics/Colour.cpp
@@ -30,6 +29,6 @@ add_executable(FalseUnion main.cpp
         cpp/Graphics/Shader.cpp
         cpp/Graphics/Sprite.cpp
         cpp/Graphics/Texture.cpp
-        cpp/Input/Input.cpp
+        cpp/Input/InputManager.cpp
         cpp/Math/Vector2.cpp
 )

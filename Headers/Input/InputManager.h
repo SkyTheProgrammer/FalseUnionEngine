@@ -29,9 +29,9 @@ public:
     Vector2 GetMousePosition();
     private:
     std::list<std::pair<int, keyState>> keyStates;
-    std::list<std::pair<int, keyState>> MouseButtonStates;
-    Vector2 MousePosition;
-    Vector2 LastMousePosition;
+    std::list<std::pair<int, keyState>> mouseButtonStates;
+    Vector2 mousePosition;
+    Vector2 mouseLastPosition;
     void UpdateKeyStates();
     void UpdateMouseStates();
 

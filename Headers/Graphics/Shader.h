@@ -8,6 +8,7 @@
 #include <string>
 class Shader {
 public:
+    Shader(int id);
     void Bind();
     void Unbind();
     void SetUniform(const char *name, int value);

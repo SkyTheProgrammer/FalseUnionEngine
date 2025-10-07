@@ -10,6 +10,7 @@ public:
     std::string info;
     std::string warning;
     std::string error;
-    std::string log();
+    std::string log() const;
+    Logger();
 };
 #endif //FALSEUNION_LOGGER_H

@@ -9,6 +9,7 @@ class Timer {
         double time;
         float GetTime();
         void Sleep(float seconds);
+        Timer();
 };
 
 #endif //FALSEUNION_TIMER_H

@@ -13,7 +13,7 @@ class Window {
     int getHeight();
     int getNativeWindow();
 private:
-    Window m_window;
+    Window *m_window;
     int m_width;
     int m_height;
     std::string m_title;

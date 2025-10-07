@@ -6,7 +6,7 @@
 #define FALSEUNION_COLOUR_H
 class Colour {
 public:
-    Colour();
+    Colour(int newR, int newG, int newB, int newA);
     int r;
     int g;
     int b;

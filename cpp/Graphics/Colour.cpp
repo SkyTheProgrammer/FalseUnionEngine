@@ -3,3 +3,10 @@
 //
 
 #include "../../Headers/Graphics/Colour.h"
+
+Colour::Colour(int newR, int newG, int newB, int newA) {
+    r = newR;
+    g = newG;
+    b = newB;
+    a = newA;
+}

@@ -6,11 +6,12 @@
 #define FALSEUNION_APPLICATION_H
 #include "Window.h"
 #include "../Graphics/Renderer.h"
-#include "../Input/Input.h"
+#include "../Input/InputManager.h"
 
 class Application {
 public:
     Application();
+
     void Run();
     void Initialize();
     void Update(float time);
@@ -20,7 +21,7 @@ public:
     Window getWindow();
     Renderer getRenderer();
 private:
-    Application s_instance;
+    Application *s_instance;
     Window *m_window;
     Renderer *m_renderer;
     InputManager *m_inputManager;

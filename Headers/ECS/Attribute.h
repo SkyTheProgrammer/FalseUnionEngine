@@ -9,6 +9,6 @@
 class Attribute {
     public:
     std::string name;
-    void Attribute();
+    Attribute();
 };
 #endif //FALSEUNION_ATTRIBUTE_H

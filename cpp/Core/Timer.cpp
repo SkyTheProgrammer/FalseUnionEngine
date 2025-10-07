@@ -4,3 +4,12 @@
 
 #include "../../Headers/Core/Timer.h"
 
+Timer::Timer() {
+
+}
+
+float Timer::GetTime() {
+}
+
+void Timer::Sleep(float seconds) {
+}
