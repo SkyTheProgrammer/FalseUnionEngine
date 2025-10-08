@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Core\Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Core\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Core\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Core\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\ECS\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Graphics\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Graphics\Colour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Graphics\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Graphics\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Graphics\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Graphics\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Input\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\cpp\Math\Vector2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Builder\CPP\Builder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Core\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Core\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Math\Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Graphics\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Graphics\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Graphics\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Graphics\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Graphics\Colour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Graphics\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\ECS\Attribute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\ECS\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Input\InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Core\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Engine\Headers\Core\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\Builder\header\Builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C68249A8-D195-34F1-AB31-494D80E758D0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E8F0C49A-4E7C-32C4-AC0F-B1E55E65D95B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

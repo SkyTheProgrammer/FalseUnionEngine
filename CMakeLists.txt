@@ -3,7 +3,7 @@ project(FalseUnion)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(FalseUnion main.cpp
+add_library(FalseUnion main.cpp
         Engine/Headers/Core/Logger.h
         Engine/Headers/Core/Timer.h
         Engine/Headers/Math/Vector2.h
@@ -32,5 +32,5 @@ add_executable(FalseUnion main.cpp
         Engine/cpp/Input/InputManager.cpp
         Engine/cpp/Math/Vector2.cpp
         Builder/header/Builder.h
-        Builder/cpp/Builder.cpp
+        Builder/CPP/Builder.cpp
 )

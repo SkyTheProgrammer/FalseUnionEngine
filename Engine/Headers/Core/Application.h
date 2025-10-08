@@ -17,9 +17,9 @@ public:
     void Update(float time);
     void Render();
     void Shutdown();
-    Application getInstance();
-    Window getWindow();
-    Renderer getRenderer();
+    Application getInstance() const;
+    Window getWindow() const;
+    Renderer getRenderer() const;
 private:
     Application *s_instance;
     Window *m_window;
