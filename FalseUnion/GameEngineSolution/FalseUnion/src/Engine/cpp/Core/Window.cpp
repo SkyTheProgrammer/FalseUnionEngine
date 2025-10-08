@@ -1,0 +1,27 @@
+//
+// Created by SkyTFB on 10/7/2025.
+//
+
+#include "../../Headers/Core/Window.h"
+
+Window::Window(int width, int height, const std::string &title) {
+        m_window = this;
+        m_width = width;
+        m_height = height;
+        m_title = title;
+}
+
+int Window::getWidth() {
+        return m_width;
+}
+
+int Window::getHeight() {
+        return m_height;
+}
+
+int Window::getNativeWindow() {
+        return 0;
+}
+
+void Window::FrameBuffer(Window window, int width, int height) {
+}

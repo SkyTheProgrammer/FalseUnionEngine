@@ -1,6 +1,6 @@
+#include <FalseUnion.h>
 
-int main(int argc, char* argv[])
+void main()
 {
-    
-    return 0;
+    FalseUnion::Print();
 }

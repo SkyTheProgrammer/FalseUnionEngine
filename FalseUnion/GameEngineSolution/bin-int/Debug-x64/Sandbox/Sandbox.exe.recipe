@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\FalseUnion\GameEngineSolution\bin\Debug-x64\FalseUnion\FalseUnion.dll</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\FalseUnion\GameEngineSolution\bin\Debug-x64\Sandbox\Sandbox.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
