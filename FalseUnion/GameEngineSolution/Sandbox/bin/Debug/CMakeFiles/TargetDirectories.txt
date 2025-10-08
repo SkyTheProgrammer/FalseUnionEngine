@@ -1,0 +1,3 @@
+C:/Users/SkyTFB/Documents/.capstone/falseUnion/Sandbox/bin/Debug/CMakeFiles/Sandbox.dir
+C:/Users/SkyTFB/Documents/.capstone/falseUnion/Sandbox/bin/Debug/CMakeFiles/ALL_BUILD.dir
+C:/Users/SkyTFB/Documents/.capstone/falseUnion/Sandbox/bin/Debug/CMakeFiles/ZERO_CHECK.dir

@@ -1,5 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2025.2.1\bin\cmake\win\x64\bin\cmake.exe" -G "Visual Studio 17 2022" -A x64 -S C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion -B C:\Users\SkyTFB\Documents\.capstone\falseUnion\FalseUnion\bin\Debug
--- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.19045.
--- Configuring done (0.1s)
--- Generating done (0.1s)
--- Build files have been written to: C:/Users/SkyTFB/Documents/.capstone/falseUnion/FalseUnion/bin/Debug

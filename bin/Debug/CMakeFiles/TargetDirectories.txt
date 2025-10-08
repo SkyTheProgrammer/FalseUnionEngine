@@ -1,3 +1,0 @@
-C:/Users/SkyTFB/Documents/.capstone/falseUnion/FalseUnion/bin/Debug/CMakeFiles/FalseUnion.dir
-C:/Users/SkyTFB/Documents/.capstone/falseUnion/FalseUnion/bin/Debug/CMakeFiles/ALL_BUILD.dir
-C:/Users/SkyTFB/Documents/.capstone/falseUnion/FalseUnion/bin/Debug/CMakeFiles/ZERO_CHECK.dir
