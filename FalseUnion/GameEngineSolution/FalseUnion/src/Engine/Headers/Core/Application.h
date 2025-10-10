@@ -1,9 +1,8 @@
 //
 // Created by SkyTFB on 10/7/2025.
 //
+#pragma once
 
-#ifndef FALSEUNION_APPLICATION_H
-#define FALSEUNION_APPLICATION_H
 #include "Window.h"
 #include "../Graphics/Renderer.h"
 #include "../Input/InputManager.h"
@@ -16,7 +15,6 @@ namespace FalseUnion
     public:
     Application();
     virtual ~Application();
-
     void Run();
     void Initialize();
     void Update(float time);
@@ -33,7 +31,8 @@ namespace FalseUnion
     bool m_running;
     float m_lastFrameTime;
     };
+    
+    Application* CreateApplication();
 }
 
 
-#endif //FALSEUNION_APPLICATION_H

@@ -114,7 +114,7 @@
       <PreprocessorDefinitions>FU_PLATFORM_WINDOWS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)FalseUnion\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)FalseUnion\src;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

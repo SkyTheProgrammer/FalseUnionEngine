@@ -4,7 +4,7 @@ project(FalseUnion)
 set(CMAKE_CXX_STANDARD 20)
 
 add_library(
-        Engine/Headers/Core/Logger.h
+        src/Engine/Headers/Core/Logger.h
         Engine/Headers/Core/Timer.h
         Engine/Headers/Math/Vector2.h
         Engine/Headers/Graphics/Shader.h

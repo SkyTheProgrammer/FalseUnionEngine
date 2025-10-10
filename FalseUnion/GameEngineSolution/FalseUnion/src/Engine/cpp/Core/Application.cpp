@@ -9,9 +9,13 @@ Application::Application() : s_instance(this), m_window(nullptr), m_renderer(nul
                              m_running(false),
                              m_lastFrameTime(0) {
 }
+Application::~Application()
+{}
+    
 
-void Run() {
+void Application::Run() {
     //Initializes the application, runs the application, starts the update loop
+    printf("Running...\n");
     while (true);
 }
 

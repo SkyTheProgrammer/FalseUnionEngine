@@ -111,7 +111,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>FU_PLATFORM_WINDOWS;FALSEUNION_BUILD_DLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>FU_PLATFORM_WINDOWS;FU_BUILD_DLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -160,7 +160,47 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Test.cpp">
+    <ClInclude Include="src\Builder\Header\Builder.h" />
+    <ClInclude Include="src\Engine\Headers\Core\Application.h" />
+    <ClInclude Include="src\Engine\Headers\Core\Core.h" />
+    <ClInclude Include="src\Engine\Headers\Core\Logger.h" />
+    <ClInclude Include="src\Engine\Headers\Core\Timer.h" />
+    <ClInclude Include="src\Engine\Headers\Core\Window.h" />
+    <ClInclude Include="src\Engine\Headers\ECS\Attribute.h" />
+    <ClInclude Include="src\Engine\Headers\ECS\GameObject.h" />
+    <ClInclude Include="src\Engine\Headers\Graphics\Camera.h" />
+    <ClInclude Include="src\Engine\Headers\Graphics\Colour.h" />
+    <ClInclude Include="src\Engine\Headers\Graphics\Renderer.h" />
+    <ClInclude Include="src\Engine\Headers\Graphics\Shader.h" />
+    <ClInclude Include="src\Engine\Headers\Graphics\Sprite.h" />
+    <ClInclude Include="src\Engine\Headers\Graphics\Texture.h" />
+    <ClInclude Include="src\Engine\Headers\Input\InputManager.h" />
+    <ClInclude Include="src\Engine\Headers\Math\Vector2.h" />
+    <ClInclude Include="src\Engine\Headers\Testing\Test.h" />
+    <ClInclude Include="src\Entrypoint.h" />
+    <ClInclude Include="src\FalseUnion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\bin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Builder\cpp\Builder.cpp" />
+    <ClCompile Include="src\Engine\cpp\Core\Application.cpp" />
+    <ClCompile Include="src\Engine\cpp\Core\Core.cpp" />
+    <ClCompile Include="src\Engine\cpp\Core\Logger.cpp" />
+    <ClCompile Include="src\Engine\cpp\Core\Timer.cpp" />
+    <ClCompile Include="src\Engine\cpp\Core\Window.cpp" />
+    <ClCompile Include="src\Engine\cpp\ECS\Attribute.cpp" />
+    <ClCompile Include="src\Engine\cpp\ECS\GameObject.cpp" />
+    <ClCompile Include="src\Engine\cpp\Graphics\Camera.cpp" />
+    <ClCompile Include="src\Engine\cpp\Graphics\Colour.cpp" />
+    <ClCompile Include="src\Engine\cpp\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Engine\cpp\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Engine\cpp\Graphics\Sprite.cpp" />
+    <ClCompile Include="src\Engine\cpp\Graphics\Texture.cpp" />
+    <ClCompile Include="src\Engine\cpp\Input\InputManager.cpp" />
+    <ClCompile Include="src\Engine\cpp\Math\Vector2.cpp" />
+    <ClCompile Include="src\Engine\cpp\Testing\Test.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -238,14 +278,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\FalseUnion.h" />
-    <ClInclude Include="src\Test.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="src\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\bin\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

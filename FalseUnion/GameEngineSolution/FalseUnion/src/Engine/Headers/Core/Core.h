@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #ifdef FU_PLATFORM_WINDOWS
-    #ifdef FALSEUNION_BUILD_DLL
+    #ifdef FU_BUILD_DLL
         #define FALSEUNION_API __declspec(dllexport)
     #else
         #define FALSEUNION_API __declspec(dllexport)
