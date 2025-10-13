@@ -1,0 +1,11 @@
+.idea/
+.vs/
+bin/
+bin-int/
+vendor/
+*.vcxproj
+*.vcxproj.filters
+*.user
+*.suo
+
+CMakeLists.txt
