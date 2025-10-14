@@ -1,21 +1,21 @@
 //
 // Created by SkyTFB on 10/7/2025.
 //
+#pragma once
 
-#ifndef FALSEUNION_ATTRIBUTE_H
-#define FALSEUNION_ATTRIBUTE_H
 #include <string>
 
-class Attribute {
-public:
-    Attribute();
-    virtual ~Attribute();
-    Attribute(const std::string& newName);
-    void setName(const std::string& newName);
-    std::string getName();
-private:
-    std::string name;
-    
-    
-};
-#endif //FALSEUNION_ATTRIBUTE_H
+namespace FalseUnion
+{
+    class Attribute
+    {
+    public:
+        Attribute(); // Default attribute constructor
+        virtual ~Attribute(); // virtual attribute destructor for inheratence
+        Attribute(const std::string& newName); // attribute constructor that takes in param for name.
+        void setName(const std::string& newName); // method to set name
+        std::string getName(); // method to get name
+    private:
+        std::string name; //attributes name
+    };
+}
