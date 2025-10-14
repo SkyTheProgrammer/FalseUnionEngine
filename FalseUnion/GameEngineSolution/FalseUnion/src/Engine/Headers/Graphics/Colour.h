@@ -1,16 +1,30 @@
 //
 // Created by SkyTFB on 10/6/2025.
 //
+#pragma once
 
-#ifndef FALSEUNION_COLOUR_H
-#define FALSEUNION_COLOUR_H
-class Colour {
-public:
-    Colour();
-    Colour(int newR, int newG, int newB, int newA);
-    int r;
-    int g;
-    int b;
-    int a;
-};
-#endif //FALSEUNION_COLOUR_H
+namespace FalseUnion
+{
+    class Colour {
+    public:
+        Colour(); // default colour constructor
+        Colour(int newR, int newG, int newB, int newA); // colour constructor with ints for values
+        virtual ~Colour(); // virtual destructor for use in case of inheratence
+        //
+        void setR(int newR);
+        void setG(int newG);
+        void setB(int newB);
+        void setA(int newA);
+        int getR();
+        int getG();
+        int getB();
+        int getA();
+        // getters and setters for r g b and a
+
+    private:
+        int r; //int representing red
+        int g; //int representing green
+        int b; //int representing blue
+        int a; //int representing alpha
+    };
+}
