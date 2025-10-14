@@ -4,24 +4,95 @@
 
 #include "../../Headers/Core/Window.h"
 
-Window::Window(int width, int height, const std::string &title) {
-        m_window = this;
-        m_width = width;
-        m_height = height;
+namespace FalseUnion
+{
+    /// <summary>
+    /// Default constructor for window, defaults size to my monitors size and title to ""
+    /// </summary>
+    Window::Window()
+    {
+        m_size = Vector2(2560,1600); //my monitors resolution
+        m_title= "";
+    }
+
+    /// <summary>
+    /// window constructor with params for size and title
+    /// </summary>
+    /// @param width int, to be width of the window
+    /// @param height int, to be height of the window
+    /// @param title string, to be title of the window
+    Window::Window(int width, int height, const std::string& title)
+    {
+        m_size = { static_cast<float>(width), static_cast<float>(height) };
         m_title = title;
-}
+    }
 
-int Window::getWidth() {
-        return m_width;
-}
+    /// <summary>
+    /// default virtual desctutor incase of inherantece.
+    /// </summary>
+    Window::~Window()
+    {
+    }
 
-int Window::getHeight() {
-        return m_height;
-}
+    /// <summary>
+    /// getter for window size
+    /// </summary>
+    /// @returns Vector2 window size
+    Vector2 Window::getSize()
+    {
+        return m_size;
+    }
 
-int Window::getNativeWindow() {
+    /// <summary>
+    /// Getter for window title
+    /// </summary>
+    /// @returns string Window title.
+    std::string Window::getTitle()
+    {
+        return m_title;
+    }
+
+    /// <summary>
+    /// Setter for window title.
+    /// </summary>
+    /// @param title String, to be window title.
+    void Window::setTitle(const std::string& title)
+    {
+        m_title = title;
+    }
+
+    /// <summary>
+    /// Setter for window size.
+    /// </summary>
+    /// @param width int, to be width of window size
+    /// @param height int, to be height of window
+    void Window::setSize(int width, int height)
+    {
+        m_size = { static_cast<float>(width), static_cast<float>(height) };
+    }
+
+    /// <summary>
+    /// setter for static m_window, makes this window m_window
+    /// </summary>
+    void Window::setPrimaryWindow()
+    {
+        m_window = this;
+    }
+
+
+    /// <summary>
+    /// Getter for native window
+    /// </summary>
+    /// @returns int representing native window.
+    int Window::getNativeWindow()
+    {
         return 0;
-}
+    }
 
-void Window::FrameBuffer(Window window, int width, int height) {
+    /// <summary>
+    /// Frame Buffer method for window
+    /// </summary>
+    void Window::FrameBuffer(Window window, int width, int height)
+    {
+    }
 }
