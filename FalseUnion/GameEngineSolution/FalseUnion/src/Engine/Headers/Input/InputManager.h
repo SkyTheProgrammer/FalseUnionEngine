@@ -1,40 +1,45 @@
 //
 // Created by SkyTFB on 10/7/2025.
 //
+#pragma once
 
-#ifndef FALSEUNION_INPUT_H
-#define FALSEUNION_INPUT_H
 #include <list>
-#include <string>
 #include <utility>
 
 #include "../Math/Vector2.h"
 
-class InputManager {
-public:
-    enum keyState {
-        notPressed = 1,
-        pressed = 2,
-        held = 3,
-        released = 4
-    };
-    InputManager();
-    void Update();
-    bool IsKeyPressed(int key);
-    bool IsKeyReleased(int key);
-    bool IsKeyHeld(int key);
-    bool IsMouseButtonPressed(int button);
-    bool IsMouseButtonReleased(int button);
-    bool IsMouseButtonHeld(int button);
-    Vector2 GetMousePosition();
+namespace FalseUnion
+{
+    class InputManager
+    {
+    public:
+        enum keyState
+        {
+            notPressed = 1,
+            pressed = 2,
+            held = 3,
+            released = 4
+        }; //enum to represent different keystates
+        InputManager(); // Constructor for input manager
+        virtual ~InputManager(); // Virtual deconstructor for input manager
+        void Update(); // Update method for Input manager
+        bool IsKeyNotPressed(int key);
+        bool IsKeyPressed(int key); // Bool method to tell if a key is pressed
+        bool IsKeyReleased(int key); // Bool method to tell if a key is released
+        bool IsKeyHeld(int key); // Bool method to tell if a key is held
+        bool IsMouseButtonNotPressed(int button);
+        bool IsMouseButtonPressed(int button); // Bool method to tell if a mouse button is pressed
+        bool IsMouseButtonReleased(int button); // Bool method to tell if a mouse button is released
+        bool IsMouseButtonHeld(int button); // Bool method to tell if a mouse button is held.
+        Vector2 GetMousePosition(); // Method to return the Vector2 of the mouse.
+        Vector2 GetMouseLastPosition(); // Method to return the Vector2 of mouse's last position.
+
     private:
-    std::list<std::pair<int, keyState>> keyStates;
-    std::list<std::pair<int, keyState>> mouseButtonStates;
-    Vector2 mousePosition;
-    Vector2 mouseLastPosition;
-    void UpdateKeyStates();
-    void UpdateMouseStates();
-
-
-};
-#endif //FALSEUNION_INPUT_H
+        std::list<std::pair<int, keyState>> keyStates; // List defining keys and their states in pairs
+        std::list<std::pair<int, keyState>> mouseButtonStates; // list defining mouse buttons and their states in pairs
+        Vector2 mousePosition; // Vector2 defining current mouse position
+        Vector2 mouseLastPosition; // Vector2 defining last mouse position
+        void UpdateKeyStates(); // method to update key states
+        void UpdateMouseStates(); // method to update mouse button states
+    };
+}
