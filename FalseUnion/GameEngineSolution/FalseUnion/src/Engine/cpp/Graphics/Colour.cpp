@@ -76,6 +76,7 @@ namespace FalseUnion
     /// <summary>
     /// Returns the int value for r
     /// </summary>
+    /// @returns int value of r
     int Colour::getR()
     {
         return r;
@@ -84,6 +85,7 @@ namespace FalseUnion
     /// <summary>
     /// Returns the int value for g
     /// </summary>
+    /// @returns int value of g
     int Colour::getG()
     {
         return g;
@@ -92,6 +94,7 @@ namespace FalseUnion
     /// <summary>
     /// Returns the int value for b
     /// </summary>
+    /// @returns int value of b
     int Colour::getB()
     {
         return b;
@@ -100,6 +103,7 @@ namespace FalseUnion
     /// <summary>
     /// Returns the int value for a
     /// </summary>
+    /// @returns int value of a
     int Colour::getA()
     {
         return a;

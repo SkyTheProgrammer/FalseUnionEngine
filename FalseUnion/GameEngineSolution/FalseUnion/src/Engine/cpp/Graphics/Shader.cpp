@@ -64,6 +64,7 @@ namespace FalseUnion
     /// returns the int value for a shaders location in the uniform list based on its name.
     /// </summary>
     /// @param name string, name to search for in uniform list.
+    /// @returns int representing the location of shader in uniform list
     int Shader::GetUniformLocation(const std::string& name)
     {
         return 0;
@@ -73,6 +74,7 @@ namespace FalseUnion
     /// returns the int value for a shaders location in the uniform list based on its id.
     /// </summary>
     /// @param id int, id to search for in the uniform list.
+    /// @returns int representing the location of shader in uniform list
     int Shader::GetUniformLocation(const int id)
     {
         return 0;
@@ -83,6 +85,7 @@ namespace FalseUnion
     /// </summary>
     /// @param type int, representing the type of compile.
     /// @param source string, representing the shaders name.
+    /// @returns int representing the status of shader compilation
     int Shader::CompileShader(int type, const std::string* source)
     {
         return 0;
@@ -93,6 +96,7 @@ namespace FalseUnion
     /// </summary>
     /// @param type int, representing the type of compile.
     /// @param id int, representing the shaders name.
+    /// @returns int representing the status of shader compilation
     int Shader::CompileShader(int type, const int id)
     {
         return 0;
