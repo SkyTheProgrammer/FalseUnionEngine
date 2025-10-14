@@ -1,6 +1,6 @@
 #include "FalseUnion.h"
 
-class Sandbox : public FalseUnion::Application
+class Sandbox : public FalseUnion::Application //defines sandboxes extention of application
 {
     public:
     Sandbox()
@@ -14,7 +14,7 @@ class Sandbox : public FalseUnion::Application
     }
 };
 
-class Log : public FalseUnion::Logger
+class Log : public FalseUnion::Logger // defines sandboxes extention of logger
 {
     public:
     Log()
@@ -28,12 +28,12 @@ class Log : public FalseUnion::Logger
     }
 };
 
-FalseUnion::Application* FalseUnion::CreateApplication()
+FalseUnion::Application* FalseUnion::CreateApplication() // defines create application from the client such that the client can create it for the engine.
 {
-    return new Sandbox();
+    return new Sandbox(); 
 }
 
-FalseUnion::Logger* FalseUnion::CreateLogger()
+FalseUnion::Logger* FalseUnion::CreateLogger() // defines create logger from the client such that the client can create it for the engine.
 {
     return new Log();
 }
