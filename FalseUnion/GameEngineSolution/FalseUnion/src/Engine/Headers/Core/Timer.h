@@ -1,15 +1,18 @@
 //
 // Created by SkyTFB on 10/6/2025.
 //
+#pragma once
 
-#ifndef FALSEUNION_TIMER_H
-#define FALSEUNION_TIMER_H
-class Timer {
+namespace FalseUnion
+{
+    class Timer
+    {
     public:
-        double time;
-        float GetTime();
-        void Sleep(float seconds);
-        Timer();
-};
-
-#endif //FALSEUNION_TIMER_H
+        Timer(); // default constructor for timer.
+        virtual ~Timer(); // virtual deconstructor for timer in case of inheritance.
+        float GetTime(); // Getter for time.
+        void Sleep(float seconds); // Sleep function to sleep for given time
+    private:
+        float m_time; // float representing time.
+    };
+}

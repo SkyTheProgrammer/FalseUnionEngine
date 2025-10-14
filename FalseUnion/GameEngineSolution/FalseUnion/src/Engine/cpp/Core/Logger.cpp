@@ -9,8 +9,11 @@
 
 namespace FalseUnion
 {
-    Logger* Logger::instance = nullptr;
+    Logger* Logger::instance = nullptr; // sets logers instance to a nullptr by default.
 
+    /// <summary>
+    /// Default constructor of logger, sets console to the current consoles handle, logs it, and updates time.
+    /// </summary>
     Logger::Logger()
     {
         hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -18,10 +21,16 @@ namespace FalseUnion
         updateTime();
     }
 
+    /// <summary>
+    /// virtual destructor of logger, used in case of inherantece.
+    /// </summary>
     Logger::~Logger()
     {
     }
 
+    /// <summary>
+    /// updates time every time it is called and prints it to console.
+    /// </summary>
     void Logger::updateTime()
     {
         errno_t err;
@@ -41,6 +50,12 @@ namespace FalseUnion
             std::to_string(localTime.tm_sec) << " ";
     }
 
+    /// <summary>
+    /// Logs a message to console based off of its 3 parameters
+    /// </summary>
+    /// @param errorLevel int, represents the error level for the switch statement to handle.
+    /// @param isToClient bool, tells whether the log is to client.
+    /// @param information string, what the log should say.
     void Logger::log(const int& errorLevel, const bool& isToClient, const std::string& information)
     {
         if (isToClient)
@@ -53,6 +68,11 @@ namespace FalseUnion
         }
     }
 
+    /// <summary>
+    /// Logs a message to client console based off of its 2 parameters
+    /// </summary>
+    /// @param errorLevel int, represents the error level for the switch statement to handle.
+    /// @param information string, what the log should say.
     void Logger::logToClient(const int& errorLevel, const std::string& information)
     {
         updateTime();
@@ -61,6 +81,11 @@ namespace FalseUnion
         errorLevelSwitch(errorLevel, information);
     }
 
+    /// <summary>
+    /// Logs a message to Engine based off of its 2 parameters
+    /// </summary>
+    /// @param errorLevel int, represents the error level for the switch statement to handle.
+    /// @param information string, what the log should say.
     void Logger::logToEngine(const int& errorLevel, const std::string& information)
     {
         updateTime();
@@ -69,6 +94,11 @@ namespace FalseUnion
         errorLevelSwitch(errorLevel, information);
     }
 
+    /// <summary>
+    /// Logs an info message to console based off of its 2 parameters
+    /// </summary>
+    /// @param isToClient bool, tells whether the log is to client.
+    /// @param information string, what the log should say.
     void Logger::logInfo(const bool& isToClient, const std::string& information)
     {
         if (isToClient)
@@ -81,6 +111,11 @@ namespace FalseUnion
         }
     }
 
+    /// <summary>
+    /// Logs a warn message to console based off of its 2 parameters
+    /// </summary>
+    /// @param isToClient bool, tells whether the log is to client.
+    /// @param information string, what the log should say.
     void Logger::logWarn(const bool& isToClient, const std::string& information)
     {
         if (isToClient)
@@ -93,6 +128,11 @@ namespace FalseUnion
         }
     }
 
+    /// <summary>
+    /// Logs an error message to console based off of its 2 parameters
+    /// </summary>
+    /// @param isToClient bool, tells whether the log is to client.
+    /// @param information string, what the log should say.
     void Logger::logError(const bool& isToClient, const std::string& information)
     {
         if (isToClient)
@@ -105,46 +145,84 @@ namespace FalseUnion
         }
     }
 
+    /// <summary>
+    /// Logs an info message to client console based off of its parameter
+    /// </summary>
+    /// @param information string, what the log should say.
     void Logger::logInfoToClient(const std::string& information)
     {
         logToClient(0, information);
     }
 
+    /// <summary>
+    /// Logs an warn message to client console based off of its parameter
+    /// </summary>
+    /// @param information string, what the log should say.
     void Logger::logWarnToClient(const std::string& information)
     {
         logToClient(1, information);
     }
 
+    /// <summary>
+    /// Logs an error message to client console based off of its parameter
+    /// </summary>
+    /// @param information string, what the log should say.
     void Logger::logErrorToClient(const std::string& information)
     {
         logToClient(2, information);
     }
 
+    /// <summary>
+    /// Logs an info message to engine console based off of its parameter
+    /// </summary>
+    /// @param information string, what the log should say.
     void Logger::logInfoToEngine(const std::string& information)
     {
         logToEngine(0, information);
     }
 
+    /// <summary>
+    /// Logs a warn message to engine console based off of its parameter
+    /// </summary>
+    /// @param information string, what the log should say.
     void Logger::logWarnToEngine(const std::string& information)
     {
         logToEngine(1, information);
     }
 
+    /// <summary>
+    /// Logs an error message to engine console based off of its parameter
+    /// </summary>
+    /// @param information string, what the log should say.
     void Logger::logErrorToEngine(const std::string& information)
     {
         logToEngine(2, information);
     }
 
+    /// <summary>
+    /// Returns the global logger instance
+    /// </summary>
+    /// @returns Logger* the global logger instance.
     Logger* Logger::getLoggerInstance()
     {
         return instance;
     }
 
+    /// <summary>
+    /// Sets the global logger instance to the logger in its params.
+    /// </summary>
+    /// @param inLogger Logger, the logger to become the global logger instance.
     void Logger::setLoggerInstance(Logger* inLogger)
     {
         instance = inLogger;
     }
 
+    /// <summary>
+    /// Switch case method broken out from the rest of code as to adhere more closely to dry
+    /// Outputs different things to console based on error level and information.
+    /// </summary>
+    /// @param errorLevel int, int representing error level. 0 for info, 1 for warn, 2 for error
+    /// @param information string, logs information.
     void Logger::errorLevelSwitch(const int& errorLevel, const std::string& information) const
     {
         switch (errorLevel)
