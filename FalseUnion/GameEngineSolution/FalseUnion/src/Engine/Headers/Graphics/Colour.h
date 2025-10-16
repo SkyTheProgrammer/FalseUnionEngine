@@ -5,8 +5,7 @@
 
 namespace FalseUnion
 {
-    class FALSEUNION_API Colour
-    {
+    class Colour {
     public:
         Colour(); // default colour constructor
         Colour(int newR, int newG, int newB, int newA); // colour constructor with ints for values

@@ -5,7 +5,7 @@
 
 namespace FalseUnion
 {
-    class FALSEUNION_API Vector2
+    class Vector2
     {
     public:
         Vector2(); // default constructor

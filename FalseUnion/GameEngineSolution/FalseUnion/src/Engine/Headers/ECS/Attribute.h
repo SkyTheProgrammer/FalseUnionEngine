@@ -7,7 +7,7 @@
 
 namespace FalseUnion
 {
-    class FALSEUNION_API Attribute
+    class Attribute
     {
     public:
         Attribute(); // Default attribute constructor

@@ -7,7 +7,7 @@
 
 namespace FalseUnion
 {
-    class FALSEUNION_API Camera
+    class Camera
     {
     public:
         Camera(); // default camera constructor
@@ -24,7 +24,7 @@ namespace FalseUnion
     private:
         Vector2 m_viewSize; // vector 2 representing width and height of cameras view
         Vector2 m_projectionSize; // vector2 representing width and height of cameras projection
-        Vector2 m_position; // vector 2 representing x and y of camera.
+        Vector2 m_position;  // vector 2 representing x and y of camera.
         float m_rotation; // float representing angle of camera relative to 0
         float m_zoom; // float representing how zoomed in or out the projection of camera is.
     };

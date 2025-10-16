@@ -5,7 +5,7 @@
 
 namespace FalseUnion
 {
-    class FALSEUNION_API Timer
+    class Timer
     {
     public:
         Timer(); // default constructor for timer.
