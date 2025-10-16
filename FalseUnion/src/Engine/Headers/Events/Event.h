@@ -9,12 +9,16 @@ namespace FalseUnion
     enum class EventType
     {
         None = 0,
-        KeyPressed, KeyHeld, KeyReleased, 
-        MouseButtonPressed, MouseButtonHeld, MouseButtonReleased, MouseMoved, MouseScrolled, 
+        KeyPressed, KeyHeld, KeyReleased,
+        MouseButtonPressed, MouseButtonHeld, MouseButtonReleased, MouseMoved, MouseScrolled,
         AppTick, AppUpdate, AppRender,
         WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved
     }; // enum class to define the types of event, Added everything I could think of needing might add or remove as I see necessity.
 
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
+    virtual EventType GetEventType() const override { return GetStaticType();}\
+    virtual const std::string GetName() const {return #type}
+    
     enum EventCategory
     {
         None = 0,
@@ -23,7 +27,8 @@ namespace FalseUnion
         Keyboard,
         Mouse,
         MouseButton
-    }; // enum class for event category
+    }; // enum for event category
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
     
     class FALSEUNION_API Event
     {
@@ -33,9 +38,10 @@ namespace FalseUnion
     public:
         // define access to the event dispacher
         virtual EventType GetEventType() const = 0; // Virtual declartion for event type getter
-        virtual const std::string GetName() const = 0;  // virtual declaration for name getter
-        virtual int  GetCategoryFlag() const = 0; // virtual declaration for category getter
-        virtual std::string ToString() const {return GetName();} // virtual declarion for ToString, defines getname at top.
+        virtual const std::string GetName() const = 0; // virtual declaration for name getter
+        virtual int GetCategoryFlag() const = 0; // virtual declaration for category getter
+        virtual std::string ToString() const { return GetName(); }
+        // virtual declarion for ToString, defines getname at top.
 
         /// <summary>
         /// method to check if event is in provided event category
@@ -46,15 +52,16 @@ namespace FalseUnion
         {
             if (category == EventCategory::Input)
             {
-                if (GetCategoryFlag() == EventCategory::Input || GetCategoryFlag() == EventCategory::Keyboard || GetCategoryFlag() ==  EventCategory::Mouse || GetCategoryFlag() ==  EventCategory::MouseButton)
+                if (GetCategoryFlag() == EventCategory::Input || GetCategoryFlag() == EventCategory::Keyboard ||
+                    GetCategoryFlag() == EventCategory::Mouse || GetCategoryFlag() == EventCategory::MouseButton)
                 {
                     return true;
                 }
             }
             return GetCategoryFlag() & category;
-        } 
+        }
+
     private:
         bool handled = false;
-       
     };
 }
