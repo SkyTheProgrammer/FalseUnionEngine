@@ -6,6 +6,7 @@
 
 namespace FalseUnion
 {
+    Window* Window::m_window = nullptr;
     /// <summary>
     /// Default constructor for window, defaults size to my monitors size and title to ""
     /// </summary>

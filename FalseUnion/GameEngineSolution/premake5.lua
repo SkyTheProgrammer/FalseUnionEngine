@@ -29,15 +29,10 @@ project "FalseUnion"
         systemversion "latest"
 
         defines
-        {
-            "FU_PLATFORM_WINDOWS",
-            "FU_BUILD_DLL"
-        }
-
-        postbuildcommands
-        {
-            ("{COPY} %cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }
+            {
+                "FU_PLATFORM_WINDOWS",
+                "FU_BUILD_DLL"
+            }
     filter "configurations:Debug"
         defines "FU_DEBUG"
         symbols "On"
@@ -88,9 +83,10 @@ project "Sandbox"
         }
 
         postbuildcommands
-        {
-            ("{COPY} %cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }
+                 {
+                            
+                    "{COPY} \"../bin/" .. outputdir .. "/FalseUnion/FalseUnion.dll\" \"%{cfg.targetdir}\""
+                }
     filter "configurations:Debug"
         defines "FU_DEBUG"
         symbols "On"

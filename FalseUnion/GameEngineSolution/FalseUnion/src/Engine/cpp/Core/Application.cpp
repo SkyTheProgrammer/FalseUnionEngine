@@ -12,9 +12,9 @@ namespace FalseUnion
     Application::Application()
     {
         s_instance = this;
-        m_window = &Window();
-        m_renderer = &Renderer();
-        m_inputManager = &InputManager();
+        m_window = new Window();
+        m_renderer = new Renderer();
+        m_inputManager = new InputManager();
         m_lastFrameTime = 0.0f;
     }
 
