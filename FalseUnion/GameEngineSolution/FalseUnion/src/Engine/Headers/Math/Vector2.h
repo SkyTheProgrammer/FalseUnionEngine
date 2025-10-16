@@ -10,7 +10,7 @@ namespace FalseUnion
     public:
         Vector2(); // default constructor
         Vector2(float newX, float newY); //Constructor with existing values
-        virtual ~Vector2(); //Virtual Deconstructor for Vector2
+        ~Vector2(); //Deconstructor for Vector2
         Vector2 operator+(const Vector2& rhs) const; //modification to Vector2 + operator
         Vector2 operator-(const Vector2& rhs) const; //modification to Vector2 - operator
         Vector2 operator*(float rhs) const; //modification to Vector2 * operator

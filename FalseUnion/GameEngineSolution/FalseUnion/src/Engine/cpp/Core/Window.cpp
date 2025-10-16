@@ -29,7 +29,7 @@ namespace FalseUnion
     }
 
     /// <summary>
-    /// default virtual desctutor incase of inherantece.
+    /// default virtual destructor in case of inheritance.
     /// </summary>
     Window::~Window()
     {

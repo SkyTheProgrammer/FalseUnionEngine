@@ -6,10 +6,11 @@
 
 #include <string>
 #include "../Math/Vector2.h"
+#include "Core.h"
 
 namespace FalseUnion
 {
-    class FALSEUNION_API Window
+    class Window
     {
     public:
         Window(); // default window constructor

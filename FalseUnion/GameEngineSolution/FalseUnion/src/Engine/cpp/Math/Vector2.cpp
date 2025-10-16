@@ -29,7 +29,7 @@ namespace FalseUnion
     }
 
     /// <summary>
-    /// Virtual default destructor for Vector2 in case of inheritance.
+    /// default destructor for Vector2.
     /// </summary>
     Vector2::~Vector2()
     = default;

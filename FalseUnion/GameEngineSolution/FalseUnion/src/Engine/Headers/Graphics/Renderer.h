@@ -7,10 +7,11 @@
 #include "Shader.h"
 #include "Sprite.h"
 #include "../Math/Vector2.h"
+#include "../Core/Core.h"
 
 namespace FalseUnion
 {
-    class FALSEUNION_API Renderer
+    class Renderer
     {
     public:
         Renderer(); // default constructor for renderer
