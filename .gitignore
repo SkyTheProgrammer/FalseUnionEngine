@@ -8,3 +8,4 @@ bin-int/
 *.suo
 
 CMakeLists.txt
+FalseUnion.sln
