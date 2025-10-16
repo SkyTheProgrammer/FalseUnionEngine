@@ -10,7 +10,7 @@
 
 namespace FalseUnion
 {
-    class InputManager
+    class FALSEUNION_API InputManager
     {
     public:
         enum keyState

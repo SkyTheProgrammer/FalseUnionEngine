@@ -9,7 +9,7 @@
 
 namespace FalseUnion
 {
-    class GameObject
+    class FALSEUNION_API GameObject
     {
     public:
         GameObject(); // default game object constructor

@@ -6,12 +6,14 @@
 
 namespace FalseUnion
 {
-    class Texture
+    class FALSEUNION_API Texture
     {
     public:
         Texture(); // Default Constructor for texture
-        Texture(const std::string& filepath, const int id); // Constructor for texture that intakes a file path and an id.
-        Texture(const std::string& filepath, const int id, const float newWidth, const float newHeight); // Constructor for texture that intakes a filepath, id, as well as size.
+        Texture(const std::string& filepath, const int id);
+        // Constructor for texture that intakes a file path and an id.
+        Texture(const std::string& filepath, const int id, const float newWidth, const float newHeight);
+        // Constructor for texture that intakes a filepath, id, as well as size.
         virtual ~Texture(); // Virtual deconstructor for texture.
         void bind(); // Bind method for texture
         void Unbind(); //Unbind method for texture
@@ -21,7 +23,7 @@ namespace FalseUnion
         void setSize(const float newWidth, float newHeight); // sets height and width
         void setWidth(float newWidth); // sets width
         void setHeight(float newHeight); // sets height
-        
+
     private:
         int textureID; // Textures id
         float width, height; // Textures width and height.

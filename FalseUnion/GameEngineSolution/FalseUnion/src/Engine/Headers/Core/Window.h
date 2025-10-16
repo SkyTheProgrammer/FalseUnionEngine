@@ -9,7 +9,7 @@
 
 namespace FalseUnion
 {
-    class Window
+    class FALSEUNION_API Window
     {
     public:
         Window(); // default window constructor
@@ -21,6 +21,7 @@ namespace FalseUnion
         void setTitle(const std::string& title); // setter for title
         void setSize(int width, int height); // setter for size
         void setPrimaryWindow();
+
     private:
         static Window* m_window; //the primary window.
         Vector2 m_size; // vector2 representing the size of window
@@ -28,4 +29,3 @@ namespace FalseUnion
         void FrameBuffer(Window window, int width, int height); // a method to buffer frame
     };
 }
-
