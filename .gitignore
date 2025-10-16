@@ -1,7 +1,7 @@
 .idea/
 .vs/
-FalseUnion/GameEngineSolution/bin/
-FalseUnion/GameEngineSolution/bin-int/
+bin/
+bin-int/
 *.vcxproj
 *.vcxproj.filters
 *.user
