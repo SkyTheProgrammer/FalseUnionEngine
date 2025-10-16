@@ -9,7 +9,7 @@
 
 namespace FalseUnion
 {
-    class Window
+    class FALSEUNION_API Window
     {
     public:
         Window(); // default window constructor
