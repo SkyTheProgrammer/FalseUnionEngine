@@ -15,10 +15,10 @@ namespace FalseUnion
     public:
         enum keyState
         {
-            notPressed = 1,
-            pressed = 2,
-            held = 3,
-            released = 4
+            notPressed = 0,
+            pressed = 1,
+            held = 2,
+            released = 3
         }; //enum to represent different keystates
         InputManager(); // Constructor for input manager
         virtual ~InputManager(); // Virtual deconstructor for input manager
