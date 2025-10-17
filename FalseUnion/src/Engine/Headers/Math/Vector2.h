@@ -5,6 +5,7 @@
 
 namespace FalseUnion
 {
+    // Move to a templated Vector2 at some point I just remembered that templates exist :(
     class Vector2
     {
     public:

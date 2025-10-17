@@ -36,7 +36,6 @@ namespace FalseUnion
         // Events must be dealt with as they enter
         // Try and move to a buffer system asap
     public:
-        // TODO: define access to the event dispatcher
         virtual EventType GetEventType() const = 0; // Virtual declartion for event type getter
         virtual const std::string GetName() const = 0; // virtual declaration for name getter
         virtual int GetCategoryFlag() const = 0; // virtual declaration for category getter
