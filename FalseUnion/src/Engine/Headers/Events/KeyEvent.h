@@ -6,14 +6,14 @@
 namespace FalseUnion
 {
     // Base Key Event class for others to inherit from, inherits from event.
-    class FALSEUNION_API KeyEvent : public Event
+    class KeyEvent : public Event
     {
     public:
         /// <summary>
         /// Returns the key code of this KeyEvent
         /// </summary>
         /// @returns int representing key code of this KeyEvent.
-        int GetKeyCode() const { return m_KeyCode; } 
+        int GetKeyCode() const { return m_KeyCode; }
         EVENT_CLASS_CATEGORY(Keyboard) // Defines the category as keyboard.
 
     protected:
@@ -24,28 +24,28 @@ namespace FalseUnion
         KeyEvent(int keycode) : m_KeyCode(keycode)
         {
         }
-        
+
         int m_KeyCode; // Key code declared as private
     };
 
     // key pressed event class inherits from key event
-    class FALSEUNION_API KeyPressedEvent : public KeyEvent
+    class KeyPressedEvent : public KeyEvent
     {
     public:
         /// <summary>
-        /// Constructor for KeyPressedEvent. Takes in key code and repeat count as ints. Assigns both.
+        /// Constructor for KeyPressedEvent. Takes in key code as int and is held as bool. assigns both
         /// </summary>
         /// @param keycode int representing the code of the key pressed
-        /// @param repeatCount int representing the number of times the key has repeated.
-        KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount)
+        /// @param isHeld bool representing if the key has been held.
+        KeyPressedEvent(int keycode, bool isHeld) : KeyEvent(keycode), m_IsHeld(isHeld)
         {
-        } 
+        }
 
         /// <summary>
         /// Getter for repeat count
         /// </summary>
         /// @returns int repeat count of key pressed.
-        int GetRepeatCount() const { return m_RepeatCount; }
+        bool GetIsHeld() const { return m_IsHeld; }
 
         /// <summary>
         /// Override of ToString for KeyPressedEvent.
@@ -54,13 +54,39 @@ namespace FalseUnion
         std::string ToString() const override
         {
             std::stringstream ss;
-            ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
+            ss << "KeyPressedEvent: " << m_KeyCode << " (" << (m_IsHeld ? "Held" : "Initial press") << ")";
             return ss.str();
         }
+
         // macro definition with key pressed
-        EVENT_CLASS_TYPE(KeyPressed) 
-        private:
-        // int for repeat count
-        int m_RepeatCount;
+        EVENT_CLASS_TYPE(KeyPressed)
+
+    private:
+        // bool for key held
+        bool m_IsHeld;
+    };
+
+    class KeyReleasedEvent : public KeyEvent
+    {
+    public:
+        /// <summary>
+        /// constructor for KeyReleasedEvent takes in and sets Keycode
+        /// </summary>
+        KeyReleasedEvent(int keycode) : KeyEvent(keycode)
+        {
+        }
+
+        /// <summary>
+        /// ToString override for keyreleased event print "KeyReleasedEvent: " then the key code.
+        /// </summary>
+        std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "KeyReleasedEvent: " << m_KeyCode;
+            return ss.str();
+        }
+
+        // macro definition with key released
+        EVENT_CLASS_TYPE(KeyReleased)
     };
 }

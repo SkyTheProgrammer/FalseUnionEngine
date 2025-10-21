@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <functional>
 #include <string>
 
 #include "../Core/Core.h"
@@ -9,10 +10,10 @@ namespace FalseUnion
     enum class EventType
     {
         None = 0,
-        KeyPressed, KeyHeld, KeyReleased,
-        MouseButtonPressed, MouseButtonHeld, MouseButtonReleased, MouseMoved, MouseScrolled,
+        KeyPressed, KeyReleased, //KeyHeld
+        MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled, //MouseButtonHeld
         AppTick, AppUpdate, AppRender,
-        WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved
+        WindowClose, WindowResize, //WindowFocus, WindowLostFocus, WindowMoved
     }; // enum class to define the types of event, Added everything I could think of needing might add or remove as I see necessity.
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
@@ -37,8 +38,9 @@ namespace FalseUnion
         // ^ defines Event dispatcher as a friend class of event allowing access to protected variables
         // Outline a block event system.
         // Events must be dealt with as they enter
-        // Try and move to a buffer system asap
+        // Try and move to a buffer system if possible.
     public:
+        virtual ~Event() = default;
         virtual EventType GetEventType() const = 0; // Virtual declartion for event type getter
         virtual const std::string GetName() const = 0; // virtual declaration for name getter
         virtual int GetCategoryFlag() const = 0; // virtual declaration for category getter
