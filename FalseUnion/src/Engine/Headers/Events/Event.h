@@ -29,7 +29,7 @@ namespace FalseUnion
         Mouse,
         MouseButton
     }; // enum for event category
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const { return category; }
     //macro for GetCategoryFlags(), makes it return category.
 
     class FALSEUNION_API Event
