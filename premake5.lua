@@ -17,6 +17,9 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+    pchheader "fupch.h" -- defines the location of the precompiled header
+    pchsource "FalseUnion/src/fupch.cpp" -- tells program we are using pch and this is its source
+
     files
     {
         "%{prj.name}/src/**.h",

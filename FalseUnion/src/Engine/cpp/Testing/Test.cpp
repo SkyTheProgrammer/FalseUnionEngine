@@ -1,4 +1,5 @@
-﻿#include "../../Headers/Testing/Test.h"
+﻿#include "fupch.h"
+#include "../../Headers/Testing/Test.h"
 
 #include <cstdio>
 

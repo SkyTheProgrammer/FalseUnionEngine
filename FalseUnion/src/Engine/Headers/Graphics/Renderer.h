@@ -3,6 +3,7 @@
 //
 #pragma once
 
+#include "../../../fupch.h"
 #include "Camera.h"
 #include "Shader.h"
 #include "Sprite.h"

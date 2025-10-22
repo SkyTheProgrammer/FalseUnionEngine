@@ -2,10 +2,11 @@
 // Created by SkyTFB on 10/6/2025.
 //
 #pragma once
+
 #include <string>
 #include <ctime>
 #include <windows.h>
-#include "../Core/Core.h"
+#include "Core.h"
 
 namespace FalseUnion {
     class FALSEUNION_API Logger

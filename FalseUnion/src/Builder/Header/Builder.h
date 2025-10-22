@@ -1,8 +1,0 @@
-//
-// Created by SkyTFB on 10/7/2025.
-//
-
-#ifndef FALSEUNION_BUILDER_H
-#define FALSEUNION_BUILDER_H
-
-#endif //FALSEUNION_BUILDER_H

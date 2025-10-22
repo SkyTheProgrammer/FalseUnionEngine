@@ -2,8 +2,8 @@
 // Created by SkyTFB on 10/7/2025.
 //
 
+#include "fupch.h"
 #include "../../Headers/Core/Application.h"
-
 #include "../../Headers/Core/Logger.h"
 #include "../../Headers/Events/ApplicationEvent.h"
 #include "../../Headers/Events/MouseEvent.h"

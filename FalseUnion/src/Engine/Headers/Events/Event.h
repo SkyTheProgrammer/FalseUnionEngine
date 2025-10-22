@@ -1,8 +1,5 @@
 ﻿#pragma once
 
-#include <functional>
-#include <string>
-
 #include "../Core/Core.h"
 
 namespace FalseUnion

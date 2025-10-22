@@ -4,8 +4,6 @@
 #pragma once
 
 #include <list>
-#include <utility>
-
 #include "../Math/Vector2.h"
 
 namespace FalseUnion

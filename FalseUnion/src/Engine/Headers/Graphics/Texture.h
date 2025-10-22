@@ -2,6 +2,7 @@
 // Created by SkyTFB on 10/6/2025.
 //
 #pragma once
+
 #include <string>
 
 namespace FalseUnion
@@ -17,7 +18,7 @@ namespace FalseUnion
         void Unbind(); //Unbind method for texture
         float getWidth(); // Get Width Method for texture
         float getHeight(); // Get Height Method for texture
-        int getID(); // Get Id method for texture
+        int getID(); // Get ID method for texture
         void setSize(const float newWidth, float newHeight); // sets height and width
         void setWidth(float newWidth); // sets width
         void setHeight(float newHeight); // sets height

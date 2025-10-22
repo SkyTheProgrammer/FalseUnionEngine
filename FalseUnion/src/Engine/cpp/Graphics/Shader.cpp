@@ -2,6 +2,7 @@
 // Created by SkyTFB on 10/7/2025.
 //
 
+#include "fupch.h"
 #include "../../Headers/Graphics/Shader.h"
 
 namespace FalseUnion

@@ -1,4 +1,5 @@
-﻿#include "../../Headers/ECS/Attribute.h"
+﻿#include "fupch.h"
+#include "../../Headers/ECS/Attribute.h"
 
 namespace FalseUnion
 {

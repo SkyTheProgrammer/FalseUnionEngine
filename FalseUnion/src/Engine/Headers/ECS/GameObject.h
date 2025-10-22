@@ -4,7 +4,6 @@
 #pragma once
 
 #include <list>
-
 #include "Attribute.h"
 
 namespace FalseUnion
