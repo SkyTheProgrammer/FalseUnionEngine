@@ -1,5 +1,5 @@
 ﻿#pragma once
-// Defines often used and unchanged header files such that they dont need to be recompiled every time I build my project
+// Defines often used and unchanged header files such that they don't need to be recompiled every time I build my project
 #include <iostream>
 #include <memory>
 #include <utility>
