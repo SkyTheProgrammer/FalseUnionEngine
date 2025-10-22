@@ -4,6 +4,11 @@
 
 #include "../../Headers/Core/Application.h"
 
+#include "../../Headers/Core/Logger.h"
+#include "../../Headers/Events/ApplicationEvent.h"
+#include "../../Headers/Events/MouseEvent.h"
+#include "../../Headers/Events/KeyEvent.h"
+
 namespace FalseUnion
 {
     /// <summary>
@@ -32,6 +37,21 @@ namespace FalseUnion
     {
         //Initializes the application, runs the application, starts the update loop
         printf("Running...\n");
+        WindowResizeEvent wEvent(200, 200);
+        if (wEvent.IsInCategory(ApplicationEvt))
+        {
+            FU_CLIENT_INFO(wEvent.ToString());
+        }
+        MouseButtonPressedEvent mEvent(12);
+        if (mEvent.IsInCategory(MouseButtonEvt))
+        {
+            FU_CLIENT_INFO(mEvent.ToString());
+        }
+        KeyPressedEvent kEvent(1, true);
+        if (kEvent.IsInCategory(KeyboardEvt))
+        {
+            FU_CLIENT_INFO(kEvent.ToString());
+        }
         m_running = true;
         while (m_running);
     }

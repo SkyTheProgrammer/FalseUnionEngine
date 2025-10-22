@@ -14,7 +14,7 @@ namespace FalseUnion
         /// </summary>
         /// @returns int representing key code of this KeyEvent.
         int GetKeyCode() const { return m_KeyCode; }
-        EVENT_CLASS_CATEGORY(Keyboard) // Defines the category as keyboard.
+        EVENT_CLASS_CATEGORY(KeyboardEvt) // Defines the category as keyboard.
 
     protected:
         /// <summary>

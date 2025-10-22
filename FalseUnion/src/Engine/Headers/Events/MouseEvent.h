@@ -13,7 +13,7 @@ namespace FalseUnion
         /// </summary>
         int GetMouseCode() const { return m_MouseCode; }
         //macro for mouse button category
-        EVENT_CLASS_CATEGORY(MouseButton)
+        EVENT_CLASS_CATEGORY(MouseButtonEvt)
 
     protected:
         /// <summary>
@@ -93,11 +93,11 @@ namespace FalseUnion
         float GetMouseY() const { return m_MouseY; }
 
         //macro to assign category mouse
-        EVENT_CLASS_CATEGORY(Mouse)
+        EVENT_CLASS_CATEGORY(MouseEvt)
 
     protected:
         /// <summary>
-        /// Constructor for MouseEvent, intakes and assigns mouse x and y.
+        /// Constructor for MouseEvt, intakes and assigns mouse x and y.
         /// </summary>
         /// @param x float, represents to be mouseX.
         /// @param y float, represents to be mouseY.

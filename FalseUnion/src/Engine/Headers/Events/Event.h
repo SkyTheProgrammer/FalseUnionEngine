@@ -23,13 +23,13 @@ namespace FalseUnion
     enum EventCategory
     {
         None = 0,
-        Input,
-        Application,
-        Keyboard,
-        Mouse,
-        MouseButton
+        InputEvt,
+        ApplicationEvt,
+        KeyboardEvt,
+        MouseEvt,
+        MouseButtonEvt
     }; // enum for event category
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const { return category; }
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
     //macro for GetCategoryFlags(), makes it return category.
 
     class FALSEUNION_API Event
@@ -43,7 +43,7 @@ namespace FalseUnion
         virtual ~Event() = default;
         virtual EventType GetEventType() const = 0; // Virtual declartion for event type getter
         virtual const std::string GetName() const = 0; // virtual declaration for name getter
-        virtual int GetCategoryFlag() const = 0; // virtual declaration for category getter
+        virtual int GetCategoryFlags() const = 0; // virtual declaration for category getter
         virtual std::string ToString() const { return GetName(); }
         // virtual declaration for ToString, defines GetName at top.
 
@@ -54,15 +54,15 @@ namespace FalseUnion
         /// @returns Bool true if the event is in category false otherwise.
         inline bool IsInCategory(EventCategory category)
         {
-            if (category == EventCategory::Input)
+            if (category == EventCategory::InputEvt)
             {
-                if (GetCategoryFlag() == EventCategory::Input || GetCategoryFlag() == EventCategory::Keyboard ||
-                    GetCategoryFlag() == EventCategory::Mouse || GetCategoryFlag() == EventCategory::MouseButton)
+                if (GetCategoryFlags() == EventCategory::InputEvt || GetCategoryFlags() == EventCategory::KeyboardEvt ||
+                    GetCategoryFlags() == EventCategory::MouseEvt || GetCategoryFlags() == EventCategory::MouseButtonEvt)
                 {
                     return true;
                 }
             }
-            return GetCategoryFlag() & category;
+            return GetCategoryFlags() & category;
         }
 
     protected:
