@@ -1,0 +1,3 @@
+[submodule "FalseUnion/vendor/GLFW"]
+	path = FalseUnion/vendor/GLFW
+	url = https://github.com/SkyTheProgrammer/glfw

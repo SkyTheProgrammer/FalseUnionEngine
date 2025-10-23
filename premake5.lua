@@ -8,6 +8,10 @@
 } -- the configs I can build for
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" -- variable for the output dir with variable name based on differences in build.
+IncludeDir = {} -- Defines variable to hold includes
+IncludeDir["GLFW"] = "FalseUnion/vendor/GLFW/include" -- defines glfw's include in include variable.
+
+include "FalseUnion/vendor/GLFW" -- includes GLFW's premake.
     
 project "FalseUnion" -- defines the FalseUnion part of the project
     location "FalseUnion" -- defines its location
@@ -20,11 +24,24 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     pchheader "fupch.h" -- defines the location of the precompiled header
     pchsource "FalseUnion/src/fupch.cpp" -- tells program we are using pch and this is its source
 
+    dependson { "GLFW" }
+
     files
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
     } -- targets any header and c++ file in src folder
+    
+    includedirs
+    {
+        "%{IncludeDir.GLFW}",
+    } -- included directories for FalseUnion
+    
+    links
+    {
+        "GLFW",
+        "opengl32.lib"
+    } -- links to other librarys
     
     filter "system:windows" -- filters for windows system
         cppdialect "c++20" -- makes sure you have the right c++ version
