@@ -45,7 +45,7 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     
     filter "system:windows" -- filters for windows system
         cppdialect "c++20" -- makes sure you have the right c++ version
-        staticruntime "On" -- makes runtime static
+        staticruntime "Off" -- makes runtime static
         systemversion "latest" -- defines lastest system version, don't know why latest isnt implicite but breaks otherwise.
 
         defines
@@ -96,7 +96,7 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
     
     filter "system:windows" -- same filter
         cppdialect "c++20"
-        staticruntime "On"
+        staticruntime "Off"
         systemversion "latest"
 
         defines

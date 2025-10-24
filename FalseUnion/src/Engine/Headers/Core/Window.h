@@ -5,28 +5,41 @@
 #pragma once
 
 #include <string>
-#include "../Math/Vector2.h"
+#include "../Events/Event.h"
 #include "Core.h"
 
 namespace FalseUnion
 {
-    class Window
+    struct WindowProperties
+    {
+        std::string Title;
+        unsigned int Width;
+        unsigned int Height;
+
+        WindowProperties(const std::string& title = "FalseUnion Engine", unsigned int width = 1280,
+                         unsigned int height = 720)
+            : Title(title), Width(width), Height(height)
+        {
+        }
+    };
+
+    class FALSEUNION_API Window // abstract class to build system specific windows from
     {
     public:
-        Window(); // default window constructor
-        Window(int width, int height, const std::string& title); // window constructor with params for size and title.
-        virtual ~Window(); // virtual destructor in case of inheritance.
-        Vector2 getSize(); // getter for size
-        int getNativeWindow(); // getter for native window
-        std::string getTitle(); // getter for title
-        void setTitle(const std::string& title); // setter for title
-        void setSize(int width, int height); // setter for size
-        void setPrimaryWindow();
-    private:
-        static Window* m_window; //the primary window.
-        Vector2 m_size; // vector2 representing the size of window
-        std::string m_title; // string representing the title of window
-        void FrameBuffer(Window window, int width, int height); // a method to buffer frame
+        using EventCallbackFn = std::function<void(Event&)>;
+        // Defines EventCallbackFn as a reference to a void event function.
+
+        virtual ~Window() = default; //default destructor for virtual class
+
+        virtual void OnUpdate() = 0;
+
+        virtual unsigned int GetHeight() const = 0;
+        virtual unsigned int GetWidth() const = 0;
+
+        virtual void SetEventcallback(const EventCallbackFn& callback) = 0;
+        virtual void SetVSync(bool enable) = 0;
+        virtual bool IsVSync() const = 0;
+
+        static Window* Create(const WindowProperties& properties = WindowProperties());
     };
 }
-

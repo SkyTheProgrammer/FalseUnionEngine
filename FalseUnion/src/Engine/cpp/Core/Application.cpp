@@ -17,7 +17,7 @@ namespace FalseUnion
     Application::Application()
     {
         s_instance = this;
-        m_window = new Window();
+        m_Window = std::unique_ptr<Window>(Window::Create());
         m_renderer = new Renderer();
         m_inputManager = new InputManager();
         m_lastFrameTime = 0.0f;
@@ -51,9 +51,12 @@ namespace FalseUnion
         if (kEvent.IsInCategory(KeyboardEvt))
         {
             FU_CLIENT_INFO(kEvent.ToString());
+        } //commented out test code, delete later if unnecessary.
+        m_running = true; 
+        while (m_running)
+        {
+            m_Window->OnUpdate();
         }
-        m_running = true;
-        while (m_running);
     }
 
     /// <summary>
@@ -92,7 +95,7 @@ namespace FalseUnion
     /// Returns the applications instance.
     /// </summary>
     /// @returns Application, instance of application.
-    Application Application::getInstance() const
+    Application& Application::getInstance() const
     {
         //returns this applications instance
         return *s_instance;
@@ -102,10 +105,10 @@ namespace FalseUnion
     /// Returns the applications window.
     /// </summary>
     /// @returns Window applications window.
-    Window Application::getWindow() const
-    {
-        return *m_window;
-    }
+    // Window Application::getWindow() const
+    // {
+    //     return *m_window;
+    // }
 
     /// <summary>
     /// Returns the applications renderer

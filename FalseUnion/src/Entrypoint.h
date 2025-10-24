@@ -10,9 +10,11 @@ extern FalseUnion::Logger* FalseUnion::CreateLogger();
 
 int main(int argc, char** argv)
 {
+    // uses client to create logger
+    auto logger = FalseUnion::CreateLogger();
+    FalseUnion::Logger::setLoggerInstance(logger);
     auto app = FalseUnion::CreateApplication(); //uses client to create application
-    auto logger = FalseUnion::CreateLogger(); // uses client to create logger
-    FalseUnion::Logger::setLoggerInstance(logger); // sets the logger instance to the client created logger.
+     // sets the logger instance to the client created logger.
     // FU_CLIENT_WARN("This is a warning to the client"); //uncomment to test logger
     // FU_ENGINE_ERROR("This is an error to the engine");
     app->Run(); //runs the application

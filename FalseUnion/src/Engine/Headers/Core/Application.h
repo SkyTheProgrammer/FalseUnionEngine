@@ -21,12 +21,12 @@ namespace FalseUnion
     void Update(float time); // update method for application, param time for use in update.
     void Render(); // render function for application
     void Shutdown(); // shutdown function for application
-    Application getInstance() const; // getter for application instance.
-    Window getWindow() const; // getter for application current window
+    Application& getInstance() const; // getter for application instance.
+    //Window getWindow() const; // getter for application current window
     Renderer getRenderer() const; // getter for application current renderer.
     private:
     Application *s_instance; // applications current instance.
-    Window *m_window; // applications current window
+    std::unique_ptr<Window> m_Window;
     Renderer *m_renderer; // applications current renderer
     InputManager *m_inputManager; // applications current input manager.
     bool m_running; // bool for if application is running.
