@@ -24,6 +24,7 @@ namespace FalseUnion
     Application& getInstance() const; // getter for application instance.
     //Window getWindow() const; // getter for application current window
     Renderer getRenderer() const; // getter for application current renderer.
+    void windowOnEvent(Event& e);
     private:
     Application *s_instance; // applications current instance.
     std::unique_ptr<Window> m_Window;

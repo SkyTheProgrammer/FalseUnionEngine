@@ -9,6 +9,7 @@
 #include "Core.h"
 
 namespace FalseUnion {
+    //please remember to move to a singleton when you get a chance.
     class FALSEUNION_API Logger
     {
     public:

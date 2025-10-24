@@ -18,9 +18,15 @@ namespace FalseUnion
     {
         s_instance = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
+        m_Window->SetEventCallback(std::bind(&Application::windowOnEvent, this, std::placeholders::_1));
         m_renderer = new Renderer();
         m_inputManager = new InputManager();
         m_lastFrameTime = 0.0f;
+    }
+
+    void Application::windowOnEvent(Event& e)
+    {
+        
     }
 
     /// <summary>
@@ -118,4 +124,6 @@ namespace FalseUnion
     {
         return *m_renderer;
     }
+
+    
 }

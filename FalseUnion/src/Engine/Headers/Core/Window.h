@@ -29,14 +29,15 @@ namespace FalseUnion
         using EventCallbackFn = std::function<void(Event&)>;
         // Defines EventCallbackFn as a reference to a void event function.
 
-        virtual ~Window() = default; //default destructor for virtual class
+        virtual ~Window() = default; //default destructor for abstact class
 
+        // virtual constructors for necessary methods.
         virtual void OnUpdate() = 0;
 
         virtual unsigned int GetHeight() const = 0;
         virtual unsigned int GetWidth() const = 0;
 
-        virtual void SetEventcallback(const EventCallbackFn& callback) = 0;
+        virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
         virtual void SetVSync(bool enable) = 0;
         virtual bool IsVSync() const = 0;
 

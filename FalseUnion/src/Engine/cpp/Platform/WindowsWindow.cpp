@@ -6,8 +6,12 @@
 
 namespace FalseUnion
 {
-    static bool GLFWInitialized = false;
+    static bool GLFWInitialized = false; // sets the initial state of the static bool GLFWInitialized.
 
+    /// <summary>
+    /// Create function for window, uses the provided properties to make a WindowsWindow with those params.
+    /// </summary>
+    /// @param props WindowProperties&, uses the windows properties struct to build a WindowsWindow.
     Window* Window::Create(const WindowProperties& props)
     {
         return new WindowsWindow(props);
@@ -67,10 +71,5 @@ namespace FalseUnion
             glfwSwapInterval(0);
         }
         m_Data.VSync = enabled;
-    }
-
-    bool WindowsWindow::IsVSync() const
-    {
-        return m_Data.VSync;
     }
 }
