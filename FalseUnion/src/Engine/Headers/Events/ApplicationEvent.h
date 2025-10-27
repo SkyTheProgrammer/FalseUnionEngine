@@ -45,6 +45,9 @@ namespace FalseUnion
     };
 
     // basic classes with not important information to pass.
+    /// <summary>
+    /// Event class for when a window is closed.
+    /// </summary>
     class WindowCloseEvent : public Event
     {
     public:
@@ -53,6 +56,9 @@ namespace FalseUnion
         EVENT_CLASS_CATEGORY(ApplicationEvt)
     };
 
+    /// <summary>
+    /// Event class for app tick.
+    /// </summary>
     class AppTickEvent : public Event
     {
         public:
@@ -60,6 +66,9 @@ namespace FalseUnion
         EVENT_CLASS_TYPE(AppTick)
         EVENT_CLASS_CATEGORY(ApplicationEvt)
     };
+    /// <summary>
+    /// Event class for app update.
+    /// </summary>
     class AppUpdateEvent : public Event
     {
         public:
@@ -67,6 +76,10 @@ namespace FalseUnion
         EVENT_CLASS_TYPE(AppUpdate)
         EVENT_CLASS_CATEGORY(ApplicationEvt)
     };
+
+    /// <summary>
+    /// event class for when app is rendered.
+    /// </summary>
     class appRenderEvent : public Event
     {
         public:

@@ -11,6 +11,9 @@
 
 namespace FalseUnion
 {
+#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1) // macro to prevent repeating bind code block
+
+
     /// <summary>
     /// Default application constructor, sets the instance to this application, and all variables to their default constructors.
     /// </summary>
@@ -18,7 +21,7 @@ namespace FalseUnion
     {
         s_instance = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
-        m_Window->SetEventCallback(std::bind(&Application::windowOnEvent, this, std::placeholders::_1));
+        m_Window->SetEventCallback(BIND_EVENT_FN(windowOnEvent));
         m_renderer = new Renderer();
         m_inputManager = new InputManager();
         m_lastFrameTime = 0.0f;
@@ -26,7 +29,9 @@ namespace FalseUnion
 
     void Application::windowOnEvent(Event& e)
     {
-        
+        EventDispatcher dispatcher(e);
+        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClosed));
+        FU_ENGINE_INFO(e.ToString());
     }
 
     /// <summary>
@@ -58,11 +63,17 @@ namespace FalseUnion
         {
             FU_CLIENT_INFO(kEvent.ToString());
         } //commented out test code, delete later if unnecessary.
-        m_running = true; 
-        while (m_running)
+        m_Running = true;
+        while (m_Running)
         {
             m_Window->OnUpdate();
         }
+    }
+
+    bool Application::OnWindowClosed(WindowCloseEvent& e)
+    {
+        m_Running = false;
+        return true;
     }
 
     /// <summary>
@@ -89,6 +100,7 @@ namespace FalseUnion
     {
         //uses the renderer to render and update visual information.
     }
+
     /// <summary>
     /// Gracefully shuts down the application and does whatever it needs to do before that happens. (saving, ect.)
     /// </summary>
@@ -124,6 +136,4 @@ namespace FalseUnion
     {
         return *m_renderer;
     }
-
-    
 }
