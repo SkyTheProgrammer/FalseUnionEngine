@@ -27,6 +27,10 @@ namespace FalseUnion
         m_lastFrameTime = 0.0f;
     }
 
+    /// <summary>
+    /// Dispatches given event and displays to console. Binds certain events to actions (e.g pressing window close closes window)
+    /// </summary>
+    /// @param e Event&, the event in deed of dispatch.
     void Application::windowOnEvent(Event& e)
     {
         EventDispatcher dispatcher(e);
@@ -70,6 +74,11 @@ namespace FalseUnion
         }
     }
 
+    /// <summary>
+    /// Event to be bound to window close. Ensures app stops running properly.
+    /// </summary>
+    /// @param e WindowCloseEvent&, the event that caused this might be useful later.
+    /// @returns bool, true for now, might have a false response as needed later.
     bool Application::OnWindowClosed(WindowCloseEvent& e)
     {
         m_Running = false;

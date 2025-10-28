@@ -37,9 +37,10 @@ namespace FalseUnion
         // Outline a block event system.
         // Events must be dealt with as they enter
         // Try and move to a buffer system if possible.
+        // rahh can only read one input at a time because the blocks eat the other inputs, pls find out better way.
     public:
         virtual ~Event() = default;
-        virtual EventType GetEventType() const = 0; // Virtual declartion for event type getter
+        virtual EventType GetEventType() const = 0; // Virtual declaration for event type getter
         virtual const std::string GetName() const = 0; // virtual declaration for name getter
         virtual int GetCategoryFlags() const = 0; // virtual declaration for category getter
         virtual std::string ToString() const { return GetName(); }
