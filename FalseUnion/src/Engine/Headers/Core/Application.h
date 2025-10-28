@@ -9,6 +9,7 @@
 #include "../Input/InputManager.h"
 #include "../Core/Core.h"
 #include "../Events/ApplicationEvent.h"
+#include "../Layer/LayerStack.h"
 
 
 namespace FalseUnion
@@ -24,19 +25,20 @@ namespace FalseUnion
         void Render(); // render function for application
         void Shutdown(); // shutdown function for application
         Application& getInstance() const; // getter for application instance.
-        //Window getWindow() const; // getter for application current window
         Renderer getRenderer() const; // getter for application current renderer.
-        void windowOnEvent(Event& e);
-
+        void windowOnEvent(Event& e); // Method for windows on event to be bound.
+        void PushLayer(Layer* layer);
+        void PushOverlay(Layer* overlay);
     private:
         Application* s_instance; // applications current instance.
         std::unique_ptr<Window> m_Window;
         Renderer* m_renderer; // applications current renderer
         InputManager* m_inputManager; // applications current input manager.
         bool m_Running; // bool for if application is running.
-        bool OnWindowClosed(WindowCloseEvent& e);
+        bool OnWindowClosed(WindowCloseEvent& e); // method to bind window closed event.
         float m_lastFrameTime; // float for the time it took the last frame to generate.
+        LayerStack m_LayerStack; // Layer stack for the given application.
     };
 
-    Application* CreateApplication(); // declaration for create method for use in client
+    Application* CreateApplication(); // declaration for create method to be used in client
 }

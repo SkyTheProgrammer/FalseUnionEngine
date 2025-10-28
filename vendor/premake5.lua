@@ -1,12 +1,13 @@
 ﻿workspace "FalseUnion"
     architecture "x64"
 
-    configurations {
+    configurations
+    {
     "Debug",
     "Release",
     "Dist"
-}
-
+    }
+    
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
     
 project "FalseUnion"
