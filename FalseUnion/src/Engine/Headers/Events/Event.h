@@ -51,7 +51,7 @@ namespace FalseUnion
         /// </summary>
         /// @param category EventCategory to check against the event.
         /// @returns Bool true if the event is in category false otherwise.
-        inline bool IsInCategory(EventCategory category)
+        bool IsInCategory(EventCategory category) const
         {
             if (category == EventCategory::InputEvt)
             {
@@ -62,6 +62,15 @@ namespace FalseUnion
                 }
             }
             return GetCategoryFlags() & category;
+        }
+
+        /// <summary>
+        /// Getter for events m_Handled variable. Returns said variable.
+        /// </summary>
+        /// @returns bool. Events handled variable, it gets set to true when something has dealt with it.
+        bool IsHandled() const
+        {
+            return m_Handled;
         }
 
     protected:
@@ -106,8 +115,11 @@ namespace FalseUnion
         Event& m_Event; // Declaration of Event for event dispatcher to use.
     };
 
+    /// <summary>
+    /// Overrite for base ostream& operator of event. Makes sure event prints its ToString() detail when called in ostream.
+    /// </summary>
     inline std::ostream& operator<<(std::ostream& os, const Event& e)
     {
         return os << e.ToString();
-    } // overwrite of the << ostram operator such that this automatically returns its tostring
+    } // overwrite of the << ostream operator such that this automatically returns its ToString()
 }
