@@ -7,8 +7,8 @@
 
 namespace FalseUnion
 {
-    Logger* Logger::instance = nullptr; // sets logers instance to a nullptr by default.
-
+    Logger* Logger::instance = nullptr; // sets logger's instance to a nullptr by default.
+#pragma region Constructor/destructor
     /// <summary>
     /// Default constructor of logger, sets console to the current consoles handle, logs it, and updates time.
     /// </summary>
@@ -20,12 +20,37 @@ namespace FalseUnion
     }
 
     /// <summary>
-    /// virtual destructor of logger, used in case of inherantece.
+    /// Default destructor for logger cause inheritance.
     /// </summary>
-    Logger::~Logger()
+    Logger::~Logger() = default;
+#pragma endregion
+#pragma region Singleton Methods
+    /// <summary>
+    /// Uses CreateLogger() function from client 
+    /// </summary>
+    /// @param clientLogger Logger*, provided by the client and assigned one time.
+    void Logger::initializeLogger(Logger* clientLogger)
     {
+        if (instance == nullptr)
+        {
+            instance = clientLogger;
+        }
+        else
+        {
+            FU_ENGINE_WARN("Logger already exists");
+        }
     }
 
+    /// <summary>
+    /// Returns the global logger instance
+    /// </summary>
+    /// @returns Logger* the global logger instance. If one hasn't been set will return null as logger needs to be made by client after engine startup.
+    Logger* Logger::getLoggerInstance()
+    {
+        return instance;
+    }
+#pragma endregion
+#pragma region Update Methods
     /// <summary>
     /// updates time every time it is called and prints it to console.
     /// </summary>
@@ -47,7 +72,8 @@ namespace FalseUnion
         std::cout << std::to_string(localTime.tm_hour) + ":" + std::to_string(localTime.tm_min) + ":" +
             std::to_string(localTime.tm_sec) << " ";
     }
-
+#pragma endregion
+#pragma region Different LogMethods
     /// <summary>
     /// Logs a message to console based off of its 3 parameters
     /// </summary>
@@ -196,25 +222,8 @@ namespace FalseUnion
     {
         logToEngine(2, information);
     }
-
-    /// <summary>
-    /// Returns the global logger instance
-    /// </summary>
-    /// @returns Logger* the global logger instance.
-    Logger* Logger::getLoggerInstance()
-    {
-        return instance;
-    }
-
-    /// <summary>
-    /// Sets the global logger instance to the logger in its params.
-    /// </summary>
-    /// @param inLogger Logger, the logger to become the global logger instance.
-    void Logger::setLoggerInstance(Logger* inLogger)
-    {
-        instance = inLogger;
-    }
-
+#pragma endregion
+#pragma region Helper Methods
     /// <summary>
     /// Switch case method broken out from the rest of code as to adhere more closely to dry
     /// Outputs different things to console based on error level and information.
@@ -245,4 +254,5 @@ namespace FalseUnion
             break;
         }
     }
+#pragma endregion
 }
