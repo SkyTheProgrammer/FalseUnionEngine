@@ -68,7 +68,7 @@ namespace FalseUnion
         auto deleteOverlay = std::find(m_Layers.begin(), m_Layers.end(), overlay);
         if (deleteOverlay != m_Layers.end())
         {
-            overlay->OnDetach()();
+            overlay->OnDetach();
             m_Layers.erase(deleteOverlay);
         }
     }

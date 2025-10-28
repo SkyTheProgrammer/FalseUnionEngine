@@ -14,6 +14,7 @@ namespace FalseUnion {
     {
     public:
         Logger(); // default constructor for logger
+        virtual ~Logger();
         enum errorLevel // enum for loggers error levels
         {
             info = 0,
