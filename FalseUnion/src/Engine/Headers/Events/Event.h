@@ -116,7 +116,7 @@ namespace FalseUnion
     };
 
     /// <summary>
-    /// Overrite for base ostream& operator of event. Makes sure event prints its ToString() detail when called in ostream.
+    /// Override for base ostream& operator of event. Makes sure event prints its ToString() detail when called in ostream.
     /// </summary>
     inline std::ostream& operator<<(std::ostream& os, const Event& e)
     {

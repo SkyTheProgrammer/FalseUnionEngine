@@ -4,6 +4,9 @@
 
 #include "fupch.h"
 #include "../../Headers/Core/Application.h"
+
+#include <GL/gl.h>
+
 #include "../../Headers/Core/Logger.h"
 #include "../../Headers/Events/ApplicationEvent.h"
 #include "../../Headers/Events/MouseEvent.h"
@@ -62,25 +65,17 @@ namespace FalseUnion
     {
         //Initializes the application, runs the application, starts the update loop
         printf("Running...\n");
-        WindowResizeEvent wEvent(200, 200);
-        if (wEvent.IsInCategory(ApplicationEvt))
-        {
-            FU_CLIENT_INFO(wEvent.ToString());
-        }
-        MouseButtonPressedEvent mEvent(12);
-        if (mEvent.IsInCategory(MouseButtonEvt))
-        {
-            FU_CLIENT_INFO(mEvent.ToString());
-        }
-        KeyPressedEvent kEvent(1, true);
-        if (kEvent.IsInCategory(KeyboardEvt))
-        {
-            FU_CLIENT_INFO(kEvent.ToString());
-        } //commented out test code, delete later if unnecessary.
         m_Running = true;
         while (m_Running)
         {
-            m_Window->OnUpdate();
+            glClearColor(1.0f, 0.3f, 1.0f, 1.0f); // just a bit of fun to see if i can colour the background.
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            for (Layer* layer : m_LayerStack) // foreach for layer in stack
+            {
+                layer->OnUpdate(); // runs layers on update
+            }
+            m_Window->OnUpdate(); // runs windows on update
         }
     }
 
