@@ -1,11 +1,28 @@
 #include "FalseUnion.h"
 
+
+class TestLayer : public FalseUnion::Layer
+{
+public:
+    TestLayer() : Layer("Test"){}
+
+    void OnUpdate() override
+    {
+        // FU_CLIENT_INFO("LAYER TEST EXAMPLE WORKED");
+    }
+
+    void OnEvent(FalseUnion::Event& event) override
+    {
+        FU_CLIENT_INFO(event.ToString());
+    }
+};
+
 class Sandbox : public FalseUnion::Application //defines sandboxes extention of application
 {
     public:
     Sandbox()
     {
-        
+        PushLayer(new TestLayer());
     }
 
     ~Sandbox()
@@ -27,6 +44,8 @@ class Log : public FalseUnion::Logger // defines sandboxes extention of logger
         
     }
 };
+
+
 
 FalseUnion::Application* FalseUnion::CreateApplication() // defines create application from the client such that the client can create it for the engine.
 {

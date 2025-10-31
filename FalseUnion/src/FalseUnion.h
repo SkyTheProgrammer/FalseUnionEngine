@@ -5,4 +5,5 @@
 
 #include "Engine/Headers/Core/Application.h"
 #include "Engine/Headers/Core/Logger.h"
+#include "Engine/Headers/Layer/Layer.h"
 #include "Entrypoint.h"
