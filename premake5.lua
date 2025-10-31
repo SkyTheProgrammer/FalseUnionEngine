@@ -56,14 +56,17 @@ project "FalseUnion" -- defines the FalseUnion part of the project
 -- These just define the different macros I set up for specific build types and specifics for how the program should act while in that type--
     filter "configurations:Debug"
         defines "FU_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release"
         defines "FU_RELEASE"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist"
         defines "FU_DIST"
+        buildOptions "/MD"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
@@ -111,15 +114,18 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
                 } -- defines a post build command to move false unions dll such that it shares a directory with this exe 
 -- Same Filter build definitions as above --    
     filter "configurations:Debug"
-        defines "FU_DEBUG"
+defines "FU_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release"
-        defines "FU_RELEASE"
+defines "FU_RELEASE"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist"
         defines "FU_DIST"
+        buildoptions "/MD"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
