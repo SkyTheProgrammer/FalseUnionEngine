@@ -12,11 +12,11 @@ namespace FalseUnion
     /// </summary>
     Camera::Camera()
     {
-        m_viewSize = Vector2(0,0);
-        m_position = Vector2(0,0);
+        m_viewSize = Vector2<float>(0,0);
+        m_position = Vector2<float>(0,0);
         m_rotation = 0;
         m_zoom = 1;
-        m_projectionSize = Vector2(0,0);
+        m_projectionSize = Vector2<float>(0,0);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ namespace FalseUnion
         m_position = Vector2(x,y);
         m_rotation = 0;
         m_zoom = 1;
-        m_projectionSize = Vector2(0,0);
+        m_projectionSize = Vector2<float>(0,0);
     }
     /// <summary>
     /// Sets the position of camera based off of parameters.
@@ -70,7 +70,7 @@ namespace FalseUnion
     /// Returns the position of the camera as a Vector2
     /// </summary>
     /// @returns Vector2 position of camera
-    Vector2 Camera::GetPosition()
+    Vector2<float> Camera::GetPosition()
     {
         return m_position;
     }
@@ -88,7 +88,7 @@ namespace FalseUnion
     /// Returns the size of the camera as a Vector2
     /// </summary>
     /// @returns Vector2 size of camera
-    Vector2 Camera::GetViewSize()
+    Vector2<float> Camera::GetViewSize()
     {
         return m_viewSize;
     }
@@ -97,7 +97,7 @@ namespace FalseUnion
     /// Returns the projection size of the camera as a Vector2
     /// </summary>
     /// @returns Vector2 projection size of camera
-    Vector2 Camera::GetProjection()
+    Vector2<float> Camera::GetProjection()
     {
         return m_projectionSize;
     }

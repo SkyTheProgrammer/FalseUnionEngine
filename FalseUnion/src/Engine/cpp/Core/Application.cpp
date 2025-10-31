@@ -26,8 +26,8 @@ namespace FalseUnion
         s_instance = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
         m_Window->SetEventCallback(BIND_EVENT_FN(windowOnEvent));
-        m_renderer = new Renderer();
-        m_inputManager = new InputManager();
+        //m_renderer = new Renderer();
+        //m_inputManager = new InputManager();
         m_lastFrameTime = 0.0f;
     }
 
@@ -146,10 +146,10 @@ namespace FalseUnion
     /// Returns the applications renderer
     /// </summary>
     /// @returns Renderer, applications renderer.
-    Renderer Application::getRenderer() const
-    {
-        return *m_renderer;
-    }
+    // Renderer Application::getRenderer() const
+    // {
+    //     return *m_renderer;
+    // }
 
     /// <summary>
     /// Pushes the given layer from this apps layer stack using the LayerStacks .PushLayer() method.

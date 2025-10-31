@@ -2,6 +2,7 @@
 
 #include "../../Headers/Core/Core.h"
 #include "../../Headers/Events/Event.h"
+#include <string>
 
 namespace FalseUnion
 {
