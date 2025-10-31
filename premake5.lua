@@ -9,9 +9,11 @@
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" -- variable for the output dir with variable name based on differences in build.
 IncludeDir = {} -- Defines variable to hold includes
-IncludeDir["GLFW"] = "FalseUnion/vendor/GLFW/include" -- defines glfw's include in include variable.
+IncludeDir["GLFW"] = "FalseUnion/vendor/GLFW/include"           -- defines glfw's include in include variable.
+IncludeDir["Glad"] = "FalseUnion/vendor/Glad/include"           -- defines glad's include in include variable.
 
 include "FalseUnion/vendor/GLFW" -- includes GLFW's premake.
+include "FalseUnion/vendor/Glad" -- includes Glad's premake.
     
 project "FalseUnion" -- defines the FalseUnion part of the project
     location "FalseUnion" -- defines its location
@@ -24,7 +26,12 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     pchheader "fupch.h" -- defines the location of the precompiled header
     pchsource "FalseUnion/src/fupch.cpp" -- tells program we are using pch and this is its source
 
-    dependson { "GLFW" }
+dependson
+    { 
+        "GLFW",
+        "Glad"
+    }
+    
 
     files
     {
@@ -33,13 +40,16 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     } -- targets any header and c++ file in src folder
     
     includedirs
-    {
+{
         "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        
     } -- included directories for FalseUnion
     
     links
     {
         "GLFW",
+        "Glad",
         "opengl32.lib"
     } -- links to other librarys
     
@@ -54,9 +64,9 @@ project "FalseUnion" -- defines the FalseUnion part of the project
                 "FU_BUILD_DLL" -- this macro is to point at its dll and help move it.
             }             -- Defines the two macros i set up in the code, one for the dll and one for making sure its windows.
 -- These just define the different macros I set up for specific build types and specifics for how the program should act while in that type--
-    filter "configurations:Debug"
-        defines "FU_DEBUG"
-        buildoptions "/MDd"
+    filter "configurations:Debug" -- build type filter
+        defines "FU_DEBUG" -- defines important things for build type, in this case the debug macro.
+        buildoptions "/MDd" -- defines build option in this case debug dll
         symbols "On"
 
     filter "configurations:Release"
@@ -114,12 +124,12 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
                 } -- defines a post build command to move false unions dll such that it shares a directory with this exe 
 -- Same Filter build definitions as above --    
     filter "configurations:Debug"
-defines "FU_DEBUG"
+        defines "FU_DEBUG"
         buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release"
-defines "FU_RELEASE"
+        defines "FU_RELEASE"
         buildoptions "/MD"
         optimize "On"
 
@@ -129,4 +139,4 @@ defines "FU_RELEASE"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
-        buildoptions "/MD"
+        buildoptions "/MT"
