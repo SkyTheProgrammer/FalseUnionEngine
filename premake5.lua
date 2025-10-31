@@ -66,11 +66,11 @@ project "FalseUnion" -- defines the FalseUnion part of the project
 
     filter "configurations:Dist"
         defines "FU_DIST"
-        buildOptions "/MD"
+        buildoptions "/MD"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
-        buildoptions "/MT"
+        buildoptions "/MD"
 
 project "Sandbox" -- looks at the sandbox/client portion of my code
     location "Sandbox" -- defines location
@@ -129,4 +129,4 @@ defines "FU_RELEASE"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
-        buildoptions "/MT"
+        buildoptions "/MD"
