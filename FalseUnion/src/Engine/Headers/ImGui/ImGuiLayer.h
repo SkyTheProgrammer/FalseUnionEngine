@@ -2,6 +2,10 @@
 
 #include "../Layer/Layer.h"
 
+#include "../Events/ApplicationEvent.h"
+#include "../Events/MouseEvent.h"
+#include "../Events/KeyEvent.h"
+
 namespace FalseUnion{
     class FALSEUNION_API ImGuiLayer : public Layer
     {
@@ -15,6 +19,15 @@ namespace FalseUnion{
         void OnUpdate() override; // Declaration for ImGuiLayer's override of on update method
         void OnEvent(Event& event) override; // Declaration for ImGuiLayer's override of on event method
     private:
+        bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& event);
+        bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event);
+        bool OnMouseMovedEvent(MouseMovedEvent& event);
+        bool OnMouseScrolledEvent(MouseScrolledEvent& event);
+        bool OnKeyPressedEvent(KeyPressedEvent& event);
+        bool OnKeyReleasedEvent(KeyReleasedEvent& event);
+        bool OnKeyTypedEvent(KeyTypedEvent& event);
+        bool OnWindowResizeEvent(WindowResizeEvent& event);
+        
         float m_Time = 0.0f;
     };
 }
