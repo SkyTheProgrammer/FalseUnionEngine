@@ -7,6 +7,8 @@
 #include "../../Headers/Events/MouseEvent.h"
 #include "../../Headers/Events/ApplicationEvent.h"
 
+#include <Glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace FalseUnion
 {
@@ -67,6 +69,9 @@ namespace FalseUnion
         m_Window = glfwCreateWindow(static_cast<int>(props.Width), static_cast<int>(props.Height), m_Data.Title.c_str(),
                                     nullptr, nullptr);
         glfwMakeContextCurrent(m_Window);
+
+        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        FU_ENGINE_ASSERT(status, "Couldn't initalize glad.")
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
 

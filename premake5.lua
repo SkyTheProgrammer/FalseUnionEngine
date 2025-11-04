@@ -55,14 +55,15 @@ dependson
     
     filter "system:windows" -- filters for windows system
         cppdialect "c++20" -- makes sure you have the right c++ version
-        staticruntime "Off" -- makes runtime static
+        staticruntime "Off" -- makes runtime not static
         systemversion "latest" -- defines lastest system version, don't know why latest isnt implicite but breaks otherwise.
 
         defines
             {
                 "FU_PLATFORM_WINDOWS",
-                "FU_BUILD_DLL" -- this macro is to point at its dll and help move it.
-            }             -- Defines the two macros i set up in the code, one for the dll and one for making sure its windows.
+                "FU_BUILD_DLL",
+                "GLFW_INCLUDE_NONE"
+            }             
 -- These just define the different macros I set up for specific build types and specifics for how the program should act while in that type--
     filter "configurations:Debug" -- build type filter
         defines "FU_DEBUG" -- defines important things for build type, in this case the debug macro.

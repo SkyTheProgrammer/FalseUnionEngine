@@ -11,6 +11,7 @@
 #include "../../Headers/Events/ApplicationEvent.h"
 #include "../../Headers/Events/MouseEvent.h"
 #include "../../Headers/Events/KeyEvent.h"
+#include "glad/glad.h"
 
 namespace FalseUnion
 {
