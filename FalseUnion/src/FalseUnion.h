@@ -8,4 +8,8 @@
 #include "Engine/Headers/Layer/Layer.h"
 
 #include "Engine/Headers/ImGui/ImGuiLayer.h"
+
+#include "Engine/Headers/Core/KeyCodes.h"
+#include "Engine/Headers/Core/MouseCodes.h"
+
 #include "Entrypoint.h"
