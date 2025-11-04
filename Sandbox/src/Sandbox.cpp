@@ -23,6 +23,8 @@ class Sandbox : public FalseUnion::Application //defines sandboxes extention of 
     Sandbox()
     {
         PushLayer(new TestLayer());
+
+        PushOverlay(new FalseUnion::ImGuiLayer());
     }
 
     ~Sandbox()

@@ -4,9 +4,6 @@
 
 #include "fupch.h"
 #include "../../Headers/Core/Application.h"
-
-#include <GL/gl.h>
-
 #include "../../Headers/Core/Logger.h"
 #include "../../Headers/Events/ApplicationEvent.h"
 #include "../../Headers/Events/MouseEvent.h"
@@ -17,19 +14,20 @@ namespace FalseUnion
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1) // macro to prevent repeating bind code block
 
-
+    Application* Application::s_Instance = nullptr;
 
     /// <summary>
     /// Default application constructor, sets the instance to this application, and all variables to their default constructors.
     /// </summary>
     Application::Application()
     {
-        s_instance = this;
+        FU_ENGINE_ASSERT(s_instance == nullptr, "Application already initialized");
+        s_Instance = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
         m_Window->SetEventCallback(BIND_EVENT_FN(windowOnEvent));
         //m_renderer = new Renderer();
         //m_inputManager = new InputManager();
-        m_lastFrameTime = 0.0f;
+        m_LastFrameTime = 0.0f;
     }
 
     /// <summary>
@@ -130,26 +128,8 @@ namespace FalseUnion
     Application& Application::getInstance() const
     {
         //returns this applications instance
-        return *s_instance;
+        return *s_Instance;
     }
-
-    /// <summary>
-    /// Returns the applications window.
-    /// </summary>
-    /// @returns Window applications window.
-    // Window Application::getWindow() const
-    // {
-    //     return *m_window;
-    // }
-
-    /// <summary>
-    /// Returns the applications renderer
-    /// </summary>
-    /// @returns Renderer, applications renderer.
-    // Renderer Application::getRenderer() const
-    // {
-    //     return *m_renderer;
-    // }
 
     /// <summary>
     /// Pushes the given layer from this apps layer stack using the LayerStacks .PushLayer() method.
@@ -158,6 +138,7 @@ namespace FalseUnion
     void Application::PushLayer(Layer* layer)
     {
         m_LayerStack.PushLayer(layer);
+        layer->OnAttach();
     }
 
     /// <summary>
@@ -167,5 +148,22 @@ namespace FalseUnion
     void Application::PushOverlay(Layer* overlay)
     {
         m_LayerStack.PushOverlay(overlay);
+        overlay->OnAttach();
     }
+
+    /// <summary>
+    /// Getter for applications instance is static so that it can be used anywhere. Returns a reference to the application.
+    /// </summary>
+    /// @returns Application&, reference to application
+    Application& Application::GetApplication()
+    {
+        return *s_Instance;
+    }
+
+    /// <summary>
+    /// Getter for applications window. Returns a reference to window.
+    /// </summary>
+    /// @returns Window&, reference to window.
+    Window& Application::GetWindow()
+    { return *m_Window; }
 }

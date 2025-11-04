@@ -11,9 +11,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" -- variable for 
 IncludeDir = {} -- Defines variable to hold includes
 IncludeDir["GLFW"] = "FalseUnion/vendor/GLFW/include"           -- defines glfw's include in include variable.
 IncludeDir["Glad"] = "FalseUnion/vendor/Glad/include"           -- defines glad's include in include variable.
+IncludeDir["ImGui"] = "FalseUnion/vendor/imgui"                 -- defines imgui's include in the include variable.
 
 include "FalseUnion/vendor/GLFW" -- includes GLFW's premake.
 include "FalseUnion/vendor/Glad" -- includes Glad's premake.
+include "FalseUnion/vendor/imgui" -- includes ImGui's premake.
     
 project "FalseUnion" -- defines the FalseUnion part of the project
     location "FalseUnion" -- defines its location
@@ -26,10 +28,11 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     pchheader "fupch.h" -- defines the location of the precompiled header
     pchsource "FalseUnion/src/fupch.cpp" -- tells program we are using pch and this is its source
 
-dependson
+dependson -- should be self explanitory
     { 
         "GLFW",
-        "Glad"
+        "Glad",
+        "ImGui"
     }
     
 
@@ -43,14 +46,15 @@ dependson
 {
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        
+        "%{IncludeDir.ImGui}"
     } -- included directories for FalseUnion
     
     links
     {
         "GLFW",
         "Glad",
-        "opengl32.lib"
+        "opengl32.lib",
+        "ImGui",
     } -- links to other librarys
     
     filter "system:windows" -- filters for windows system

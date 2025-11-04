@@ -6,4 +6,6 @@
 #include "Engine/Headers/Core/Application.h"
 #include "Engine/Headers/Core/Logger.h"
 #include "Engine/Headers/Layer/Layer.h"
+
+#include "Engine/Headers/ImGui/ImGuiLayer.h"
 #include "Entrypoint.h"
