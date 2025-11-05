@@ -2,10 +2,12 @@
 #include "../../Headers/ImGui/ImGuiLayer.h"
 
 #include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "GLFW/glfw3.h"
 #include "../../Headers/Core/Application.h"
+#include "../../Headers/Core/KeyCodes.h"
+#include "../../Headers/Core/Logger.h"
+#include "glad/glad.h"
 
 namespace FalseUnion
 {
@@ -57,6 +59,7 @@ namespace FalseUnion
 
         float time = static_cast<float>(glfwGetTime());
         io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
+        m_Time = time;
         
         // implement both new frame and render so that this has functionality next
         ImGui_ImplOpenGL3_NewFrame();
@@ -71,11 +74,141 @@ namespace FalseUnion
     }
 
     /// <summary>
-    /// ImGuiLayers on event, attempts to handle the event passed.
+    /// ImGuiLayers on event, attempts to handle the event passed, creates the event dispatcher.
     /// </summary>
     /// @param event Event&, event to try and be handled.
     void ImGuiLayer::OnEvent(Event& event)
     {
+        EventDispatcher dispatcher(event);
+        dispatcher.Dispatch<MouseButtonPressedEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
+        dispatcher.Dispatch<MouseButtonReleasedEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
+        dispatcher.Dispatch<MouseMovedEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
+        dispatcher.Dispatch<MouseScrolledEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
+        dispatcher.Dispatch<KeyPressedEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
+        dispatcher.Dispatch<KeyReleasedEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
+        dispatcher.Dispatch<WindowResizeEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
+        dispatcher.Dispatch<KeyTypedEvent>(FU_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers MouseButtonPressed Event.
+    /// </summary>
+    /// @param event MouseButtonPressedEvent&, reference to mouse button pressed event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseDown[event.GetMouseCode()] = true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers MouseButtonReleased Event.
+    /// </summary>
+    /// @param event MouseButtonReleasedEvent&, reference to mouse button released event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseDown[event.GetMouseCode()] = false;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers MouseMoved Event.
+    /// </summary>
+    /// @param event MouseMovedEvent&, reference to mouse moved event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MousePos = ImVec2(event.GetMouseX(), event.GetMouseY());
+
+        return false;
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers MouseScrolled Event.
+    /// </summary>
+    /// @param event MouseScrolledEvent&, reference to mouse scrolled event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseWheel += event.GetMouseY();
+        io.MouseWheelH += event.GetMouseX();
+
+        return false;
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers KeyPressed Event.
+    /// </summary>
+    /// @param event KeyPressedEvent&, reference to Key Pressed event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.AddKeyEvent(static_cast<ImGuiKey>(event.GetKeyCode()), true);
+
+        io.KeyCtrl = io.KeysData[FU_KEY_LEFT_CONTROL].Down || io.KeysData[FU_KEY_RIGHT_CONTROL].Down;
+        io.KeyAlt = io.KeysData[FU_KEY_LEFT_ALT].Down || io.KeysData[FU_KEY_RIGHT_ALT].Down;
+        io.KeyShift = io.KeysData[FU_KEY_LEFT_SHIFT].Down || io.KeysData[FU_KEY_RIGHT_SHIFT].Down;
+        io.KeySuper = io.KeysData[FU_KEY_LEFT_SUPER].Down || io.KeysData[FU_KEY_RIGHT_SUPER].Down;
+
         
+        return false;
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers Key Released Event.
+    /// </summary>
+    /// @param event KeyReleasedEvent&, reference to Key released event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.AddKeyEvent(static_cast<ImGuiKey>(event.GetKeyCode()), false);
+
+        io.KeyCtrl = io.KeysData[FU_KEY_LEFT_CONTROL].Down || io.KeysData[FU_KEY_RIGHT_CONTROL].Down;
+        io.KeyAlt = io.KeysData[FU_KEY_LEFT_ALT].Down || io.KeysData[FU_KEY_RIGHT_ALT].Down;
+        io.KeyShift = io.KeysData[FU_KEY_LEFT_SHIFT].Down || io.KeysData[FU_KEY_RIGHT_SHIFT].Down;
+        io.KeySuper = io.KeysData[FU_KEY_LEFT_SUPER].Down || io.KeysData[FU_KEY_RIGHT_SUPER].Down;
+
+        
+        return false;
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers Window Resize Event.
+    /// </summary>
+    /// @param event WindowResizeEvent&, reference to window resize event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.DisplaySize = ImVec2(event.GetWidth(), event.GetHeight());
+        io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+        glViewport(0, 0, event.GetWidth(), event.GetHeight());
+        
+        return false;
+    }
+
+    /// <summary>
+    /// Handler for ImGuiLayers Window Resize Event.
+    /// </summary>
+    /// @param event WindowResizeEvent&, reference to window resize event.
+    /// @Returns bool, representing whether this handled the event.
+    bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        int eventKeyCode = event.GetKeyCode();
+        if (eventKeyCode > 0 && eventKeyCode < 0x10000)
+        {
+            io.AddInputCharacter(static_cast<unsigned short>(eventKeyCode));
+        }
+        return false;
     }
 }

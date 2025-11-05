@@ -89,4 +89,26 @@ namespace FalseUnion
         // macro definition with key released
         EVENT_CLASS_TYPE(KeyReleased)
     };
+
+    class KeyTypedEvent :public KeyEvent
+    {
+        public:
+        /// <summary>
+        /// Default constructor defines keycode.
+        /// </summary>
+        KeyTypedEvent(int keycode) : KeyEvent(keycode){}
+
+        /// <summary>
+        /// ToString override for KeyTyped such that it outputs Keytypedevent: then the key code.
+        /// </summary>
+        std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "KeyTypedEvent: " << m_KeyCode;
+            return ss.str();
+        }
+
+        // macro definition with key typed class type.
+        EVENT_CLASS_TYPE(KeyTyped)
+    };
 }
