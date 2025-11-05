@@ -75,13 +75,6 @@ namespace FalseUnion
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
 
-
-        glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int KeyCode){
-            WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
-            KeyTypedEvent event(KeyCode);
-            data.EventCallback(event);
-        });
-        
         glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
         {
             WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));

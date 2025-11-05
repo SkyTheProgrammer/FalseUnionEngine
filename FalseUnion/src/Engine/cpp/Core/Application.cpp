@@ -39,14 +39,14 @@ namespace FalseUnion
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClosed));
 
-        
-        for (auto layerBg = m_LayerStack.begin(); layerBg != m_LayerStack.end(); ++layerBg)
+        //holy this is complicated
+        for (auto stackEnd = m_LayerStack.end(); stackEnd != m_LayerStack.begin();) // gets the end of the stack and every iteration of the loop makes sure we haven't hit the beginning.
         {
-            if (e.IsHandled())
+            (*--stackEnd)->OnEvent(e); // dereferences, decrements and then calls the OnEvent method of the layer passing the given event.
+            if (e.IsHandled())// checks if the event is handled
             {
-                break;
+                break; // makes sure that if the event was handled it breaks the loop
             }
-            (*layerBg)->OnEvent(e);
         }
     }
 

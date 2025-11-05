@@ -8,7 +8,7 @@ namespace FalseUnion
     enum class EventType
     {
         None = 0,
-        KeyPressed, KeyReleased, KeyTyped,
+        KeyPressed, KeyReleased, //KeyHeld
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled, //MouseButtonHeld
         AppTick, AppUpdate, AppRender,
         WindowClose, WindowResize, //WindowFocus, WindowLostFocus, WindowMoved

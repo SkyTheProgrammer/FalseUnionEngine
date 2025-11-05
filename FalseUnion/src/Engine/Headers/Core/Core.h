@@ -19,6 +19,3 @@
     #define FU_CLIENT_ASSERT(x, ...)
     #define FU_ENGINE_ASSERT(x, ...)
 #endif
-
-
-#define FU_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1) // macro to define binding for an event function within the game engine
