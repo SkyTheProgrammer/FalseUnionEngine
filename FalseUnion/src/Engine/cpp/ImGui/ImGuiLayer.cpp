@@ -1,5 +1,6 @@
 ﻿#include "fupch.h"
 #include "../../Headers/ImGui/ImGuiLayer.h"
+#include "../../Headers/ImGui/ImGuiKeyTranslator.h"
 
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
@@ -8,6 +9,8 @@
 #include "../../Headers/Core/KeyCodes.h"
 #include "../../Headers/Core/Logger.h"
 #include "glad/glad.h"
+
+#define GUIKEYINDEX(x) FUTOGUI(x)-ImGuiKey_NamedKey_BEGIN
 
 namespace FalseUnion
 {
@@ -151,12 +154,12 @@ namespace FalseUnion
     bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& event)
     {
         ImGuiIO& io = ImGui::GetIO();
-        io.AddKeyEvent(static_cast<ImGuiKey>(event.GetKeyCode()), true);
+        io.KeysData[GUIKEYINDEX(event.GetKeyCode())].Down = true;
 
-        io.KeyCtrl = io.KeysData[FU_KEY_LEFT_CONTROL].Down || io.KeysData[FU_KEY_RIGHT_CONTROL].Down;
-        io.KeyAlt = io.KeysData[FU_KEY_LEFT_ALT].Down || io.KeysData[FU_KEY_RIGHT_ALT].Down;
-        io.KeyShift = io.KeysData[FU_KEY_LEFT_SHIFT].Down || io.KeysData[FU_KEY_RIGHT_SHIFT].Down;
-        io.KeySuper = io.KeysData[FU_KEY_LEFT_SUPER].Down || io.KeysData[FU_KEY_RIGHT_SUPER].Down;
+        io.KeyCtrl = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_CONTROL)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_CONTROL)].Down;
+        io.KeyAlt = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_ALT)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_ALT)].Down;
+        io.KeyShift = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_SHIFT)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_SHIFT)].Down;
+        io.KeySuper = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_SUPER)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_SUPER)].Down;
 
         
         return false;
@@ -170,12 +173,12 @@ namespace FalseUnion
     bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& event)
     {
         ImGuiIO& io = ImGui::GetIO();
-        io.AddKeyEvent(static_cast<ImGuiKey>(event.GetKeyCode()), false);
+        io.KeysData[GUIKEYINDEX(event.GetKeyCode())].Down = false;
 
-        io.KeyCtrl = io.KeysData[FU_KEY_LEFT_CONTROL].Down || io.KeysData[FU_KEY_RIGHT_CONTROL].Down;
-        io.KeyAlt = io.KeysData[FU_KEY_LEFT_ALT].Down || io.KeysData[FU_KEY_RIGHT_ALT].Down;
-        io.KeyShift = io.KeysData[FU_KEY_LEFT_SHIFT].Down || io.KeysData[FU_KEY_RIGHT_SHIFT].Down;
-        io.KeySuper = io.KeysData[FU_KEY_LEFT_SUPER].Down || io.KeysData[FU_KEY_RIGHT_SUPER].Down;
+        io.KeyCtrl = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_CONTROL)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_CONTROL)].Down;
+        io.KeyAlt = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_ALT)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_ALT)].Down;
+        io.KeyShift = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_SHIFT)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_SHIFT)].Down;
+        io.KeySuper = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_SUPER)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_SUPER)].Down;
 
         
         return false;
