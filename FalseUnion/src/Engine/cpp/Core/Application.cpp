@@ -8,6 +8,7 @@
 #include "../../Headers/Events/ApplicationEvent.h"
 #include "../../Headers/Events/MouseEvent.h"
 #include "../../Headers/Events/KeyEvent.h"
+#include "../../Headers/Input/InputManager.h"
 #include "glad/glad.h"
 
 namespace FalseUnion

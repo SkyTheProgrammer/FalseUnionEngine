@@ -44,7 +44,13 @@ namespace FalseUnion
         bool IsVSync() const override
         {
             return m_Data.VSync;
-        }; 
+        };
+        
+        /// <summary>
+        /// Returns a pointer to the glfw native window
+        /// </summary>
+        /// @returns pointer to the native glfw window
+        virtual void* GetNativeWindow() const override {return m_Window;}
 
     private:
         virtual void Init(const WindowProperties& props); // virtual initializer with param for WindowPropteries reference

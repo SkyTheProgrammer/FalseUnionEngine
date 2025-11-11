@@ -12,6 +12,7 @@
     #error FalseUnion only supports windows.
 #endif
 
+
 #ifdef FU_ENABLE_ASSERTS
     #define FU_CLIENT_ASSERT(x, ...) {if(!(x)){ FU_CLIENT_ERROR("Assertion failed: " + __VA_ARGS__); __debugbreak; } }
     #define FU_ENGINE_ASSERT(x, ...) {if(!(x)){ FU_ENGINE_ERROR("Assertion failed: " + __VA_ARGS__); __debugbreak; } }

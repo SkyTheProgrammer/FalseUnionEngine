@@ -7,6 +7,8 @@
 #include "../../Headers/Events/MouseEvent.h"
 #include "../../Headers/Events/ApplicationEvent.h"
 
+#include "../../Headers/Platform/WindowsInput.h"
+
 #include <Glad/glad.h>
 #include <GLFW/glfw3.h>
 

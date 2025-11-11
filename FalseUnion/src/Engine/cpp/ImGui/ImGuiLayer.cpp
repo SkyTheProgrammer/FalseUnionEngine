@@ -155,6 +155,7 @@ namespace FalseUnion
     {
         ImGuiIO& io = ImGui::GetIO();
         io.KeysData[GUIKEYINDEX(event.GetKeyCode())].Down = true;
+        // io.KeysEvent doesnt seem to work and as such things like ctrl A dont work.
 
         io.KeyCtrl = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_CONTROL)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_CONTROL)].Down;
         io.KeyAlt = io.KeysData[GUIKEYINDEX(FU_KEY_LEFT_ALT)].Down || io.KeysData[GUIKEYINDEX(FU_KEY_RIGHT_ALT)].Down;

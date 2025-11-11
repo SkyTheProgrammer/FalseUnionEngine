@@ -20,7 +20,8 @@ include "FalseUnion/vendor/imgui" -- includes ImGui's premake.
 project "FalseUnion" -- defines the FalseUnion part of the project
     location "FalseUnion" -- defines its location
     kind "SharedLib" -- says it a library
-    language "C++" -- says its in c++
+    language "C++"                                                  -- says its in c++
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -39,7 +40,7 @@ dependson -- should be self explanitory
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
     } -- targets any header and c++ file in src folder
     
     includedirs
@@ -59,7 +60,6 @@ dependson -- should be self explanitory
     
     filter "system:windows" -- filters for windows system
         cppdialect "c++20" -- makes sure you have the right c++ version
-        staticruntime "Off" -- makes runtime not static
         systemversion "latest" -- defines lastest system version, don't know why latest isnt implicite but breaks otherwise.
 
         defines
@@ -71,26 +71,27 @@ dependson -- should be self explanitory
 -- These just define the different macros I set up for specific build types and specifics for how the program should act while in that type--
     filter "configurations:Debug" -- build type filter
         defines "FU_DEBUG" -- defines important things for build type, in this case the debug macro.
-        buildoptions "/MDd" -- defines build option in this case debug dll
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "FU_RELEASE"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "FU_DIST"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
-        buildoptions "/MD"
+        runtime "Release"
 
 project "Sandbox" -- looks at the sandbox/client portion of my code
     location "Sandbox" -- defines location
     kind "ConsoleApp" -- says its an executable
-    language "C++" -- defines its language
+    language "C++"    -- defines its language
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -114,7 +115,7 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
     
     filter "system:windows" -- same filter
         cppdialect "c++20"
-        staticruntime "Off"
+        
         systemversion "latest"
 
         defines
@@ -130,17 +131,17 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
 -- Same Filter build definitions as above --    
     filter "configurations:Debug"
         defines "FU_DEBUG"
-        buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "FU_RELEASE"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "FU_DIST"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
