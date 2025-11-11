@@ -4,3 +4,6 @@
 [submodule "FalseUnion/vendor/GLFW"]
 	path = FalseUnion/vendor/GLFW
 	url = https://github.com/SkyTheProgrammer/glfw
+[submodule "FalseUnion/vendor/glm"]
+	path = FalseUnion/vendor/glm
+	url = https://github.com/g-truc/glm

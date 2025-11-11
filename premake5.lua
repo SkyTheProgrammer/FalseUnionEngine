@@ -12,6 +12,7 @@ IncludeDir = {} -- Defines variable to hold includes
 IncludeDir["GLFW"] = "FalseUnion/vendor/GLFW/include"           -- defines glfw's include in include variable.
 IncludeDir["Glad"] = "FalseUnion/vendor/Glad/include"           -- defines glad's include in include variable.
 IncludeDir["ImGui"] = "FalseUnion/vendor/imgui"                 -- defines imgui's include in the include variable.
+IncludeDir["glm"] = "FalseUnion/vendor/glm"                    -- defines glm's include in the include variable.
 
 include "FalseUnion/vendor/GLFW" -- includes GLFW's premake.
 include "FalseUnion/vendor/Glad" -- includes Glad's premake.
@@ -20,7 +21,7 @@ include "FalseUnion/vendor/imgui" -- includes ImGui's premake.
 project "FalseUnion" -- defines the FalseUnion part of the project
     location "FalseUnion" -- defines its location
     kind "SharedLib" -- says it a library
-    language "C++"                                                  -- says its in c++
+    language "C++"  -- says its in c++
     staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
@@ -29,7 +30,7 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     pchheader "fupch.h" -- defines the location of the precompiled header
     pchsource "FalseUnion/src/fupch.cpp" -- tells program we are using pch and this is its source
 
-dependson -- should be self explanitory
+    dependson -- should be self explanitory
     { 
         "GLFW",
         "Glad",
@@ -41,13 +42,16 @@ dependson -- should be self explanitory
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/gml/glm/**.hpp",
+        "%{prj.name}/vendor/gml/glm/**.inl",
     } -- targets any header and c++ file in src folder
     
     includedirs
-{
+    {
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}",
     } -- included directories for FalseUnion
     
     links
@@ -104,8 +108,9 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
 
     includedirs
     {
-        "FalseUnion/src"
-    } -- makes sure it includes FalseUnions src dir
+        "FalseUnion/src",
+        "%{IncludeDir.glm}",
+    } -- Includes dirs needed to run.
 
     links
     {

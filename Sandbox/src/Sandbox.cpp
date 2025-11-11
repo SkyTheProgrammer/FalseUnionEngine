@@ -1,6 +1,5 @@
 #include "FalseUnion.h"
 
-
 class TestLayer : public FalseUnion::Layer
 {
 public:
