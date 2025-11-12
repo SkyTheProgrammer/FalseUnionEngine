@@ -26,6 +26,10 @@ namespace FalseUnion
         s_Instance = this;
         m_Window = std::unique_ptr<Window>(Window::Create());
         m_Window->SetEventCallback(BIND_EVENT_FN(windowOnEvent));
+
+        m_ImGuiLayer = new ImGuiLayer();
+
+        PushOverlay(m_ImGuiLayer);
         //m_renderer = new Renderer();
         //m_inputManager = new InputManager();
         m_LastFrameTime = 0.0f;
@@ -70,11 +74,16 @@ namespace FalseUnion
             glClearColor(1.0f, 0.3f, 1.0f, 1.0f); // just a bit of fun to see if i can colour the background.
             glClear(GL_COLOR_BUFFER_BIT);
 
+            
+            m_ImGuiLayer->Begin();
             for (Layer* layer : m_LayerStack) // foreach for layer in stack
             {
-                layer->OnUpdate(); // runs layers on update
+                layer->OnImGuiRender(); // runs layers on update
             }
+            m_ImGuiLayer->End();
+            
             m_Window->OnUpdate(); // runs windows on update
+            
         }
     }
 

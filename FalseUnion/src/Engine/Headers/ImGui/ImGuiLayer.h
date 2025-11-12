@@ -14,19 +14,22 @@ namespace FalseUnion{
         ~ImGuiLayer() override; // Destructor for ImGui
 
 
-        void OnAttach() override; // Declaration for ImGuiLayer's override of on attach method
-        void OnDetach() override; // Declaration for ImGuiLayer's override of on detach method
-        void OnUpdate() override; // Declaration for ImGuiLayer's override of on update method
-        void OnEvent(Event& event) override; // Declaration for ImGuiLayer's override of on event method
+        virtual void OnAttach() override; // Declaration for ImGuiLayer's override of on attach method
+        virtual void OnDetach() override; // Declaration for ImGuiLayer's override of on detach method
+        virtual void OnImGuiRender() override;
+        // virtual void OnUpdate() override; // Declaration for ImGuiLayer's override of on update method
+        void Begin();
+        void End();
+        // void OnEvent(Event& event) override; // Declaration for ImGuiLayer's override of on event method
     private:
-        bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& event);
-        bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event);
-        bool OnMouseMovedEvent(MouseMovedEvent& event);
-        bool OnMouseScrolledEvent(MouseScrolledEvent& event);
-        bool OnKeyPressedEvent(KeyPressedEvent& event);
-        bool OnKeyReleasedEvent(KeyReleasedEvent& event);
-        bool OnKeyTypedEvent(KeyTypedEvent& event);
-        bool OnWindowResizeEvent(WindowResizeEvent& event);
+        // bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& event);
+        // bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event);
+        // bool OnMouseMovedEvent(MouseMovedEvent& event);
+        // bool OnMouseScrolledEvent(MouseScrolledEvent& event);
+        // bool OnKeyPressedEvent(KeyPressedEvent& event);
+        // bool OnKeyReleasedEvent(KeyReleasedEvent& event);
+        // bool OnKeyTypedEvent(KeyTypedEvent& event);
+        // bool OnWindowResizeEvent(WindowResizeEvent& event);
         
         float m_Time = 0.0f;
     };

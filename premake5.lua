@@ -20,9 +20,10 @@ include "FalseUnion/vendor/imgui" -- includes ImGui's premake.
     
 project "FalseUnion" -- defines the FalseUnion part of the project
     location "FalseUnion" -- defines its location
-    kind "SharedLib" -- says it a library
-    language "C++"  -- says its in c++
-    staticruntime "off"
+    kind "StaticLib" -- says it a library
+    language "C++" -- says its in c++
+    cppdialect "c++20" -- makes sure you have the right c++ version
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -46,6 +47,11 @@ project "FalseUnion" -- defines the FalseUnion part of the project
         "%{prj.name}/vendor/gml/glm/**.inl",
     } -- targets any header and c++ file in src folder
     
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
+    }
+    
     includedirs
     {
         "%{IncludeDir.GLFW}",
@@ -63,7 +69,6 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     } -- links to other librarys
     
     filter "system:windows" -- filters for windows system
-        cppdialect "c++20" -- makes sure you have the right c++ version
         systemversion "latest" -- defines lastest system version, don't know why latest isnt implicite but breaks otherwise.
 
         defines
@@ -95,7 +100,7 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
     location "Sandbox" -- defines location
     kind "ConsoleApp" -- says its an executable
     language "C++"    -- defines its language
-    staticruntime "off"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -128,26 +133,18 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
             "FU_PLATFORM_WINDOWS"
         } -- macro for windows
 
-        postbuildcommands
-                 {
-                            
-                    "{COPY} \"../bin/" .. outputdir .. "/FalseUnion/FalseUnion.dll\" \"%{cfg.targetdir}\""
-                } -- defines a post build command to move false unions dll such that it shares a directory with this exe 
 -- Same Filter build definitions as above --    
     filter "configurations:Debug"
         defines "FU_DEBUG"
         runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter "configurations:Release"
         defines "FU_RELEASE"
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "FU_DIST"
         runtime "Release"
-        optimize "On"
-
-    filter {"system:windows", "configurations:Release"}
-        buildoptions "/MT"
+        optimize "on"

@@ -4,3 +4,7 @@
 [submodule "FalseUnion/vendor/glm"]
 	path = FalseUnion/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "FalseUnion/vendor/imgui"]
+	path = FalseUnion/vendor/imgui
+	url = https://github.com/SkyTheProgrammer/imgui
+	branch = docking

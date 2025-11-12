@@ -10,6 +10,7 @@
 #include "../Core/Core.h"
 #include "../Events/ApplicationEvent.h"
 #include "../Layer/LayerStack.h"
+#include "../ImGui/ImGuiLayer.h"
 
 
 namespace FalseUnion
@@ -34,6 +35,7 @@ namespace FalseUnion
     private:
         static Application* s_Instance; // applications current instance.
         std::unique_ptr<Window> m_Window;
+        ImGuiLayer* m_ImGuiLayer;
         bool m_Running; // bool for if application is running.
         bool OnWindowClosed(WindowCloseEvent& e); // method to bind window closed event.
         float m_LastFrameTime; // float for the time it took the last frame to generate.

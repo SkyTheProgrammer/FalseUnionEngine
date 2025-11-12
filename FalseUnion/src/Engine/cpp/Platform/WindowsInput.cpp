@@ -25,13 +25,13 @@ namespace FalseUnion
     float WindowsInput::GetMouseXImpl()
     {
         auto[x,y] = GetMousePositionImpl();
-        return static_cast<float>(x);
+        return x;
     }
     
     float WindowsInput::GetMouseYImpl()
     {
         auto[x,y] = GetMousePositionImpl();
-        return static_cast<float>(y);
+        return y;
     }
 
     std::pair<float, float> WindowsInput::GetMousePositionImpl()
@@ -40,6 +40,6 @@ namespace FalseUnion
         double x, y;
         glfwGetCursorPos(window, &x, &y);
 
-        return {x,y};
+        return {static_cast<float>(x),static_cast<float>(y)};
     }
 }

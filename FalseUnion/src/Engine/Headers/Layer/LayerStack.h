@@ -22,7 +22,6 @@ namespace FalseUnion
 
     private:
         std::vector<Layer*> m_Layers; // vector storing new layers
-        std::vector<Layer*>::iterator m_LayerInsert; // manager for vectors ensuring proper placement.
-        // ^ this is such a cool data structure
+        unsigned int m_LayerInsertIndex = 0; // declares the Layer insert index and sets it to 0
     };
 }
