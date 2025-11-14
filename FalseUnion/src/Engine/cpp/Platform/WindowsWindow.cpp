@@ -9,6 +9,8 @@
 
 #include "../../Headers/Platform/WindowsInput.h"
 
+#include "../../Headers/Platform/OpenGL/OpenGLContext.h"
+
 #include <Glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -56,6 +58,7 @@ namespace FalseUnion
             "creating window " + props.Title + " (" + std::to_string(props.Width) + ", " + std::to_string(props.Height)
             + ")");
 
+
         if (!GLFWInitialized)
         {
             glfwSetErrorCallback(GLFWErrorCallback);
@@ -67,13 +70,11 @@ namespace FalseUnion
 
             GLFWInitialized = true;
         }
-
         m_Window = glfwCreateWindow(static_cast<int>(props.Width), static_cast<int>(props.Height), m_Data.Title.c_str(),
                                     nullptr, nullptr);
-        glfwMakeContextCurrent(m_Window);
 
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        FU_ENGINE_ASSERT(status, "Couldn't initalize glad.")
+        m_Context = new OpenGLContext(m_Window);
+        m_Context->Init();
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
 
@@ -179,7 +180,8 @@ namespace FalseUnion
     void WindowsWindow::OnUpdate()
     {
         glfwPollEvents();
-        glfwSwapBuffers(m_Window);
+        m_Context->SwapBuffers();
+        
     }
 
     /// <summary>
