@@ -19,6 +19,7 @@ namespace FalseUnion
         virtual void OnAttach() {} // to be used to attach layers
         virtual void OnDetach() {} // to be used to detach layers
         virtual void OnUpdate() {} // to be called on app update
+        virtual void OnImGuiRender() {} // to be call on ImGui Render.
         virtual void OnEvent(Event& event) {} // Layers on event binding function thing.
 
         const std::string& GetName() const { return m_DebugName; } // GetName mainly used for debug.

@@ -1,6 +1,5 @@
 #include "FalseUnion.h"
 
-
 class TestLayer : public FalseUnion::Layer
 {
 public:
@@ -22,9 +21,7 @@ class Sandbox : public FalseUnion::Application //defines sandboxes extention of 
     public:
     Sandbox()
     {
-        PushLayer(new TestLayer());
-
-        PushOverlay(new FalseUnion::ImGuiLayer());
+            
     }
 
     ~Sandbox()
