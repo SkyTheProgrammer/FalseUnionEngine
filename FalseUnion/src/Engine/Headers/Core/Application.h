@@ -40,6 +40,8 @@ namespace FalseUnion
         bool OnWindowClosed(WindowCloseEvent& e); // method to bind window closed event.
         float m_LastFrameTime; // float for the time it took the last frame to generate.
         LayerStack m_LayerStack; // Layer stack for the given application.
+
+        unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
     };
 
     Application* CreateApplication(); // declaration for create method to be used in client
