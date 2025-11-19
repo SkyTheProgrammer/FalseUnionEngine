@@ -5,101 +5,142 @@
 #include "fupch.h"
 #include "../../Headers/Graphics/Shader.h"
 
+#include "glad/glad.h"
+#include "../../Headers/Core/Core.h"
+#include "../../Headers/Core/Logger.h"
+
 namespace FalseUnion
 {
-    /// <summary>
-    /// Default shader constructor, assigns its id to be 0
-    /// </summary>
-    Shader::Shader()
+    Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc)
     {
-        m_ShaderID = 0;
+        /*
+        ### v this code is taken directly from the open gl wiki and can be found here https://wikis.khronos.org/opengl/Shader_Compilation#Shader_object_compilation v ###
+        */
+
+
+        // Create an empty vertex shader handle
+        GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+        // Send the vertex shader source code to GL
+        // Note that std::string's .c_str is NULL character terminated.
+        const GLchar* source = (const GLchar*)vertexSrc.c_str();
+        glShaderSource(vertexShader, 1, &source, 0);
+
+        // Compile the vertex shader
+        glCompileShader(vertexShader);
+
+        GLint isCompiled = 0;
+        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &isCompiled);
+        if (isCompiled == GL_FALSE)
+        {
+            GLint maxLength = 0;
+            glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+            // The maxLength includes the NULL character
+            std::vector<GLchar> infoLog(maxLength);
+            glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &infoLog[0]);
+
+            // We don't need the shader anymore.
+            glDeleteShader(vertexShader);
+
+            FU_ENGINE_ERROR("Vertex shader compilation failure!");
+            std::string infoLogString(infoLog.begin(), infoLog.end());
+            FU_ENGINE_ERROR("Vertex Log Info: " + infoLogString);
+            FU_ENGINE_ASSERT(false, "Vertex Crash");
+            return;
+        }
+
+        // Create an empty fragment shader handle
+        GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+        // Send the fragment shader source code to GL
+        // Note that std::string's .c_str is NULL character terminated.
+        source = fragmentSrc.c_str();
+        glShaderSource(fragmentShader, 1, &source, 0);
+
+        // Compile the fragment shader
+        glCompileShader(fragmentShader);
+
+        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &isCompiled);
+        if (isCompiled == GL_FALSE)
+        {
+            GLint maxLength = 0;
+            glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+            // The maxLength includes the NULL character
+            std::vector<GLchar> infoLog(maxLength);
+            glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &infoLog[0]);
+
+            // We don't need the shader anymore.
+            glDeleteShader(fragmentShader);
+            // Either of them. Don't leak shaders.
+            glDeleteShader(vertexShader);
+
+            FU_ENGINE_ERROR("Fragment shader compilation failure!");
+            std::string infoLogString(infoLog.begin(), infoLog.end());
+            FU_ENGINE_ERROR("Fragment Shader Log Info: " + infoLogString);
+            FU_ENGINE_ASSERT(false, "Fragment Crash");
+            return;
+        }
+
+        // Vertex and fragment shaders are successfully compiled.
+        // Now time to link them together into a program.
+        // Get a program object.
+        m_RendererID = glCreateProgram();
+        GLuint program = m_RendererID;
+        // Attach our shaders to our program
+        glAttachShader(program, vertexShader);
+        glAttachShader(program, fragmentShader);
+
+        // Link our program
+        glLinkProgram(program);
+
+        // Note the different functions here: glGetProgram* instead of glGetShader*.
+        GLint isLinked = 0;
+        glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
+        if (isLinked == GL_FALSE)
+        {
+            GLint maxLength = 0;
+            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+
+            // The maxLength includes the NULL character
+            std::vector<GLchar> infoLog(maxLength);
+            glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
+
+            // We don't need the program anymore.
+            glDeleteProgram(program);
+            // Don't leak shaders either.
+            glDeleteShader(vertexShader);
+            glDeleteShader(fragmentShader);
+
+
+            FU_ENGINE_ERROR("Program Linking Failure!");
+            std::string infoLogString(infoLog.begin(), infoLog.end());
+            FU_ENGINE_ERROR("Program Linking Log Info: " + infoLogString);
+            return;
+        }
+
+        // Always detach shaders after a successful link.
+        glDetachShader(program, vertexShader);
+        glDetachShader(program, fragmentShader);
+        /*
+        ### ^ this code is taken directly from the open gl wiki and can be found here https://wikis.khronos.org/opengl/Shader_Compilation#Shader_object_compilation ^ ###
+        i added a few minor things and changed a few variables names.
+         */
     }
 
-    /// <summary>
-    /// Default deconstructor for use in case of inheritance.
-    /// </summary>
-    Shader::~Shader() = default;
-
-
-    /// <summary>
-    /// Shader constructor that intakes and sets a shaders id.
-    /// </summary>
-    /// @param id int, to be set to shaders id
-    Shader::Shader(int id)
+    Shader::~Shader()
     {
-        m_ShaderID = id;
+        glDeleteProgram(m_RendererID);
     }
 
-    /// <summary>
-    /// Binds a shader to object.
-    /// </summary>
-    void Shader::Bind()
+    void Shader::Bind() const
     {
+        glUseProgram(m_RendererID);
     }
 
-    /// <summary>
-    /// unbinds a shader from an object.
-    /// </summary>
-    void Shader::Unbind()
+    void Shader::Unbind() const
     {
-    }
-
-    /// <summary>
-    /// Sets a shaders uniform given a name.
-    /// </summary>
-    void Shader::SetUniform(const std::string* name)
-    {
-    }
-
-    /// <summary>
-    /// Sets a shaders uniform location given a name and id.
-    /// </summary>
-    /// @param name string, to be set to shaders name in uniform
-    /// @param value int, to be set to shaders id in uniform
-    void Shader::SetUniform(const std::string* name, int value)
-    {
-        
-    }
-
-    /// <summary>
-    /// returns the int value for a shaders location in the uniform list based on its name.
-    /// </summary>
-    /// @param name string, name to search for in uniform list.
-    /// @returns int representing the location of shader in uniform list
-    int Shader::GetUniformLocation(const std::string& name)
-    {
-        return 0;
-    }
-
-    /// <summary>
-    /// returns the int value for a shaders location in the uniform list based on its id.
-    /// </summary>
-    /// @param id int, id to search for in the uniform list.
-    /// @returns int representing the location of shader in uniform list
-    int Shader::GetUniformLocation(const int id)
-    {
-        return 0;
-    }
-
-    /// <summary>
-    /// Returns int based on if the shader compiled. takes in type of compile and name of shader.
-    /// </summary>
-    /// @param type int, representing the type of compile.
-    /// @param source string, representing the shaders name.
-    /// @returns int representing the status of shader compilation
-    int Shader::CompileShader(int type, const std::string* source)
-    {
-        return 0;
-    }
-
-    /// <summary>
-    /// Returns int based on if the shader compiled. takes in the type of compile and the id of shader.
-    /// </summary>
-    /// @param type int, representing the type of compile.
-    /// @param id int, representing the shaders name.
-    /// @returns int representing the status of shader compilation
-    int Shader::CompileShader(int type, const int id)
-    {
-        return 0;
+        glUseProgram(0);
     }
 }
