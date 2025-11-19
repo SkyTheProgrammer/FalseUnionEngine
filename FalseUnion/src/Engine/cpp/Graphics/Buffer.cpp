@@ -15,6 +15,8 @@ namespace FalseUnion
             FU_ENGINE_ASSERT(false, "RendererAPI::None is currently not supported!") return nullptr;
         case RendererAPI::OpenGL:
             return new OpenGLVertexBuffer(vertices, size);
+        default:
+            FU_ENGINE_ASSERT(false, "Unknown RendererAPI!") return nullptr;
         }
     }
 
@@ -26,7 +28,8 @@ namespace FalseUnion
             FU_ENGINE_ASSERT(false, "RendererAPI::None is currently not supported!") return nullptr;
         case RendererAPI::OpenGL:
             return new OpenGLIndexBuffer(indices, size);
-        
+        default:
+            FU_ENGINE_ASSERT(false, "Unknown RendererAPI!") return nullptr;
         }
     }
 }
