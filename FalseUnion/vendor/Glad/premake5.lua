@@ -21,12 +21,12 @@ project "Glad"
 
 	filter "configurations:Release"
 		runtime "Release"
-		optimize "speed"
+		optimize "on"
 
     filter "configurations:Dist"
 		runtime "Release"
 		optimize "speed"
-        symbols "off"
+        symbols "on"
            
     filter {"system:windows", "configurations:Release"}
             buildoptions "/MT"
