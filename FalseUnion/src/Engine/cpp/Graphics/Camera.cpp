@@ -12,11 +12,11 @@ namespace FalseUnion
     /// </summary>
     Camera::Camera()
     {
-        m_viewSize = Vector2<float>(0,0);
-        m_position = Vector2<float>(0,0);
+       // m_viewSize = Vector2<float>(0,0);
+        //m_position = Vector2<float>(0,0);
         m_rotation = 0;
         m_zoom = 1;
-        m_projectionSize = Vector2<float>(0,0);
+        //m_projectionSize = Vector2<float>(0,0);
     }
 
     /// <summary>
@@ -33,21 +33,21 @@ namespace FalseUnion
     /// @param height float, representing the to be height of the camera
     Camera::Camera(float x, float y, float width, float height)
     {
-        m_viewSize = Vector2(width,height);
-        m_position = Vector2(x,y);
+        //m_viewSize = Vector2(width,height);
+       // m_position = Vector2(x,y);
         m_rotation = 0;
         m_zoom = 1;
-        m_projectionSize = Vector2<float>(0,0);
+        //m_projectionSize = Vector2<float>(0,0);
     }
     /// <summary>
     /// Sets the position of camera based off of parameters.
     /// </summary>
     /// @param x float representing the to be x coordinate of camera
     /// @param y float representing the to be y coordinate of camera
-    void Camera::SetPosition(float x, float y)
-    {
-        m_position = Vector2(x,y);
-    }
+    // void Camera::SetPosition(float x, float y)
+    // {
+    //     //m_position = Vector2(x,y);
+    // }
 
     /// <summary>
     /// Sets the rotation of camera based off of parameter.
@@ -70,10 +70,10 @@ namespace FalseUnion
     /// Returns the position of the camera as a Vector2
     /// </summary>
     /// @returns Vector2 position of camera
-    Vector2<float> Camera::GetPosition()
-    {
-        return m_position;
-    }
+    // Vector2<float> Camera::GetPosition()
+    // {
+    //     return m_position;
+    // }
 
     /// <summary>
     /// Returns the rotation of the camera as a float
@@ -88,17 +88,17 @@ namespace FalseUnion
     /// Returns the size of the camera as a Vector2
     /// </summary>
     /// @returns Vector2 size of camera
-    Vector2<float> Camera::GetViewSize()
-    {
-        return m_viewSize;
-    }
+    // Vector2<float> Camera::GetViewSize()
+    // {
+    //     return m_viewSize;
+    // }
     
     /// <summary>
     /// Returns the projection size of the camera as a Vector2
     /// </summary>
     /// @returns Vector2 projection size of camera
-    Vector2<float> Camera::GetProjection()
-    {
-        return m_projectionSize;
-    }
+    // Vector2<float> Camera::GetProjection()
+    // {
+    //     return m_projectionSize;
+    // }
 }

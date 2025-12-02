@@ -2,6 +2,8 @@
 #include "../Core/Window.h"
 #include "GLFW/glfw3.h"
 
+#include "../../Headers/Graphics/GraphicsContext.h"
+
 namespace FalseUnion
 {
     class WindowsWindow : public Window // defines this class as a child of window
@@ -44,12 +46,19 @@ namespace FalseUnion
         bool IsVSync() const override
         {
             return m_Data.VSync;
-        }; 
+        };
+        
+        /// <summary>
+        /// Returns a pointer to the glfw native window
+        /// </summary>
+        /// @returns pointer to the native glfw window
+        virtual void* GetNativeWindow() const override {return m_Window;}
 
     private:
         virtual void Init(const WindowProperties& props); // virtual initializer with param for WindowPropteries reference
         virtual void Shutdown(); // declaration for  Virtual shutdown function
         GLFWwindow* m_Window; // pointer to window.
+        GraphicsContext* m_Context;
 
         struct WindowData // struct to help manage grouped window variables.
         {

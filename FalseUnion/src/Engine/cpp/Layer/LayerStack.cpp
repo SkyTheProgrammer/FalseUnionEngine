@@ -11,11 +11,10 @@
  namespace FalseUnion
  {
      /// <summary>
-     /// Constructor for lay stack. sets layer insert to Layers begin.
+     /// Constructor for lay stack.
      /// </summary>
      LayerStack::LayerStack()
      {
-         m_LayerInsert = m_Layers.begin();
      }
 
      /// <summary>
@@ -33,7 +32,8 @@
      /// @param layer Layer*, layer to be inserted into layers.
      void LayerStack::PushLayer(Layer* layer)
      {
-         m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
+        m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
+         m_LayerInsertIndex++;
      }
 
      /// <summary>
@@ -55,7 +55,7 @@
          if (deleteLayer != m_Layers.end())
          {
              m_Layers.erase(deleteLayer);
-             m_LayerInsert--;
+             m_LayerInsertIndex--;
          }
      }
 

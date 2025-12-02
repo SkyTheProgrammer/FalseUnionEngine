@@ -12,6 +12,7 @@ IncludeDir = {} -- Defines variable to hold includes
 IncludeDir["GLFW"] = "FalseUnion/vendor/GLFW/include"           -- defines glfw's include in include variable.
 IncludeDir["Glad"] = "FalseUnion/vendor/Glad/include"           -- defines glad's include in include variable.
 IncludeDir["ImGui"] = "FalseUnion/vendor/imgui"                 -- defines imgui's include in the include variable.
+IncludeDir["glm"] = "FalseUnion/vendor/glm"                    -- defines glm's include in the include variable.
 
 include "FalseUnion/vendor/GLFW" -- includes GLFW's premake.
 include "FalseUnion/vendor/Glad" -- includes Glad's premake.
@@ -19,8 +20,10 @@ include "FalseUnion/vendor/imgui" -- includes ImGui's premake.
     
 project "FalseUnion" -- defines the FalseUnion part of the project
     location "FalseUnion" -- defines its location
-    kind "SharedLib" -- says it a library
+    kind "StaticLib" -- says it a library
     language "C++" -- says its in c++
+    cppdialect "c++20" -- makes sure you have the right c++ version
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -28,7 +31,7 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     pchheader "fupch.h" -- defines the location of the precompiled header
     pchsource "FalseUnion/src/fupch.cpp" -- tells program we are using pch and this is its source
 
-dependson -- should be self explanitory
+    dependson -- should be self explanitory
     { 
         "GLFW",
         "Glad",
@@ -39,14 +42,22 @@ dependson -- should be self explanitory
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/gml/glm/**.hpp",
+        "%{prj.name}/vendor/gml/glm/**.inl",
     } -- targets any header and c++ file in src folder
     
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
+    }
+    
     includedirs
-{
+    {
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}",
     } -- included directories for FalseUnion
     
     links
@@ -58,8 +69,6 @@ dependson -- should be self explanitory
     } -- links to other librarys
     
     filter "system:windows" -- filters for windows system
-        cppdialect "c++20" -- makes sure you have the right c++ version
-        staticruntime "Off" -- makes runtime not static
         systemversion "latest" -- defines lastest system version, don't know why latest isnt implicite but breaks otherwise.
 
         defines
@@ -71,26 +80,27 @@ dependson -- should be self explanitory
 -- These just define the different macros I set up for specific build types and specifics for how the program should act while in that type--
     filter "configurations:Debug" -- build type filter
         defines "FU_DEBUG" -- defines important things for build type, in this case the debug macro.
-        buildoptions "/MDd" -- defines build option in this case debug dll
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "FU_RELEASE"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "FU_DIST"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter {"system:windows", "configurations:Release"}
-        buildoptions "/MD"
+        runtime "Release"
 
 project "Sandbox" -- looks at the sandbox/client portion of my code
     location "Sandbox" -- defines location
     kind "ConsoleApp" -- says its an executable
-    language "C++" -- defines its language
+    language "C++"    -- defines its language
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}") -- the directory that has the primary output files
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -103,8 +113,9 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
 
     includedirs
     {
-        "FalseUnion/src"
-    } -- makes sure it includes FalseUnions src dir
+        "FalseUnion/src",
+        "%{IncludeDir.glm}",
+    } -- Includes dirs needed to run.
 
     links
     {
@@ -114,7 +125,7 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
     
     filter "system:windows" -- same filter
         cppdialect "c++20"
-        staticruntime "Off"
+        
         systemversion "latest"
 
         defines
@@ -122,26 +133,18 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
             "FU_PLATFORM_WINDOWS"
         } -- macro for windows
 
-        postbuildcommands
-                 {
-                            
-                    "{COPY} \"../bin/" .. outputdir .. "/FalseUnion/FalseUnion.dll\" \"%{cfg.targetdir}\""
-                } -- defines a post build command to move false unions dll such that it shares a directory with this exe 
 -- Same Filter build definitions as above --    
     filter "configurations:Debug"
         defines "FU_DEBUG"
-        buildoptions "/MDd"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
 
     filter "configurations:Release"
         defines "FU_RELEASE"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "FU_DIST"
-        buildoptions "/MD"
-        optimize "On"
-
-    filter {"system:windows", "configurations:Release"}
-        buildoptions "/MT"
+        runtime "Release"
+        optimize "on"
