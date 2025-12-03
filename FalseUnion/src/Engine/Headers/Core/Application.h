@@ -13,6 +13,7 @@
 #include "../ImGui/ImGuiLayer.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Buffer.h"
+#include "../Graphics/VertexArray.h"
 
 
 namespace FalseUnion
@@ -42,11 +43,14 @@ namespace FalseUnion
         bool OnWindowClosed(WindowCloseEvent& e); // method to bind window closed event.
         float m_LastFrameTime; // float for the time it took the last frame to generate.
         LayerStack m_LayerStack; // Layer stack for the given application.
+        
+        std::shared_ptr<Shader> m_Shader;
+        std::shared_ptr<Shader> m_Shader2;
+        std::shared_ptr<VertexBuffer> m_VertexBuffer;
+        std::shared_ptr<IndexBuffer> m_IndexBuffer;
+        std::shared_ptr<VertexArray> m_VertexArray;
 
-        unsigned int m_VertexArray;
-        std::unique_ptr<Shader> m_Shader;
-        std::unique_ptr<VertexBuffer> m_VertexBuffer;
-        std::unique_ptr<IndexBuffer> m_IndexBuffer;
+        std::shared_ptr<VertexArray> m_SquareVertexArray;
     };
 
     Application* CreateApplication(); // declaration for create method to be used in client
