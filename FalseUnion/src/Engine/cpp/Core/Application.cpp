@@ -19,26 +19,6 @@ namespace FalseUnion
 
     Application* Application::s_Instance = nullptr;
 
-    static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-    {
-        switch (type)
-        {
-        case ShaderDataType::Float: return GL_FLOAT;
-        case ShaderDataType::Float2: return GL_FLOAT;
-        case ShaderDataType::Float3: return GL_FLOAT;
-        case ShaderDataType::Float4: return GL_FLOAT;
-        case ShaderDataType::Mat3: return GL_FLOAT;
-        case ShaderDataType::Mat4: return GL_FLOAT;
-        case ShaderDataType::Int: return GL_INT;
-        case ShaderDataType::Int2: return GL_INT;
-        case ShaderDataType::Int3: return GL_INT;
-        case ShaderDataType::Int4: return GL_INT;
-        case ShaderDataType::Bool: return GL_BOOL;
-        }
-
-        FU_ENGINE_ASSERT(false, "Invalid ShaderDataType in Conversion")
-        return GL_INVALID_ENUM;
-    }
 
     /// <summary>
     /// Default application constructor, sets the instance to this application, and all variables to their default constructors.
@@ -51,14 +31,11 @@ namespace FalseUnion
         m_Window->SetEventCallback(BIND_EVENT_FN(windowOnEvent));
 
         m_ImGuiLayer = new ImGuiLayer();
-
         PushOverlay(m_ImGuiLayer);
-        //m_renderer = new Renderer();
-        //m_inputManager = new InputManager();
+
         m_LastFrameTime = 0.0f;
 
-        glGenVertexArrays(1, &m_VertexArray);
-        glBindVertexArray(m_VertexArray);
+        m_VertexArray.reset(VertexArray::Create());
 
         float vertices[3 * 7] = {
             -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
@@ -76,28 +53,31 @@ namespace FalseUnion
 
             m_VertexBuffer->SetLayout(layout);
         }
-
-        uint32_t index = 0;
-        const auto& layout = m_VertexBuffer->GetLayout();
-        for (const auto& element : layout)
-        {
-            glEnableVertexAttribArray(index);
-            glVertexAttribPointer(index,
-                             element.GetComponentCount(),
-                                  ShaderDataTypeToOpenGLBaseType(element.Type),
-                                  element.Normalized ? GL_TRUE : GL_FALSE,
-                                  layout.GetStride(),
-                                  reinterpret_cast<const void*>(element.Offset));
-            index++;
-        }
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), nullptr);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), reinterpret_cast<const void*>(12));
+        m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
         unsigned int indices[3] = {0, 1, 2};
         m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+        m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+
+        m_SquareVertexArray.reset(VertexArray::Create());
+
+        float squareVertices[3 * 4] = {
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.5f, 0.5f, 0.0f,
+            -0.5f, 0.5f, 0.0f,
+        };
+
+        std::shared_ptr<VertexBuffer> SquareVertexBuffer(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+        SquareVertexBuffer->SetLayout({
+            {ShaderDataType::Float3, "a_Position"}
+        });
+        m_SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
+
+
+        uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
+        std::shared_ptr<IndexBuffer> SquareIndexBuffer(IndexBuffer::Create(squareIndices, sizeof(squareIndices)));
+        m_SquareVertexArray->SetIndexBuffer(SquareIndexBuffer);
 
         std::string vertexSrc = R"(
         #version 330 core
@@ -131,7 +111,36 @@ namespace FalseUnion
         }
         )";
 
+        std::string vertexSrc2 = R"(
+        #version 330 core
+
+        layout(location = 0) in vec3 a_Position;
+
+        out vec3 v_Position;
+        out vec4 v_Colour;
+
+        void main()
+        {
+            v_Position = a_Position;
+            gl_Position = vec4(a_Position, 1.0);
+        }
+        )";
+
+        std::string fragmentSrc2 = R"(
+        #version 330 core
+
+        layout(location = 0) out vec4 colour;
+
+        in vec3 v_Position;
+
+        void main()
+        {
+            colour = vec4(0.2, 0.5, 0.5, 1.0);
+        }
+        )";
+
         m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+        m_Shader2.reset(new Shader(vertexSrc2, fragmentSrc2));
     }
 
     /// <summary>
@@ -173,11 +182,14 @@ namespace FalseUnion
             glClearColor(1.0f, 0.3f, 1.0f, 1.0f); // just a bit of fun to see if i can colour the background.
             glClear(GL_COLOR_BUFFER_BIT);
 
+            m_Shader2->Bind();
+            m_SquareVertexArray->Bind();
+            glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            
             m_Shader->Bind();
-            glBindVertexArray(m_VertexArray);
+            m_VertexArray->Bind();
             glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-
+            
             m_ImGuiLayer->Begin();
             for (Layer* layer : m_LayerStack) // foreach for layer in stack
             {
