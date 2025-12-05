@@ -8,7 +8,7 @@ namespace FalseUnion
     {
     public:
         OpenGLVertexArray();
-        virtual ~OpenGLVertexArray() = default;
+        virtual ~OpenGLVertexArray();
         
         void Bind() const override;
         void Unbind() const override;

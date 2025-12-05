@@ -31,6 +31,11 @@ namespace FalseUnion
         glCreateVertexArrays(1, &m_RendererID);
     }
 
+    OpenGLVertexArray::~OpenGLVertexArray()
+    {
+        glDeleteVertexArrays(1, &m_RendererID);
+    }
+
     void OpenGLVertexArray::AddVertexBuffer(std::shared_ptr<VertexBuffer> vertexBuffer)
     {
         FU_ENGINE_ASSERT(vertexBuffer->GetLayout().GetElements.size(), "Vertex Buffer has no layout");
@@ -53,6 +58,8 @@ namespace FalseUnion
         }
         m_VertexBuffers.push_back(vertexBuffer);
     }
+
+    
 
     void OpenGLVertexArray::Bind() const
     {

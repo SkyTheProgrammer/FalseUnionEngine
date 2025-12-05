@@ -9,7 +9,8 @@
 #include "../../Headers/Events/MouseEvent.h"
 #include "../../Headers/Events/KeyEvent.h"
 #include "../../Headers/Input/InputManager.h"
-#include "glad/glad.h"
+#include "../../Headers/Graphics/Renderer.h"
+
 
 namespace FalseUnion
 {
@@ -42,8 +43,8 @@ namespace FalseUnion
             0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
             0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
         };
-
-        m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+        std::shared_ptr<VertexBuffer> vertexBuffer;
+        vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
         {
             BufferLayout layout = {
@@ -51,13 +52,14 @@ namespace FalseUnion
                 {ShaderDataType::Float4, "a_Colour"},
             };
 
-            m_VertexBuffer->SetLayout(layout);
+            vertexBuffer->SetLayout(layout);
         }
-        m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+        m_VertexArray->AddVertexBuffer(vertexBuffer);
 
         unsigned int indices[3] = {0, 1, 2};
-        m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-        m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+        std::shared_ptr<IndexBuffer> indexBuffer;
+        indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+        m_VertexArray->SetIndexBuffer(indexBuffer);
 
         m_SquareVertexArray.reset(VertexArray::Create());
 
@@ -179,16 +181,20 @@ namespace FalseUnion
         m_Running = true;
         while (m_Running)
         {
-            glClearColor(1.0f, 0.3f, 1.0f, 1.0f); // just a bit of fun to see if i can colour the background.
-            glClear(GL_COLOR_BUFFER_BIT);
+            RenderCommand::SetClearColour(glm::vec4(1.0f, 0.3f, 1.0f, 1.0f));
+            RenderCommand::Clear();
 
-            m_Shader2->Bind();
-            m_SquareVertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::BeginScene();
+            {
+                m_Shader2->Bind();
+                Renderer::Submit(m_SquareVertexArray);
+
+                m_Shader->Bind();
+                Renderer::Submit(m_VertexArray);
+
+                Renderer::EndScene();
+            }
             
-            m_Shader->Bind();
-            m_VertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
             
             m_ImGuiLayer->Begin();
             for (Layer* layer : m_LayerStack) // foreach for layer in stack
