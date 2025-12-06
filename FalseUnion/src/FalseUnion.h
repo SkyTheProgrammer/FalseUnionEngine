@@ -12,4 +12,17 @@
 #include "Engine/Headers/Core/KeyCodes.h"
 #include "Engine/Headers/Core/MouseCodes.h"
 
+// ---Renderer---
+#include "Engine/Headers/Graphics/Renderer.h"
+#include "Engine/Headers/Graphics/RenderCommand.h"
+
+#include "Engine/Headers/Graphics/Buffer.h"
+#include "Engine/Headers/Graphics/RenderCommand.h"
+#include "Engine/Headers/Graphics/Shader.h"
+
+#include "Engine/Headers/Graphics/VertexArray.h"
+#include "Engine/Headers/Graphics/OrthographicCamera.h"
+//  ---
+
+
 #include "Entrypoint.h"

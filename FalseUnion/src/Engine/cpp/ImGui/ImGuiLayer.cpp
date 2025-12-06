@@ -36,19 +36,6 @@ namespace FalseUnion
     /// </summary>
     void ImGuiLayer::OnAttach()
     {
-        // //implement keycodes and an init so these work.
-        // ImGui::CreateContext();
-        // ImGui::StyleColorsDark();
-        //
-        // ImGuiIO& io = ImGui::GetIO();
-        // io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors; // bitwise or operator holy I've never seen that before.
-        // io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-        //
-        // ImGui_ImplOpenGL3_Init("#version 410");
-        // Setup Dear ImGui context
-
-        // ^legacy trying to move fully to their prebuilt renderer.
-
         if (ImGui::GetCurrentContext() != nullptr)
             return;
         
@@ -134,30 +121,30 @@ namespace FalseUnion
     /// </summary>
     // void ImGuiLayer::OnUpdate()
     // {
-    //     // ImGuiIO& io = ImGui::GetIO();
-    //     // Application& app = Application::GetApplication();
-    //     // io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
-    //     //
-    //     // float time = static_cast<float>(glfwGetTime());
-    //     // io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
-    //     // m_Time = time;
-    //     //
-    //     // // implement both new frame and render so that this has functionality next
-    //     // ImGui_ImplOpenGL3_NewFrame();
-    //     // ImGui::NewFrame();
-    //     //
-    //     // static bool show = true;
-    //     // ImGui::ShowDemoWindow(&show);
-    //     //
-    //     //
-    //     // ImGui::Render();
-    //     // ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    //     ImGuiIO& io = ImGui::GetIO();
+    //     Application& app = Application::GetApplication();
+    //     io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
+    //     
+    //     float time = static_cast<float>(glfwGetTime());
+    //     io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
+    //     m_Time = time;
+    //     
+    //     // implement both new frame and render so that this has functionality next
+    //     ImGui_ImplOpenGL3_NewFrame();
+    //     ImGui::NewFrame();
+    //     
+    //     static bool show = true;
+    //     ImGui::ShowDemoWindow(&show);
+    //     
+    //     
+    //     ImGui::Render();
+    //     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     // }
-
-    /// <summary>
-    /// ImGuiLayers on event, attempts to handle the event passed, creates the event dispatcher.
-    /// </summary>
-    /// @param event Event&, event to try and be handled.
+    //
+    // /// <summary>
+    // /// ImGuiLayers on event, attempts to handle the event passed, creates the event dispatcher.
+    // /// </summary>
+    // /// @param event Event&, event to try and be handled.
     // void ImGuiLayer::OnEvent(Event& event)
     // {
     //     EventDispatcher dispatcher(event);

@@ -14,7 +14,7 @@
 #include "../Graphics/Shader.h"
 #include "../Graphics/Buffer.h"
 #include "../Graphics/VertexArray.h"
-
+#include "../../Headers/Graphics/OrthographicCamera.h"
 
 namespace FalseUnion
 {
@@ -43,12 +43,6 @@ namespace FalseUnion
         bool OnWindowClosed(WindowCloseEvent& e); // method to bind window closed event.
         float m_LastFrameTime; // float for the time it took the last frame to generate.
         LayerStack m_LayerStack; // Layer stack for the given application.
-        
-        std::shared_ptr<Shader> m_Shader;
-        std::shared_ptr<Shader> m_Shader2;
-        std::shared_ptr<VertexArray> m_VertexArray;
-
-        std::shared_ptr<VertexArray> m_SquareVertexArray;
     };
 
     Application* CreateApplication(); // declaration for create method to be used in client
