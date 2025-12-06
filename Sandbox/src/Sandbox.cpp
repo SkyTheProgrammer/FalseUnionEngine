@@ -171,6 +171,8 @@ public:
 
             glm::vec4 redColor = glm::vec4(0.8f, 0.2f, 0.3f, 1.0f);
             glm::vec4 blueColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
+
+            
             for (int y = 0; y < 20; y++)
             {
                 for (int x = 0; x < 20; x++)
