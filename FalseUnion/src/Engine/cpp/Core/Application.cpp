@@ -10,7 +10,7 @@
 #include "../../Headers/Events/KeyEvent.h"
 #include "../../Headers/Input/InputManager.h"
 #include "../../Headers/Graphics/Renderer.h"
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 
 namespace FalseUnion
@@ -76,10 +76,12 @@ namespace FalseUnion
         m_Running = true;
         while (m_Running)
         {
-            
+            float time = glfwGetTime(); // move from this to a platform one
+            Timestep timestep = time - m_LastFrameTime;
+            m_LastFrameTime = time;
             for (Layer* layer : m_LayerStack)
             {
-                layer->OnUpdate();
+                layer->OnUpdate(timestep);
             }
             
             m_ImGuiLayer->Begin();

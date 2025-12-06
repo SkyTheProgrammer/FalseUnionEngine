@@ -16,8 +16,8 @@ namespace FalseUnion
         unsigned int Width;
         unsigned int Height;
 
-        WindowProperties(const std::string& title = "FalseUnion Engine", unsigned int width = 1280,
-                         unsigned int height = 720)
+        WindowProperties(const std::string& title = "FalseUnion Engine", unsigned int width = 1900,
+                         unsigned int height = 1200)
             : Title(title), Width(width), Height(height)
         {
         }

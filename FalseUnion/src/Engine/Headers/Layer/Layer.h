@@ -3,6 +3,8 @@
 #include "../../Headers/Core/Core.h"
 #include "../../Headers/Events/Event.h"
 #include <string>
+#include "../../Headers/Core/Timestep.h"
+
 
 namespace FalseUnion
 {
@@ -18,7 +20,7 @@ namespace FalseUnion
 
         virtual void OnAttach() {} // to be used to attach layers
         virtual void OnDetach() {} // to be used to detach layers
-        virtual void OnUpdate() {} // to be called on app update
+        virtual void OnUpdate(Timestep timestep) {} // to be called on app update
         virtual void OnImGuiRender() {} // to be call on ImGui Render.
         virtual void OnEvent(Event& event) {} // Layers on event binding function thing.
 

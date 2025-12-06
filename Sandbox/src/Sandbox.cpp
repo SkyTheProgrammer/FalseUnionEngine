@@ -1,3 +1,5 @@
+#include <glm/ext/matrix_transform.hpp>
+
 #include "FalseUnion.h"
 
 class TestLayer : public FalseUnion::Layer
@@ -59,6 +61,7 @@ public:
         layout(location = 1) in vec4 a_Colour;
 
         uniform mat4 u_ViewProjection;
+        uniform mat4 u_Transform;
 
         out vec3 v_Position;
         out vec4 v_Colour;
@@ -67,7 +70,7 @@ public:
         {
             v_Position = a_Position;
             v_Colour = a_Colour;
-            gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+            gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
         }
         )";
 
@@ -92,6 +95,7 @@ public:
         layout(location = 0) in vec3 a_Position;
 
         uniform mat4 u_ViewProjection;
+        uniform mat4 u_Transform;
 
         out vec3 v_Position;
         out vec4 v_Colour;
@@ -100,53 +104,59 @@ public:
         void main()
         {
             v_Position = a_Position;
-            gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+            gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
         }
         )";
 
-        std::string fragmentSrc2 = R"(
+        std::string flatColourShaderSrc = R"(
         #version 330 core
 
         layout(location = 0) out vec4 colour;
 
         in vec3 v_Position;
 
+        uniform vec4 u_Colour;
+
         void main()
         {
-            colour = vec4(0.2, 0.5, 0.5, 1.0);
+            colour = u_Colour;
         }
         )";
 
         m_Shader.reset(new FalseUnion::Shader(vertexSrc, fragmentSrc));
-        m_Shader2.reset(new FalseUnion::Shader(vertexSrc2, fragmentSrc2));
+        m_Shader2.reset(new FalseUnion::Shader(vertexSrc2, flatColourShaderSrc));
     }
 
-    void OnUpdate() override
+    void OnUpdate(FalseUnion::Timestep timestep) override
     {
         if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_LEFT))
         {
-            m_CameraPosition.x -= m_CameraMoveSpeed;
+            m_CameraPosition.x -= m_CameraMoveSpeed * timestep;
         }
         else if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_RIGHT))
         {
-            m_CameraPosition.x += m_CameraMoveSpeed;
+            m_CameraPosition.x += m_CameraMoveSpeed * timestep;
         }
 
         if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_UP))
         {
-            m_CameraPosition.y += m_CameraMoveSpeed;
-        }else if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_DOWN))
+            m_CameraPosition.y += m_CameraMoveSpeed * timestep;
+        }
+        else if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_DOWN))
         {
-            m_CameraPosition.y -= m_CameraMoveSpeed;
+            m_CameraPosition.y -= m_CameraMoveSpeed * timestep;
         }
 
         if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_A))
         {
-            m_CameraRotation += m_CameraRotateSpeed;
-        } else if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_D))
-        {
-            m_CameraRotation -= m_CameraRotateSpeed;
+            m_CameraRotation += m_CameraRotateSpeed * timestep;
         }
+        else if (FalseUnion::InputManager::IsKeyPressed(FU_KEY_D))
+        {
+            m_CameraRotation -= m_CameraRotateSpeed * timestep;
+        }
+
+        
 
 
         FalseUnion::RenderCommand::SetClearColour(glm::vec4(1.0f, 0.3f, 1.0f, 1.0f));
@@ -157,7 +167,28 @@ public:
 
         FalseUnion::Renderer::BeginScene(m_Camera);
         {
-            FalseUnion::Renderer::Submit(m_SquareVertexArray, m_Shader2);
+            glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+            glm::vec4 redColor = glm::vec4(0.8f, 0.2f, 0.3f, 1.0f);
+            glm::vec4 blueColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
+            for (int y = 0; y < 20; y++)
+            {
+                for (int x = 0; x < 20; x++)
+                {
+                    glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+                    glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+                    if (x % 2 ==0)
+                    {
+                        m_Shader2->UploadUniformFloat4("u_Colour", redColor);
+                    }
+                    else
+                    {
+                        m_Shader2->UploadUniformFloat4("u_Colour", blueColor);
+                    }
+                    FalseUnion::Renderer::Submit(m_SquareVertexArray, m_Shader2, transform);
+                }
+            }
+            
             FalseUnion::Renderer::Submit(m_VertexArray, m_Shader);
 
             FalseUnion::Renderer::EndScene();
@@ -184,9 +215,9 @@ private:
 
     FalseUnion::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;
-    float m_CameraMoveSpeed = 0.1f;
+    float m_CameraMoveSpeed = 1.0f;
     float m_CameraRotation = 0.0f;
-    float m_CameraRotateSpeed = 1.0f;
+    float m_CameraRotateSpeed = 180.0f;
 };
 
 class Sandbox : public FalseUnion::Application //defines sandboxes extention of application
