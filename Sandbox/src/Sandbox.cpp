@@ -1,6 +1,9 @@
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.inl>
 
 #include "FalseUnion.h"
+#include "../../FalseUnion/vendor/imgui/imgui.h"
+
 
 class TestLayer : public FalseUnion::Layer
 {
@@ -115,16 +118,16 @@ public:
 
         in vec3 v_Position;
 
-        uniform vec4 u_Colour;
+        uniform vec3 u_Colour;
 
         void main()
         {
-            colour = u_Colour;
+            colour = vec4(u_Colour, 1.0);
         }
         )";
 
-        m_Shader.reset(new FalseUnion::Shader(vertexSrc, fragmentSrc));
-        m_Shader2.reset(new FalseUnion::Shader(vertexSrc2, flatColourShaderSrc));
+        m_Shader.reset(new FalseUnion::OpenGLShader(vertexSrc, fragmentSrc));
+        m_Shader2.reset(new FalseUnion::OpenGLShader(vertexSrc2, flatColourShaderSrc));
     }
 
     void OnUpdate(FalseUnion::Timestep timestep) override
@@ -168,10 +171,10 @@ public:
         FalseUnion::Renderer::BeginScene(m_Camera);
         {
             glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+            
 
-            glm::vec4 redColor = glm::vec4(0.8f, 0.2f, 0.3f, 1.0f);
-            glm::vec4 blueColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
-
+            std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_Shader2)->Bind();
+            std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Colour", m_SquareColour);
             
             for (int y = 0; y < 20; y++)
             {
@@ -179,14 +182,6 @@ public:
                 {
                     glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
                     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-                    if (x % 2 ==0)
-                    {
-                        m_Shader2->UploadUniformFloat4("u_Colour", redColor);
-                    }
-                    else
-                    {
-                        m_Shader2->UploadUniformFloat4("u_Colour", blueColor);
-                    }
                     FalseUnion::Renderer::Submit(m_SquareVertexArray, m_Shader2, transform);
                 }
             }
@@ -195,6 +190,13 @@ public:
 
             FalseUnion::Renderer::EndScene();
         }
+    }
+
+    void OnImGuiRender() override
+    {
+        ImGui::Begin("Settings");
+        ImGui::ColorEdit3("Square Colour", glm::value_ptr(m_SquareColour));
+        ImGui::End();
     }
 
     void OnEvent(FalseUnion::Event& event) override
@@ -220,6 +222,8 @@ private:
     float m_CameraMoveSpeed = 1.0f;
     float m_CameraRotation = 0.0f;
     float m_CameraRotateSpeed = 180.0f;
+
+    glm::vec3 m_SquareColour = {0.2f, 0.3f, 0.8f};
 };
 
 class Sandbox : public FalseUnion::Application //defines sandboxes extention of application
