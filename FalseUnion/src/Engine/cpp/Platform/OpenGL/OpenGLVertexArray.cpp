@@ -36,7 +36,7 @@ namespace FalseUnion
         glDeleteVertexArrays(1, &m_RendererID);
     }
 
-    void OpenGLVertexArray::AddVertexBuffer(std::shared_ptr<VertexBuffer> vertexBuffer)
+    void OpenGLVertexArray::AddVertexBuffer(Ref<VertexBuffer> vertexBuffer)
     {
         FU_ENGINE_ASSERT(vertexBuffer->GetLayout().GetElements.size(), "Vertex Buffer has no layout");
         
@@ -71,7 +71,7 @@ namespace FalseUnion
         glBindVertexArray(0);
     }
 
-    void OpenGLVertexArray::SetIndexBuffer(std::shared_ptr<IndexBuffer> indexBuffer)
+    void OpenGLVertexArray::SetIndexBuffer(Ref<IndexBuffer> indexBuffer)
     {
         glBindVertexArray(m_RendererID);
         indexBuffer->Bind();
@@ -79,7 +79,7 @@ namespace FalseUnion
         m_IndexBuffer = indexBuffer;
     }
 
-    const std::shared_ptr<IndexBuffer>& OpenGLVertexArray::GetIndexBuffer()
+    const Ref<IndexBuffer>& OpenGLVertexArray::GetIndexBuffer()
     {
         return m_IndexBuffer;
     }

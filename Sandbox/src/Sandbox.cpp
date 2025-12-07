@@ -17,7 +17,7 @@ public:
             0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
             0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
         };
-        std::shared_ptr<FalseUnion::VertexBuffer> vertexBuffer;
+        Ref<FalseUnion::VertexBuffer> vertexBuffer;
         vertexBuffer.reset(FalseUnion::VertexBuffer::Create(vertices, sizeof(vertices)));
 
         {
@@ -31,7 +31,7 @@ public:
         m_VertexArray->AddVertexBuffer(vertexBuffer);
 
         unsigned int indices[3] = {0, 1, 2};
-        std::shared_ptr<FalseUnion::IndexBuffer> indexBuffer;
+        FalseUnion::Ref<FalseUnion::IndexBuffer> indexBuffer;
         indexBuffer.reset(FalseUnion::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
         m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -44,7 +44,7 @@ public:
             -0.5f, 0.5f, 0.0f,
         };
 
-        std::shared_ptr<FalseUnion::VertexBuffer> SquareVertexBuffer(
+        FalseUnion::Ref<FalseUnion::VertexBuffer> SquareVertexBuffer(
             FalseUnion::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
         SquareVertexBuffer->SetLayout({
             {FalseUnion::ShaderDataType::Float3, "a_Position"}
@@ -53,7 +53,7 @@ public:
 
 
         uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
-        std::shared_ptr<FalseUnion::IndexBuffer> SquareIndexBuffer(
+        FalseUnion::Ref<FalseUnion::IndexBuffer> SquareIndexBuffer(
             FalseUnion::IndexBuffer::Create(squareIndices, sizeof(squareIndices)));
         m_SquareVertexArray->SetIndexBuffer(SquareIndexBuffer);
 
@@ -211,11 +211,11 @@ public:
     }
 
 private:
-    std::shared_ptr<FalseUnion::Shader> m_Shader;
-    std::shared_ptr<FalseUnion::Shader> m_Shader2;
-    std::shared_ptr<FalseUnion::VertexArray> m_VertexArray;
+    FalseUnion::Ref<FalseUnion::Shader> m_Shader;
+    FalseUnion::Ref<FalseUnion::Shader> m_Shader2;
+    FalseUnion::Ref<FalseUnion::VertexArray> m_VertexArray;
 
-    std::shared_ptr<FalseUnion::VertexArray> m_SquareVertexArray;
+    FalseUnion::Ref<FalseUnion::VertexArray> m_SquareVertexArray;
 
     FalseUnion::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;

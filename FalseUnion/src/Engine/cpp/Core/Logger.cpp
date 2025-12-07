@@ -56,14 +56,13 @@ namespace FalseUnion
     /// </summary>
     void Logger::updateTime()
     {
-        errno_t err;
         currentTime = time(nullptr);
-        if (currentTime == (time_t)(-1))
+        if (currentTime == static_cast<time_t>(-1))
         {
             std::cout << "[FalseUnion] Error: Error Converting Time.";
             return;
         }
-        err = localtime_s(&localTime, &currentTime);
+        errno_t err = localtime_s(&localTime, &currentTime);
         if (err != 0)
         {
             std::cout << "[FalseUnion] Error: Error Converting LocalTime.";
@@ -179,7 +178,7 @@ namespace FalseUnion
     }
 
     /// <summary>
-    /// Logs an warn message to client console based off of its parameter
+    /// Logs a warn message to client console based off of its parameter
     /// </summary>
     /// @param information string, what the log should say.
     void Logger::logWarnToClient(const std::string& information)

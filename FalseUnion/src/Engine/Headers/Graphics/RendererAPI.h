@@ -21,7 +21,7 @@ namespace FalseUnion
         virtual void SetClearColor(const glm::vec4& color);
         virtual void Clear();
 
-        virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray);
+        virtual void DrawIndexed(const Ref<VertexArray>& vertexArray);
         static API GetAPI() { return s_API; }
 
     private:

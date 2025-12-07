@@ -12,13 +12,13 @@ namespace FalseUnion
         
         void Bind() const override;
         void Unbind() const override;
-        void AddVertexBuffer(std::shared_ptr<VertexBuffer> vertexBuffer) override;
-        void SetIndexBuffer(std::shared_ptr<IndexBuffer> indexBuffer) override;
-        const std::shared_ptr<IndexBuffer>& GetIndexBuffer() override;
+        void AddVertexBuffer(Ref<VertexBuffer> vertexBuffer) override;
+        void SetIndexBuffer(Ref<IndexBuffer> indexBuffer) override;
+        const Ref<IndexBuffer>& GetIndexBuffer() override;
 
     private:
         uint32_t m_RendererID;
-        std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-        std::shared_ptr<IndexBuffer> m_IndexBuffer;
+        std::vector<Ref<VertexBuffer>> m_VertexBuffers;
+        Ref<IndexBuffer> m_IndexBuffer;
     };
 }

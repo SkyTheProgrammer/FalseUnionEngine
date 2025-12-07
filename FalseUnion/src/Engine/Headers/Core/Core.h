@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <memory>
+
 // sets up to build and communicate between engine and client. ensures windows only support.
 
 #ifdef FU_PLATFORM_WINDOWS
@@ -28,3 +30,14 @@
 
 
 #define FU_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1) // macro to define binding for an event function within the game engine
+
+namespace FalseUnion
+{
+    template<typename T>
+    using Scope = std::unique_ptr<T>;
+
+    template<typename T>
+    using Ref = std::shared_ptr<T>;
+
+    
+}
