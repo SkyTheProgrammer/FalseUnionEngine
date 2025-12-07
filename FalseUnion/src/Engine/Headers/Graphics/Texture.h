@@ -5,27 +5,27 @@
 
 #include <string>
 
+#include "../Core/Core.h"
+
 namespace FalseUnion
 {
     class Texture
     {
     public:
-        Texture(); // Default Constructor for texture
-        Texture(const std::string& filepath, const int id); // Constructor for texture that intakes a file path and an id.
-        Texture(const std::string& filepath, const int id, const float newWidth, const float newHeight); // Constructor for texture that intakes a filepath, id, as well as size.
-        virtual ~Texture(); // Virtual deconstructor for texture.
-        void bind(); // Bind method for texture
-        void Unbind(); //Unbind method for texture
-        float getWidth(); // Get Width Method for texture
-        float getHeight(); // Get Height Method for texture
-        int getID(); // Get ID method for texture
-        void setSize(const float newWidth, float newHeight); // sets height and width
-        void setWidth(float newWidth); // sets width
-        void setHeight(float newHeight); // sets height
+        virtual ~Texture() = default; // Virtual deconstructor for texture.
         
-    private:
-        int textureID; // Textures id
-        float width, height; // Textures width and height.
-        std::string filePath; // Textures File path
+        virtual uint32_t GetWidth() const = 0; // Get Width Method for texture
+        virtual uint32_t GetHeight() const = 0; // Get Height Method for texture
+
+        virtual void Bind(uint32_t slot = 0) const = 0; // Bind method for texture
+        
+        
     };
+
+    class Texture2D : public Texture
+    {
+    public:
+        static Ref<Texture2D> Create(const std::string path);
+    };
+    
 }

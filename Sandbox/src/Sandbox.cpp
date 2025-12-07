@@ -17,7 +17,7 @@ public:
             0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
             0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
         };
-        Ref<FalseUnion::VertexBuffer> vertexBuffer;
+        FalseUnion::Ref<FalseUnion::VertexBuffer> vertexBuffer;
         vertexBuffer.reset(FalseUnion::VertexBuffer::Create(vertices, sizeof(vertices)));
 
         {
@@ -37,17 +37,18 @@ public:
 
         m_SquareVertexArray.reset(FalseUnion::VertexArray::Create());
 
-        float squareVertices[3 * 4] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.5f, 0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f,
+        float squareVertices[5 * 4] = {
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+            0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
+            -0.5f, 0.5f, 0.0f, 0.0f, 1.0f
         };
 
         FalseUnion::Ref<FalseUnion::VertexBuffer> SquareVertexBuffer(
             FalseUnion::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
         SquareVertexBuffer->SetLayout({
-            {FalseUnion::ShaderDataType::Float3, "a_Position"}
+            {FalseUnion::ShaderDataType::Float3, "a_Position"},
+                {FalseUnion::ShaderDataType::Float2, "a_TextCoord"}
         });
         m_SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
 
@@ -126,8 +127,55 @@ public:
         }
         )";
 
-        m_Shader.reset(new FalseUnion::OpenGLShader(vertexSrc, fragmentSrc));
-        m_Shader2.reset(new FalseUnion::OpenGLShader(vertexSrc2, flatColourShaderSrc));
+        std::string textureShaderVertexSrc = R"(
+        #version 330 core
+
+        layout(location = 0) in vec3 a_Position;
+        layout(location = 1) in vec2 a_TexCoord;
+
+        uniform mat4 u_ViewProjection;
+        uniform mat4 u_Transform;
+
+        out vec2 v_TexCoord;
+        
+        void main()
+        {
+            v_TexCoord = a_TexCoord;
+            gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+        }
+        )";
+
+        std::string TextureShaderFragmentSrc = R"(
+        #version 330 core
+
+        layout(location = 0) out vec4 colour;
+
+        in vec2 v_TexCoord;
+
+        uniform sampler2D u_Texture;
+
+        void main()
+        {
+            colour = texture(u_Texture, v_TexCoord);
+        }
+        )";
+
+        m_Shader.reset(FalseUnion::Shader::Create(vertexSrc, fragmentSrc));
+        m_Shader2.reset(FalseUnion::Shader::Create(vertexSrc2, flatColourShaderSrc));
+        m_TextureShader.reset(FalseUnion::Shader::Create(textureShaderVertexSrc, TextureShaderFragmentSrc));
+
+        m_Texture = FalseUnion::Texture2D::Create("C:\\Users\\SkyTFB\\Documents\\.capstone\\FalseUnionEngine\\Sandbox\\src\\Assets\\Checkerboard.png");
+
+        if (m_Texture)
+        {
+            FU_CLIENT_INFO("Texture loaded successfully: " + std::to_string(m_Texture->GetWidth()) + "x" + std::to_string(m_Texture->GetHeight()));
+        } else
+        {
+            FU_CLIENT_ERROR("Failed to load texture");
+        }
+        
+        
+            
     }
 
     void OnUpdate(FalseUnion::Timestep timestep) override
@@ -159,9 +207,6 @@ public:
             m_CameraRotation -= m_CameraRotateSpeed * timestep;
         }
 
-        
-
-
         FalseUnion::RenderCommand::SetClearColour(glm::vec4(1.0f, 0.3f, 1.0f, 1.0f));
         FalseUnion::RenderCommand::Clear();
 
@@ -185,8 +230,11 @@ public:
                     FalseUnion::Renderer::Submit(m_SquareVertexArray, m_Shader2, transform);
                 }
             }
-            
-            FalseUnion::Renderer::Submit(m_VertexArray, m_Shader);
+
+            std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->Bind();
+            std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+            m_Texture->Bind(0);
+            FalseUnion::Renderer::Submit(m_SquareVertexArray, m_TextureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
             FalseUnion::Renderer::EndScene();
         }
@@ -212,9 +260,11 @@ public:
 
 private:
     FalseUnion::Ref<FalseUnion::Shader> m_Shader;
-    FalseUnion::Ref<FalseUnion::Shader> m_Shader2;
+    FalseUnion::Ref<FalseUnion::Shader> m_Shader2, m_TextureShader;
     FalseUnion::Ref<FalseUnion::VertexArray> m_VertexArray;
 
+    FalseUnion::Ref<FalseUnion::Texture2D> m_Texture;
+    
     FalseUnion::Ref<FalseUnion::VertexArray> m_SquareVertexArray;
 
     FalseUnion::OrthographicCamera m_Camera;

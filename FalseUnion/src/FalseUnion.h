@@ -22,6 +22,8 @@
 #include "Engine/Headers/Graphics/RenderCommand.h"
 #include "Engine/Headers/Graphics/Shader.h"
 #include "Engine/Headers/Platform/OpenGL/OpenGLShader.h"
+#include "Engine/Headers/Graphics/Texture.h"
+#include "Engine/Headers/Platform/OpenGL/OpenGLTexture.h"
 
 
 #include "Engine/Headers/Graphics/VertexArray.h"

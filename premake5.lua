@@ -12,7 +12,8 @@ IncludeDir = {} -- Defines variable to hold includes
 IncludeDir["GLFW"] = "FalseUnion/vendor/GLFW/include"           -- defines glfw's include in include variable.
 IncludeDir["Glad"] = "FalseUnion/vendor/Glad/include"           -- defines glad's include in include variable.
 IncludeDir["ImGui"] = "FalseUnion/vendor/imgui"                 -- defines imgui's include in the include variable.
-IncludeDir["glm"] = "FalseUnion/vendor/glm"                    -- defines glm's include in the include variable.
+IncludeDir["glm"] = "FalseUnion/vendor/glm"                     -- defines glm's include in the include variable.
+IncludeDir["stb_image"] = "FalseUnion/vendor/stb_image"
 
 include "FalseUnion/vendor/GLFW" -- includes GLFW's premake.
 include "FalseUnion/vendor/Glad" -- includes Glad's premake.
@@ -43,6 +44,8 @@ project "FalseUnion" -- defines the FalseUnion part of the project
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp",
         "%{prj.name}/vendor/gml/glm/**.hpp",
         "%{prj.name}/vendor/gml/glm/**.inl",
     } -- targets any header and c++ file in src folder
