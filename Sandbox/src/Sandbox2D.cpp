@@ -11,33 +11,7 @@ Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f
 
 void Sandbox2D::OnAttach()
 {
-    
-        m_SquareVertexArray = FalseUnion::VertexArray::Create();
-
-        float squareVertices[3 * 4] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.5f, 0.5f, 0.0f, 
-            -0.5f, 0.5f, 0.0f, 
-        };
-
-        FalseUnion::Ref<FalseUnion::VertexBuffer> SquareVertexBuffer(
-            FalseUnion::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
-        SquareVertexBuffer->SetLayout({
-            {FalseUnion::ShaderDataType::Float3, "a_Position"}
-        });
-        m_SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
-
-
-        uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
-        FalseUnion::Ref<FalseUnion::IndexBuffer> SquareIndexBuffer(
-            FalseUnion::IndexBuffer::Create(squareIndices, sizeof(squareIndices)));
-        m_SquareVertexArray->SetIndexBuffer(SquareIndexBuffer);
-
-
-        
-
-        m_FlatColourShader = FalseUnion::Shader::Create("assets/shaders/FlatColour.glsl");
+    m_Texture = FalseUnion::Texture2D::Create("Assets/Images/missingTexturePNG.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -54,16 +28,18 @@ void Sandbox2D::OnUpdate(FalseUnion::Timestep timestep)
 
         
 
-    FalseUnion::Renderer::BeginScene(m_CameraController.GetCamera());
+    FalseUnion::Renderer2D::BeginScene(m_CameraController.GetCamera());
     {
-            
+        FalseUnion::Renderer2D::DrawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, {0.8f, 0.2f, 0.4f, 1.0f});
+        FalseUnion::Renderer2D::DrawQuad({0.5f, -0.5f}, {0.5f, 0.75f}, {0.4f, 0.2f, 0.8f, 1.0f});
+        FalseUnion::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f}, {10.0f, 10.0f}, m_Texture);
 
-        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_FlatColourShader)->Bind();
-        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_FlatColourShader)->UploadUniformFloat4("u_Colour", m_SquareColour);
+        // std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_FlatColourShader)->Bind();
+        // std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_FlatColourShader)->UploadUniformFloat4("u_Colour", m_SquareColour);
+        //
+        // FalseUnion::Renderer::Submit(m_SquareVertexArray, m_FlatColourShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
         
-        FalseUnion::Renderer::Submit(m_SquareVertexArray, m_FlatColourShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-        
-        FalseUnion::Renderer::EndScene();
+        FalseUnion::Renderer2D::EndScene();
     }
 }
 

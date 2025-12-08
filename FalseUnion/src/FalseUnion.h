@@ -20,6 +20,7 @@
 // ---Renderer---
 #include "Engine/Headers/Graphics/Renderer.h"
 #include "Engine/Headers/Graphics/RenderCommand.h"
+#include "Engine/Headers/Graphics/Renderer2D.h"
 
 #include "Engine/Headers/Graphics/Buffer.h"
 #include "Engine/Headers/Graphics/RenderCommand.h"

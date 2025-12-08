@@ -5,6 +5,7 @@
  #include "fupch.h"
 #include "../../Headers/Graphics/Renderer.h"
 
+#include "../../Headers/Graphics/Renderer2D.h"
 #include "../../Headers/Platform/OpenGL/OpenGLShader.h"
 
 namespace FalseUnion
@@ -14,6 +15,7 @@ namespace FalseUnion
  void Renderer::Init()
  {
   RenderCommand::Init();
+  Renderer2D::Init();
  }
 
  void Renderer::OnWindowResize(uint32_t width, uint32_t height)

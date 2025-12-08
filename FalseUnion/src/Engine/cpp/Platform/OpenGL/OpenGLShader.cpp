@@ -64,6 +64,26 @@ namespace FalseUnion
         glUseProgram(0);
     }
 
+    void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
+    {
+        UploadUniformMat4(name, value);
+    }
+
+    void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
+    {
+        UploadUniformFloat4(name, value);
+    }
+
+    void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
+    {
+        UploadUniformFloat3(name, value);
+    }
+
+    void OpenGLShader::SetInt(const std::string& name, int value)
+    {
+        UploadUniformInt(name, value);
+    }
+
     void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
     {
         GLint location = glGetUniformLocation(m_RendererID, name.c_str());
@@ -82,27 +102,27 @@ namespace FalseUnion
         glUniform4f(location, values.x, values.y, values.z, values.w);
     }
 
-    void OpenGLShader::UploadUniformFloat3(const char* str, glm::vec3 vec)
+    void OpenGLShader::UploadUniformFloat3(const std::string& name, glm::vec3 vec)
     {
-        GLint location = glGetUniformLocation(m_RendererID, str);
+        GLint location = glGetUniformLocation(m_RendererID, name.c_str());
         glUniform3f(location, vec.x, vec.y, vec.z);
     }
 
-    void OpenGLShader::UploadUniformFloat2(const char* str, glm::vec2 vec)
+    void OpenGLShader::UploadUniformFloat2(const std::string& name, glm::vec2 vec)
     {
-        GLint location = glGetUniformLocation(m_RendererID, str);
+        GLint location = glGetUniformLocation(m_RendererID, name.c_str());
         glUniform2f(location, vec.x, vec.y);
     }
 
-    void OpenGLShader::UploadUniformFloat(const char* str, glm::vec1 vec)
+    void OpenGLShader::UploadUniformFloat(const std::string& name, glm::vec1 vec)
     {
-        GLint location = glGetUniformLocation(m_RendererID, str);
+        GLint location = glGetUniformLocation(m_RendererID, name.c_str());
         glUniform1f(location, vec.x);
     }
 
-    void OpenGLShader::UploadUniformInt(const char* str, int value)
+    void OpenGLShader::UploadUniformInt(const std::string& name, int value)
     {
-        GLint location = glGetUniformLocation(m_RendererID, str);
+        GLint location = glGetUniformLocation(m_RendererID, name.c_str());
         glUniform1i(location, value);
     }
 

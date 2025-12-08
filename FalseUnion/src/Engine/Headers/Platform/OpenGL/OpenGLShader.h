@@ -22,15 +22,20 @@ namespace FalseUnion
         void Bind() const override; // binds a shader 
         void Unbind() const override; // unbinds a shader
 
-        void UploadUniformMat4(const ::std::string& name, const glm::mat4& matrix);
-        void UploadUniformMat3(const ::std::string& name, const glm::mat3& matrix);
+        void SetMat4(const std::string& name, const glm::mat4& value) override;
+        void SetFloat4(const std::string& name, const glm::vec4& value) override;
+        void SetFloat3(const std::string& name, const glm::vec3& value) override;
+        void SetInt(const std::string& name, int value) override;
+
+        void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+        void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
         
-        void UploadUniformFloat4(const ::std::string& name, const glm::vec4 values);
-        void UploadUniformFloat3(const char* str, glm::vec3 vec);
-        void UploadUniformFloat2(const char* str, glm::vec2 vec);
-        void UploadUniformFloat(const char* str, glm::vec1 vec);
+        void UploadUniformFloat4(const std::string& name, const glm::vec4 values);
+        void UploadUniformFloat3(const std::string& name, glm::vec3 vec);
+        void UploadUniformFloat2(const std::string& name, glm::vec2 vec);
+        void UploadUniformFloat(const std::string& name, glm::vec1 vec);
         
-        void UploadUniformInt(const char* str, int value);
+        void UploadUniformInt(const std::string& name, int value);
 
         const std::string& GetName() const override
         {
@@ -42,5 +47,6 @@ namespace FalseUnion
         
         std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
         void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
+        
     };
 }
