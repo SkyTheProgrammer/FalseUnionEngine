@@ -129,47 +129,16 @@ public:
         }
         )";
 
-        std::string textureShaderVertexSrc = R"(
-        #version 330 core
-
-        layout(location = 0) in vec3 a_Position;
-        layout(location = 1) in vec2 a_TexCoord;
-
-        uniform mat4 u_ViewProjection;
-        uniform mat4 u_Transform;
-
-        out vec2 v_TexCoord;
         
-        void main()
-        {
-            v_TexCoord = a_TexCoord;
-            gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-        }
-        )";
-
-        std::string TextureShaderFragmentSrc = R"(
-        #version 330 core
-
-        layout(location = 0) out vec4 colour;
-
-        in vec2 v_TexCoord;
-
-        uniform sampler2D u_Texture;
-
-        void main()
-        {
-            colour = texture(u_Texture, v_TexCoord);
-        }
-        )";
 
         m_Shader.reset(FalseUnion::Shader::Create(vertexSrc, fragmentSrc));
         m_Shader2.reset(FalseUnion::Shader::Create(vertexSrc2, flatColourShaderSrc));
-        m_TextureShader.reset(FalseUnion::Shader::Create(textureShaderVertexSrc, TextureShaderFragmentSrc));
+        m_TextureShader.reset(FalseUnion::Shader::Create("Assets/Shaders/Texture.glsl"));
 
-        m_Texture = FalseUnion::Texture2D::Create("Assets/missingTexturePNG.png");
+        m_Texture = FalseUnion::Texture2D::Create("Assets/Images/missingTexturePNG.png");
         std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->Bind();
         std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
-        m_ChernosLogo = FalseUnion::Texture2D::Create("Assets/literallyMe.png");
+        m_ChernosLogo = FalseUnion::Texture2D::Create("Assets/Images/literallyMe.png");
         
         
         

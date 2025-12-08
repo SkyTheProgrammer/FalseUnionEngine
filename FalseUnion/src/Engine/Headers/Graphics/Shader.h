@@ -16,6 +16,7 @@ namespace FalseUnion
         virtual void Unbind() const = 0; // unbinds a shader
 
         static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
+        static Shader* Create(const std::string& path);
     protected:
         uint32_t m_RendererID; // renderer's id
     };

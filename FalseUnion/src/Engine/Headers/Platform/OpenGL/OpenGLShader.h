@@ -3,13 +3,20 @@
 //
 #pragma once
 
+#include "../../Core/Core.h"
 #include "../../Graphics/Shader.h"
+
+
+typedef unsigned int GLenum;
 
 namespace FalseUnion
 {
+   
+    
     class OpenGLShader : public Shader {
     public:
-        OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc); // default constructor for shader
+        OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc); // Constructor for shader, string shader
+        OpenGLShader(const std::string& path); // Constructor for shader, path to shader file
         
         virtual ~OpenGLShader();
         void Bind() const override; // binds a shader 
@@ -24,6 +31,11 @@ namespace FalseUnion
         void UploadUniformFloat(const char* str, glm::vec1 vec);
         
         void UploadUniformInt(const char* str, int value);
+
+    private:
+        std::string ReadFile(const std::string& path);
         
+        std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+        void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
     };
 }
