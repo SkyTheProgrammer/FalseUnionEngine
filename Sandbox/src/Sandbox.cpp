@@ -5,11 +5,13 @@
 #include "../../FalseUnion/vendor/imgui/imgui.h"
 
 
+
 class TestLayer : public FalseUnion::Layer
 {
 public:
     TestLayer() : Layer("Test"), m_Camera(-1.6f, 1.6f, -1.0f, 1.0f), m_CameraPosition(0.0f)
     {
+        
         m_VertexArray.reset(FalseUnion::VertexArray::Create());
 
         float vertices[3 * 7] = {
@@ -164,15 +166,12 @@ public:
         m_Shader2.reset(FalseUnion::Shader::Create(vertexSrc2, flatColourShaderSrc));
         m_TextureShader.reset(FalseUnion::Shader::Create(textureShaderVertexSrc, TextureShaderFragmentSrc));
 
-        m_Texture = FalseUnion::Texture2D::Create("C:\\Users\\SkyTFB\\Documents\\.capstone\\FalseUnionEngine\\Sandbox\\src\\Assets\\Checkerboard.png");
-
-        if (m_Texture)
-        {
-            FU_CLIENT_INFO("Texture loaded successfully: " + std::to_string(m_Texture->GetWidth()) + "x" + std::to_string(m_Texture->GetHeight()));
-        } else
-        {
-            FU_CLIENT_ERROR("Failed to load texture");
-        }
+        m_Texture = FalseUnion::Texture2D::Create("Assets/missingTexturePNG.png");
+        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->Bind();
+        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+        m_ChernosLogo = FalseUnion::Texture2D::Create("Assets/literallyMe.png");
+        
+        
         
         
             
@@ -231,11 +230,12 @@ public:
                 }
             }
 
-            std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->Bind();
-            std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+            
             m_Texture->Bind(0);
             FalseUnion::Renderer::Submit(m_SquareVertexArray, m_TextureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-
+            m_ChernosLogo->Bind();
+            FalseUnion::Renderer::Submit(m_SquareVertexArray, m_TextureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+            
             FalseUnion::Renderer::EndScene();
         }
     }
@@ -264,6 +264,7 @@ private:
     FalseUnion::Ref<FalseUnion::VertexArray> m_VertexArray;
 
     FalseUnion::Ref<FalseUnion::Texture2D> m_Texture;
+    FalseUnion::Ref<FalseUnion::Texture2D> m_ChernosLogo;
     
     FalseUnion::Ref<FalseUnion::VertexArray> m_SquareVertexArray;
 

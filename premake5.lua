@@ -111,7 +111,8 @@ project "Sandbox" -- looks at the sandbox/client portion of my code
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        
     } -- Targets all of its header and cpp files in src
 
     includedirs
