@@ -41,6 +41,9 @@ namespace FalseUnion
         std::unique_ptr<Window> m_Window;
         ImGuiLayer* m_ImGuiLayer;
         bool m_Running; // bool for if application is running.
+        bool m_Minimized;
+
+        bool OnWindowResized(WindowResizeEvent& e);
         bool OnWindowClosed(WindowCloseEvent& e); // method to bind window closed event.
         float m_LastFrameTime; // float for the time it took the last frame to generate.
         LayerStack m_LayerStack; // Layer stack for the given application.

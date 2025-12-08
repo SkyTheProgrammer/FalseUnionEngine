@@ -39,7 +39,7 @@ namespace FalseUnion
 
         m_LastFrameTime = 0.0f;
 
-       
+       m_Minimized = false;
     }
 
     /// <summary>
@@ -49,7 +49,8 @@ namespace FalseUnion
     void Application::windowOnEvent(Event& e)
     {
         EventDispatcher dispatcher(e);
-        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClosed));
+        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResized));
 
 
         for (auto layerBg = m_LayerStack.begin(); layerBg != m_LayerStack.end(); ++layerBg)
@@ -81,9 +82,11 @@ namespace FalseUnion
             float time = glfwGetTime(); // move from this to a platform one
             Timestep timestep = time - m_LastFrameTime;
             m_LastFrameTime = time;
-            for (Layer* layer : m_LayerStack)
-            {
-                layer->OnUpdate(timestep);
+            if (!m_Minimized){
+                for (Layer* layer : m_LayerStack)
+                {
+                    layer->OnUpdate(timestep);
+                }
             }
             
             m_ImGuiLayer->Begin();
@@ -108,6 +111,19 @@ namespace FalseUnion
         return true;
     }
 
+    bool Application::OnWindowResized(WindowResizeEvent& e)
+    {
+        if (e.GetWidth() == 0 || e.GetHeight() == 0)
+        {
+            m_Minimized = true;
+            return false;
+        }
+
+        m_Minimized = false;
+        Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+        return false;
+    }
+    
     /// <summary>
     /// Defines the important application objects and then run's application.
     /// </summary>

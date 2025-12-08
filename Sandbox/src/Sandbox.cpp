@@ -193,8 +193,6 @@ public:
     void OnEvent(FalseUnion::Event& event) override
     {
         m_CameraController.OnEvent(event);
-        FalseUnion::EventDispatcher dispatcher(event);
-        dispatcher.Dispatch<FalseUnion::KeyPressedEvent>(FU_BIND_EVENT_FN(TestLayer::OnKeyPressedEvent));
     }
 
     bool OnKeyPressedEvent(FalseUnion::KeyPressedEvent& event)

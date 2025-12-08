@@ -27,6 +27,16 @@ namespace FalseUnion
             return m_Camera;
         };
 
+        void SetZoomLevel(float zoomLevel)
+        {
+            m_ZoomLevel = zoomLevel;
+        }
+
+        float GetZoomLevel() const
+        {
+            return m_ZoomLevel;
+        }
+
     private:
         float m_AspectRatio = 1.0f;
         float m_ZoomLevel = 1.0f;
