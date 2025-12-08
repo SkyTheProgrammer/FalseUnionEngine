@@ -2,6 +2,8 @@
 #include <glm/gtc/type_ptr.inl>
 
 #include "FalseUnion.h"
+#include "../../FalseUnion/src/Entrypoint.h"
+#include "Sandbox2D.h"
 #include "../../FalseUnion/vendor/imgui/imgui.h"
 
 
@@ -11,7 +13,7 @@ public:
     TestLayer() : Layer("Test"), m_CameraController(1280.0f / 720.0f, true), m_CameraPosition(0.0f)
     {
         
-        m_VertexArray.reset(FalseUnion::VertexArray::Create());
+        m_VertexArray = FalseUnion::VertexArray::Create();
 
         float vertices[3 * 7] = {
             -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
@@ -36,7 +38,7 @@ public:
         indexBuffer.reset(FalseUnion::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
         m_VertexArray->SetIndexBuffer(indexBuffer);
 
-        m_SquareVertexArray.reset(FalseUnion::VertexArray::Create());
+        m_SquareVertexArray = FalseUnion::VertexArray::Create();
 
         float squareVertices[5 * 4] = {
             -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -225,7 +227,8 @@ class Sandbox : public FalseUnion::Application //defines sandboxes extention of 
 public:
     Sandbox()
     {
-        PushLayer(new TestLayer());
+        //PushLayer(new TestLayer());
+        PushLayer(new Sandbox2D());
     }
 
     ~Sandbox()

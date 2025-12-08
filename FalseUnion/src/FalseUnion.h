@@ -32,6 +32,3 @@
 #include "Engine/Headers/Graphics/VertexArray.h"
 #include "Engine/Headers/Graphics/OrthographicCamera.h"
 //  ---
-
-
-#include "Entrypoint.h"

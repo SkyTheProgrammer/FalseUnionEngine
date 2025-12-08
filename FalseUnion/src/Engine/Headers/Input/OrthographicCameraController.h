@@ -10,7 +10,7 @@ namespace FalseUnion
     class OrthographicCameraController
     {
     public:
-        OrthographicCameraController(float aspectRatio, bool rotation);
+        OrthographicCameraController(float aspectRatio, bool rotation = false);
 
 
         void OnUpdate(Timestep timestep);

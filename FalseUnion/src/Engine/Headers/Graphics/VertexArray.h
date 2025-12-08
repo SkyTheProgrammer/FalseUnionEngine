@@ -18,6 +18,6 @@ namespace FalseUnion
         virtual void SetIndexBuffer(Ref<IndexBuffer> indexBuffer)  = 0;
         virtual const Ref<IndexBuffer>& GetIndexBuffer() = 0;
 
-        static VertexArray* Create();
+        static Ref<VertexArray> Create();
     };
 }
