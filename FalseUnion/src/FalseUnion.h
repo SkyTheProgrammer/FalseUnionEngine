@@ -14,6 +14,9 @@
 #include "Engine/Headers/Core/MouseCodes.h"
 #include "Engine/Headers/Core/Timestep.h"
 
+#include "Engine/Headers/Input/OrthographicCameraController.h"
+
+
 // ---Renderer---
 #include "Engine/Headers/Graphics/Renderer.h"
 #include "Engine/Headers/Graphics/RenderCommand.h"
