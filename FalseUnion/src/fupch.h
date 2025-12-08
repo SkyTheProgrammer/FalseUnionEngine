@@ -13,6 +13,8 @@
 #include <sstream>
 #include <vector>
 
+#include <array>
+
 // look into adding logger to this later.
 
 #ifdef FU_PLATFORM_WINDOWS // makes sure to only include windows if we are on windows

@@ -131,13 +131,13 @@ public:
 
         
 
-        m_Shader.reset(FalseUnion::Shader::Create(vertexSrc, fragmentSrc));
-        m_Shader2.reset(FalseUnion::Shader::Create(vertexSrc2, flatColourShaderSrc));
-        m_TextureShader.reset(FalseUnion::Shader::Create("Assets/Shaders/Texture.glsl"));
+        m_Shader = FalseUnion::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
+        m_Shader2 = FalseUnion::Shader::Create("FlatColour", vertexSrc2, flatColourShaderSrc);
+        auto textureShader = m_ShaderLibrary.Load("Assets/Shaders/Texture.glsl");
 
         m_Texture = FalseUnion::Texture2D::Create("Assets/Images/missingTexturePNG.png");
-        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->Bind();
-        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(textureShader)->Bind();
+        std::dynamic_pointer_cast<FalseUnion::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
         m_ChernosLogo = FalseUnion::Texture2D::Create("Assets/Images/literallyMe.png");
         
         
@@ -199,11 +199,12 @@ public:
                 }
             }
 
+            auto textureShader = m_ShaderLibrary.Get("Texture");
             
             m_Texture->Bind(0);
-            FalseUnion::Renderer::Submit(m_SquareVertexArray, m_TextureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+            FalseUnion::Renderer::Submit(m_SquareVertexArray, textureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
             m_ChernosLogo->Bind();
-            FalseUnion::Renderer::Submit(m_SquareVertexArray, m_TextureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+            FalseUnion::Renderer::Submit(m_SquareVertexArray, textureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
             
             FalseUnion::Renderer::EndScene();
         }
@@ -228,8 +229,9 @@ public:
     }
 
 private:
+    FalseUnion::ShaderLibrary m_ShaderLibrary;
     FalseUnion::Ref<FalseUnion::Shader> m_Shader;
-    FalseUnion::Ref<FalseUnion::Shader> m_Shader2, m_TextureShader;
+    FalseUnion::Ref<FalseUnion::Shader> m_Shader2;
     FalseUnion::Ref<FalseUnion::VertexArray> m_VertexArray;
 
     FalseUnion::Ref<FalseUnion::Texture2D> m_Texture;

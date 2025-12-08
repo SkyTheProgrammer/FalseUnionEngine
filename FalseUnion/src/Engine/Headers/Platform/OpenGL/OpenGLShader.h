@@ -15,10 +15,10 @@ namespace FalseUnion
     
     class OpenGLShader : public Shader {
     public:
-        OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc); // Constructor for shader, string shader
+        OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc); // Constructor for shader, string shader
         OpenGLShader(const std::string& path); // Constructor for shader, path to shader file
         
-        virtual ~OpenGLShader();
+        virtual ~OpenGLShader(); 
         void Bind() const override; // binds a shader 
         void Unbind() const override; // unbinds a shader
 
@@ -31,6 +31,11 @@ namespace FalseUnion
         void UploadUniformFloat(const char* str, glm::vec1 vec);
         
         void UploadUniformInt(const char* str, int value);
+
+        const std::string& GetName() const override
+        {
+            return m_Name;
+        };
 
     private:
         std::string ReadFile(const std::string& path);
