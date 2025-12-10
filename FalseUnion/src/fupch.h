@@ -13,7 +13,11 @@
 #include <sstream>
 #include <vector>
 
+
 #include <array>
+
+#include "Engine/Headers/Core/Logger.h"
+#include "Engine/Headers/Core/Instrumentor.h"
 
 // look into adding logger to this later.
 

@@ -16,6 +16,7 @@
 
 #include "Engine/Headers/Input/OrthographicCameraController.h"
 
+#include "Engine/Headers/Core/Instrumentor.h"
 
 // ---Renderer---
 #include "Engine/Headers/Graphics/Renderer.h"

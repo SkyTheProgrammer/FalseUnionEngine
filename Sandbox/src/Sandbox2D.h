@@ -19,8 +19,10 @@ private:
     FalseUnion::Ref<FalseUnion::VertexArray> m_SquareVertexArray;
     FalseUnion::Ref<FalseUnion::Shader> m_FlatColourShader;
     FalseUnion::Ref<FalseUnion::Texture2D> m_Texture;
+
+    glm::vec2 m_SquarePosition = glm::vec2(0.0f);
+    float m_SquareSpeed = 3.0f;
     
 
     glm::vec4 m_SquareColour = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
-    
 };
